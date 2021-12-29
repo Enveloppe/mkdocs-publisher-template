@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {% set title = config.site_name %}
+  {% if page and page.meta and page.meta.title %}
+    {% set title = page.meta.title %}
+  {% elif page and page.title and not page.is_homepage %}
+    {% set title = page.title %}
+  {% endif %}
+  <meta property="og:title" content="{{ title }}" >
+  <meta name="twitter:title" content="{{ title }}" >
+    {% if page and page.meta and page.meta.description %}
+        <meta name="description" content="{{ page.meta.description }}">
+        <meta name="twitter:description" content="{{ page.meta.description }}">
+    {% else %}
+        <meta name="og:description" content="{{ config.site_description }}">
+        <meta name="twitter:description" content="{{ config.site_description }}">
+    {% endif %}
+    {% if page and page.meta and page.meta.image %}
+        <meta name="twitter:card"  content="summary_large_image">
+         <meta content="{{config.site_url}}/assets/img/{{page.meta.image}}.png"
+               property="og:image">
+         <meta name="twitter:image"
+               content="{{config.site_url}}/assets/img/{{page.meta.image}}.png">
+    {% else %}
+         <meta name="twitter:card"  content="summary">
+            <meta content="{{config.site_url}}/assets/logo/LOGO_SEO.png"
+                  property="og:image">
+            <meta content="{{config.site_url}}/assets/logo/LOGO_SEO.png"
+                  name="twitter:image">
+  {% endif %}
+{% endblock %}

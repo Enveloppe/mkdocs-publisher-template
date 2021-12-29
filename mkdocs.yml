@@ -1,0 +1,82 @@
+site_name: Obsidian
+site_description: A wiki template for Obsidian
+site_url: 
+
+theme:
+    name: 'material'
+    logo: assets/logo/favicons.png
+    favicon: assets/logo/favicons.png
+    custom_dir: overrides
+    palette:
+
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+    features:
+        - navigation.indexes
+        - navigation.top
+# Extensions
+markdown_extensions:
+  - footnotes
+  - nl2br
+  - attr_list
+  - sane_lists
+  - meta
+  - smarty
+  - tables
+  - mdx_breakless_lists
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.magiclink
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.highlight:
+      use_pygments: true
+      anchor_linenums: true
+  - pymdownx.tasklist:
+       custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: dataview
+          class: dataview
+          format: !!python/name:pymdownx.superfences.fence_code_format
+plugins:
+  - search
+  - roamlinks
+  - mermaid2
+extra_javascript:
+  - assets/js/mathjax.js
+  - assets/js/utils.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+    - assets/css/img-grids-floats.css
+    - assets/css/utils.css
+    - assets/css/custom_attributes.css
+extra:
+  generator: false
