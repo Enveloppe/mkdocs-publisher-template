@@ -1,22 +1,27 @@
 .not_found {
-	background-color: lightgrey;
-	display: inline;
-	color: grey;
-	border-radius: 5px;
-	padding: 5px;
+    background-color: rgba(211, 211, 211, 0.521);
+    display: inline;
+    color: grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+[data-md-color-scheme="slate"] .not_found {
+    color: rgb(182, 181, 181);
+    background-color: rgba(231, 232, 243, 0.185);
 }
 
 .not_found:hover {
-	background-color: grey ;
-	color: lightgrey;
-	cursor: not-allowed;
+    background-color: rgba(216, 216, 216, 0.699);
+    color: lightgrey;
+    cursor: not-allowed;
+    filter: saturate(150%);
 }
 
 .md-footer {
-	display: none;
+    display: none;
 }
 
 .dataview {
-	display: none !important;
+    display: none !important;
 }
-
