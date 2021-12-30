@@ -79,12 +79,6 @@ You can reconfigure the option with `obs2mk --config`.
 
 By default, the script will remove all file that doesn't exist in the vault, and file where you remove the share (`share: false`, or removed the key). You can keep all these file with ``--k``. 
 
-### Limitation
-- **Nested admonition doesn't work for the moment.** I don't use it a lot, but if you want, you could improve the script or create a mkdocs plugin to care of that. 
-- The script will not delete the file and folder if you change the `category` key. Beware of this. 
-- Share "all" can be long on big vault. 
-- File with same name can have some problem while scanning, because I don't keep your folder structure. Please, beware of this ! Don't forget you can use `title` if you want a specific name (and this name already exist). 
-
 ### Share one file
 To share **only** one file : `obs2mk --f FILEPATH`. It will :
 - Update the state status in original file (`share: true`)
@@ -97,11 +91,20 @@ There is two option :
 - By default, the script will compare with the older version and write only if changement are detected.
 - Using `--force` will force the re-writing. 
 
-### Customization
+## Customization
 There are some files to customize the script :
 - You can create [custom admonition with material docs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) and adding the name in `custom_admonition.yml`. 
 - You can completely exclude some folder of your vault with `exclude_folder.yml`. You can exclude specific path as `folder1/subfolderA` etc.
 - Using the `\docs\assets\css\custom_attributes.css` you can create specific aspect for your tags and it also add compatibility with CM6 Attribute and Contextual Typography. 
+
+## Limitation
+- **Nested admonition doesn't work for the moment.** I don't use it a lot, but if you want, you could improve the script or create a mkdocs plugin to care of that. 
+- The script will not delete the file and folder if you change the `category` key. Beware of this. 
+- Share "all" can be long on big vault. 
+- File with same name can have some problem while scanning, because I don't keep your folder structure. Please, beware of this ! Don't forget you can use `title` if you want a specific name (and this name already exist). 
+- Bloc citation doesn't work, the script will care of that. 
+- Embed file (citation and # too) doesn't work, the script will also care about it !
+
 ## Support
 The script can work on any plateform that support python. The script don't use Cpython, so don't worry about it for IOS.
 
