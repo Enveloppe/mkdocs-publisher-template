@@ -11,12 +11,20 @@
     background-color: rgba(231, 232, 243, 0.185);
 }
 
-.not_found:hover {
-    background-color: rgba(216, 216, 216, 0.699);
-    color: lightgrey;
-    cursor: not-allowed;
-    filter: saturate(150%);
+[data-md-color-scheme="slate"] .not_found:hover {
+    color: grey;
+    background-color: lightgrey;
+	cursor: not-allowed;
+    filter: saturate(200%);
 }
+
+[data-md-color-scheme="default"] .not_found:hover {
+    color: grey;
+    background-color: lightgrey;
+	cursor: not-allowed;
+    filter: saturate(200%);
+}
+
 
 .md-footer {
     display: none;
