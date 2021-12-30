@@ -65,6 +65,9 @@ markdown_extensions:
         - name: dataview
           class: dataview
           format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
 plugins:
   - search
   - roamlinks
