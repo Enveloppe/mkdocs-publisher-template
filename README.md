@@ -1,3 +1,9 @@
+[![GitHub license](https://img.shields.io/github/license/Mara-Li/YAFPA-python)](https://github.com/Mara-Li/YAFPA-python)
+[![PyPI](https://img.shields.io/pypi/v/YAFPA)](https://pypi.org/project/yafpa/)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/YAFPA)
+![PyPI - Status](https://img.shields.io/pypi/status/YAFPA)
+![](https://img.shields.io/badge/Auxiliary%20Tool-Obsidian-blueviolet)
+
 # Mkdocs Obsidian
 Mkdocs Obsidian is an association between a python script and a Material mkdocs template to get a personal wiki site based on your Obsidian Vault.
 
@@ -43,7 +49,7 @@ The script will care about some things you can forgot :
 - Moving your image in assets ;
 - Change the admonition from the plugin to material admonition (mainly for codeblocks)
 - Remove Obsidian comment (`%% text %%`) 
-- **Create a folder structure** based on the `category` key. 
+- **Create a folder structure** based on the `category` key. Without it, the note will be created in `docs/notes`. 
 It will also add, in the **original file** a link to the blog. Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quick copy this link. 
 ⚠️If the script crash for any reason at the moment where the script update the frontmatter, you can lost some file. If you don't want to have your YAML updated, your can use the key `--meta`.
 
