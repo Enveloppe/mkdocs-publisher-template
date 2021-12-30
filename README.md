@@ -161,12 +161,13 @@ To have a button to share your file directly in Obsidian !
 
 The script need one key, to share the file. You can configure the key in the configuration of the script.
 
-If you want a folder structure in `docs`, you need to use the `category` keys, with the form of `path/path`
+If you want a folder structure in `docs`, you need to use the `category` keys, with the form of `path/path`. You can also block a file to update with `update: false`.
 
 ## Mkdocs
 Material give you the possibility to add SEO tags with :
 - `description`  
 - `title` (will change too the title in the navigation)
+- `image`: Add an image (don't forget the format) / Need to be a relative link.
 
 ## Template
 So, the final frontmatter template is :
