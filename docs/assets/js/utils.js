@@ -14,7 +14,7 @@ var img = document.querySelectorAll('img');
 var links = document.querySelector("link[rel='icon']").href.replace('assets/logo/favicons.png', '');
 for (var i = 0; i < img.length; i++){
   img[i].attributes.src.nodeValue=img[i].attributes.src.nodeValue.replace(/\.+\\/, links)
-	if (img[i].alt.match(/^\d+$/)) {
-        img[i].width=img[i].alt.match(/^\d+$/)[0]
+	if (img[i].alt.match(/\|\d+$/)) {
+		img[i].width=img[i].alt.match(/\|\d+$/)[0].replace('|', '')
     }
 }
