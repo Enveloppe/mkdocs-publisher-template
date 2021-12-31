@@ -7,6 +7,9 @@ theme:
     logo: assets/logo/favicons.png
     favicon: assets/logo/favicons.png
     custom_dir: overrides
+    font:
+        text: Karla
+        code: Ubuntu Mono
     palette:
 
     # Light mode
