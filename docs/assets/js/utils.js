@@ -13,15 +13,15 @@ function heading(str) {
     return str
 }
 
-var p_search = /\[{2}(.*)\]{2}/gi
-var ht = document.querySelectorAll('article.md-content__inner.md-typeset > *');
+var p_search = /!?\[{2}(.*)\]{2}/gi
+var ht = document.querySelectorAll('article.md-content__inner.md-typeset > *:not(.highlight)');
 for (var i = 0; i < ht.length; i++) {
     const found_p = ht[i].innerHTML.match(p_search);
-    if (found_p && !found_p[0].includes('code')) {
+    if (found_p) {
         founded = heading(found_p[0])
         var not_found = founded.replace(/]]/gi, '</div>');
         not_found = not_found.replace(/\[\[/gi, '<div class="not_found">')
-        console.log(not_found)
+        not_found = not_found.replace('!', '')
         ht[i].innerHTML = ht[i].innerHTML.replace(found_p, not_found);
     }
 }
