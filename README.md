@@ -14,6 +14,10 @@ Mkdocs Obsidian is an association between a python script and a Material mkdocs 
 - [Mermaid2](https://github.com/fralau/mkdocs-mermaid2-plugin) with `pip install mkdocs-mermaid2-plugin`.
 - [Roamlinks](https://github.com/Jackiexiao/mkdocs-roamlinks-plugin) : `pip install mkdocs-roamlinks-plugin`
 - [mkdocs-obsidian](https://pypi.org/project/obs2mk/) : `pip install obs2mk`
+- [mkdocs-awesome-pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin)
+
+You can install all package with `pip install -r requirements.txt`
+
 
 ## Get started
 First, copy the template in [Github](https://github.com/Mara-Li/mkdocs_obsidian_template). To make it your, you need to change, in `mkdocs.yml`
@@ -162,6 +166,8 @@ To have a button to share your file directly in Obsidian !
 The script need one key, to share the file. You can configure the key in the configuration of the script.
 
 If you want a folder structure in `docs`, you need to use the `category` keys, with the form of `path/path`. You can also block a file to update with `update: false`.
+
+Note : With `awesome-pages` you can hide folder from navigation. To hide a file, just use `hidden` in `category` (as `category: hidden`). Links, image will work without problem. 
 
 ## Mkdocs
 Material give you the possibility to add SEO tags with :

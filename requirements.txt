@@ -1,0 +1,6 @@
+mkdocs
+mkdocs-material
+mkdocs-mermaid2-plugin
+mkdocs-roamlinks-plugin
+obs2mk
+mkdocs-awesome-pages-plugin
