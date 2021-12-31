@@ -7,6 +7,19 @@
 # Mkdocs Obsidian
 Mkdocs Obsidian is an association between a python script and a Material mkdocs template to get a personal wiki site based on your Obsidian Vault.
 
+
+[Show Case](https://mara-li.github.io/mkdocs_obsidian_template/)  
+[My blog (fr)](https://www.mara-li.fr/)
+
+
+<details><summary> Screenshot </summary>
+
+![](screenshot/image_1.png)  
+![](screenshot/image_2.png)  
+![](screenshot/image_3.png)  
+
+</details>
+
 ## Pre-requiries
 - [Python](https://www.python.org/) and Pip
 - [Mkdocs](https://www.mkdocs.org/getting-started/) : `pip install mkdocs`
