@@ -4,3 +4,4 @@ mkdocs-mermaid2-plugin
 mkdocs-roamlinks-plugin
 obs2mk
 mkdocs-awesome-pages-plugin
+mdx_breakless_lists
