@@ -1,9 +1,27 @@
+function heading(str) {
+    var title_regex = /\[{2}(.*)\|(.*)/gi
+    str_list = str.split(']]')
+    for (var i = 0; i < str_list.length; i++) {
+        truc = str_list[i].match(title_regex);
+        if (truc) {
+            title = truc.join().split('|')[1]
+            title = '[[' + title
+            str = str.replace(str_list[i].match(title_regex), title)
+
+        }
+    }
+    return str
+}
+
 var p_search = /\[{2}(.*)\]{2}/gi
-var ht = document.querySelectorAll('p');
+var ht = document.querySelectorAll('article.md-content__inner.md-typeset > *');
 for (var i = 0; i < ht.length; i++) {
     const found_p = ht[i].innerHTML.match(p_search);
     if (found_p && !found_p[0].includes('code')) {
-        var not_found = "<div class='not_found'>" + found_p + '</div>';
+        founded = heading(found_p[0])
+        var not_found = founded.replace(/]]/gi, '</div>');
+        not_found = not_found.replace(/\[\[/gi, '<div class="not_found">')
+        console.log(not_found)
         ht[i].innerHTML = ht[i].innerHTML.replace(found_p, not_found);
     }
 }
