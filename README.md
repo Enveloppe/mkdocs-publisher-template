@@ -68,7 +68,9 @@ The script will care about some things you can forgot :
 - Remove Obsidian comment (`%% text %%`) 
 - **Create a folder structure** based on the `category` key. Without it, the note will be created in `docs/notes`.   
 
-If you use the `--meta` option, it will also add, in the **original file** a link to the blog. Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quick copy this link. 
+If you use the `--meta` option, it will also add, in the **original file** a link to the blog. 
+
+Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quick copy this link or create a link based on the category key.
 > To create a link, you need to configure :
 > 1. `category` in `key`
 > 2. Add your `set_url` in `base link`
