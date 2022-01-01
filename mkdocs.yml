@@ -1,5 +1,5 @@
-site_name: Obsidian
-site_description: A wiki template for Obsidian
+site_name: Obsidian Mkdocs
+site_description: A mkdocs wiki template for Obsidian
 site_url: https://mara-li.github.io/mkdocs_obsidian_template
 
 theme:
