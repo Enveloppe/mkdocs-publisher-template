@@ -132,6 +132,7 @@ There are some files to customize the script :
 - File with same name can have some problem while scanning, because I don't keep your folder structure. Please, beware of this ! Don't forget you can use `title` if you want a specific name (and this name already exist). 
 - Bloc citation doesn't work, the script will care of that. 
 - Embed file (citation and # too) doesn't work, the script will also care about it !
+- No graph can be created.
 
 ## Support
 The script can work on any plateform that support python. The script don't use Cpython, so don't worry about it for IOS.
