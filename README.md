@@ -60,6 +60,7 @@ So, with the configuration I have done, the mkdocs support :
 
 I didn't found a way to embed file with wiki links for the moment. Because of the strange behavior of roam links, these embedded file will be rendered as image. The script will care of this bug. 
 
+
 # Mkdocs Obsidian
 ## Utilities and interest
 *A vast party of the script is taken from my previous project, YAFPA*
@@ -72,17 +73,19 @@ The script will care about some things you can forget :
 
 If you use the `--meta` option, it will also add, in the **original file** a link to the blog. 
 
-Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quickly copy a link to this page, without using this option (so, yes, the script does not edit your source file !). 
-> To create a link, you need to configure :
-> 1. `category` in `key`
-> 2. Add your `set_url` in `base link`
-> 3. Add `category` in `key link`
-> 
-> As that : ![metacopy](screenshot/metacopy.png)
-
-Metacopy can, also, rapidly copy a key from your front matter. 
-
 ⚠️ If the script crash for any reason at the moment where the script updates the frontmatter, you can lose some file. 
+
+### Metacopy
+
+Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quickly copy a link to a shared page, without using this option (so, yes, the script does not edit your source file !). 
+To create a link, you need to configure :
+ 1. `category` in `key`
+ 2. Add your `set_url` in `base link`
+ 3. Add `category` in `key link`
+
+ As that : ![metacopy](screenshot/metacopy.png)
+
+Also, you can remove the metacopy from your file menu using a key, so you can active metacopy only for `share: true`. Metacopy support also the `paginations.index`. 
 
 ## Usage
 ```powershell
