@@ -91,6 +91,9 @@ The final configuration of metacopy for mkdocs_obsidian will be :
 
 So, in the end, a menu will appear on file with `share: true` and a `category` configured. This menu is on the left click and the file-menu. You can quickly copy a link from there, like a google or notion sharing link !
 
+[Here is a demo](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d) : 
+[![click to get a video !](screenshot/demo.gif)](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d)
+
 ## Usage
 ```powershell
 usage: obs2mk [-h] [--git] [--meta] [--keep] [--config] [--force | --filepath FILEPATH]
