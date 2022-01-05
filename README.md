@@ -83,9 +83,13 @@ To create a link, you need to configure :
  2. Add your `set_url` in `base link`
  3. Add `category` in `key link`
 
- As that : ![metacopy](screenshot/metacopy.png)
-
 Also, you can remove the metacopy from your file menu using a key, so you can active metacopy only for `share: true`. Metacopy support also the `paginations.index`. 
+
+The final configuration of metacopy for mkdocs_obsidian will be :
+![](screenshot/metacopy3.png)
+![](screenshot/metacopy2.png)
+
+So, in the end, a menu will appear on file with `share: true` and a `category` configured. This menu is on the left click and the file-menu. You can quickly copy a link from there, like a google or notion sharing link !
 
 ## Usage
 ```powershell
