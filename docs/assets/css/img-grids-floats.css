@@ -42,7 +42,7 @@ img[alt*="+rside"]
     min-width: var(--minwidth);
     float: left;
     margin: 0px;
-    margin-left: var(--coremarg);
+    margin-right: var(--coremarg);
 }
 
 .image-embed[alt*="+"], 
