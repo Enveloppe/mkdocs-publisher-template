@@ -69,56 +69,50 @@ The script will care about some things you can forget :
 - Moving your image in assets ;
 - Change the admonition from the plugin to material admonition (mainly for codeblocks)
 - Remove Obsidian comment (`%% text %%`) 
-- **Create a folder structure** based on the `category` key. Without it, the note will be created in `docs/notes`.   
+- **Create a folder structure** based on the `category` key. Without it, the note will be created in `docs/notes`.
 
 If you use the `--meta` option, it will also add, in the **original file** a link to the blog. 
 
-⚠️ If the script crash for any reason at the moment where the script updates the frontmatter, you can lose some file. 
-
-### Metacopy
-
-Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quickly copy a link to a shared page, without using this option (so, yes, the script does not edit your source file !). 
-To create a link, you need to configure :
- 1. `category` in `key`
- 2. Add your `set_url` in `base link`
- 3. Add `category` in `key link`
-
-Also, you can remove the metacopy from your file menu using a key, so you can active metacopy only for `share: true`. Metacopy support also the `paginations.index`. 
-
-The final configuration of metacopy for mkdocs_obsidian will be :
-![](screenshot/metacopy3.png)
-![](screenshot/metacopy2.png)
-
-So, in the end, a menu will appear on file with `share: true` and a `category` configured. This menu is on the left click and the file-menu. You can quickly copy a link from there, like a google or notion sharing link !
-
-[Here is a demo](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d) : 
-[![click to get a video !](screenshot/demo.gif)](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d)
+⚠️ If the script crash for any reason at the moment where the script updates the frontmatter, you can lose some file.
 
 ## Usage
 ```powershell
-usage: obs2mk [-h] [--git] [--meta] [--keep] [--config] [--force | --filepath FILEPATH]
+usage: obs2mk [-h] [--git | --mobile] [--meta] [--keep] [--config]
+                   [--force] [--filepath FILEPATH | --ignore]
 
-Create file in docs and relative folder, move image in assets, convert admonition code_blocks, add links and push.
+Create file in docs and relative folder, move image in assets, convert
+admonition code_blocks, add links and push.
 
 optional arguments:
   -h, --help            show this help message and exit
   --git, --g, --G       No commit and no push to git
-  --meta, --m, --M      Update the frontmatter
+  --mobile, --shortcuts, --s, --S
+                        Use mobile shortcuts fonction without push.
+  --meta, --m, --M      Update the frontmatter with link
   --keep, --k, --K      Keep deleted file from vault and removed shared file
   --config, --c, --C    Edit the config file
   --force, --d, --D     Force conversion - only work if path not specified
   --filepath FILEPATH, --f FILEPATH
                         Filepath of the file you want to convert
+  --ignore, --ignore-share, --no-share, --i, --vault
+                        Convert the entire vault without relying on share
+                        state.
 ```
 
 At the first start of the script, it will ask you :
 - The **absolute path** of your vault and blog in your PC.
 - The key you want to use to share the file (default : `share`).
-This file will be in your `site_package` folder.
+
+This file will be in your `site_package/mkdocs_obsidian` folder.
+> On pyto, it will be directly in site_package
 
 You can reconfigure the option with `obs2mk --config`.
 
-By default, the script will remove all file that doesn't exist in the vault, and file where you remove the share (`share: false`, or removed the key). You can keep all these file with `--k`. 
+By default, the script will remove all file that doesn't exist in the vault, and file where you remove the share (`share: false`, or removed the key). You can keep all these file with `--k`. Empty folder will be also removed in this process.  
+
+> A little note about "Folder Note": If the file has the same name as the last part of `category`, it will be renamed `index` during conversion.  
+> However, this prevents the file from being deleted if its source is deleted from your vault: in this case, you have to delete it manually. 
+> Git Note : If a folder is empty, it will be "erased" in git. 
 
 ### Share one file
 To share **only** one file : `obs2mk --f FILEPATH`. It will :
@@ -129,25 +123,29 @@ This option will pull the file, regardless of what is the `share` state.
 ### Share “all” files
 You can share multiple documents using the `share: true` key, in frontmatter. The script will scan your entire vault and automatically convert the file with this key.
 There is two options :
-- By default, the script will compare with the older version and write only if changement are detected.
+- By default, the script will compare with the older version and write only if changement are detected, based on the content of the file and the last modified time. 
 - Using `--force` will force the re-writing. 
 
-## Customization
-There are some files to customize the script :
-- You can create [custom admonition with material docs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) and adding the name in `custom_admonition.yml`. 
-- You can completely exclude some folder of your vault with `exclude_folder.yml`. You can exclude specific path as `folder1/subfolderA` etc.
-- Using the `\docs\assets\css\custom_attributes.css` you can create specific aspect for your tags, and it also adds compatibility with CM6 Attribute and Contextual Typography. 
+You can force to skip the update with `update: false` in the frontmatter : the file, no matter what, will not be updated. 
 
-## Limitation
-- **Nested admonition doesn't work for the moment.** I don't use it a lot, but if you want, you could improve the script or create a mkdocs plugin to care of that. 
-- The script will not delete the file and folder if you change the `category` key. Beware of this. 
-- Share “all” can be long on big vault. 
-- File with same name can have some problem while scanning because I don't keep your folder structure. Please, beware of this! Don't forget, you can use `title` if you want a specific name (and this name already exist). 
-- Bloc citation doesn't work, the script will care of that. 
-- Embed file (citation and # too) doesn't work, the script will also care about it !
+#### Share the entire vault
 
-## Support
-The script can work on any platform that support python. The script doesn't use Cpython, so don't worry about it for IOS.
+Using the command `--ignore` will ignore the `share` state : you can share your entire vault using that, whatever the state is. By default, it will not overwrite file already exist (and not different), so the `--force` option can also be used.
+
+`usage: obs2mk [-h] [--git | --mobile] [--meta] [--keep] [--config]
+                   [--force] [--ignore]`
+
+## Mobile option
+The mobile option is similar to the `git` option but with some nuance. When used to publish a single file, you can use only the file name, without the path.
+
+:warning: Be careful though, in case you have several files with the same name, the script will take the first file found. 
+
+This option can be used especially with the "Shortcuts" application on IOS, to share a file directly from the share sheet.
+
+One file usage : `obs2mk --mobile --f "filename"`
+All file usage : `obs2mk --mobile`
+
+Mobile supports all previous option, including `--ignore`.
 
 ### IOS 
 Using :
@@ -185,6 +183,24 @@ obs2mk --config
 
 After, in a-shell, you can use the same option as on a PC.
 
+
+## Customization
+There are some files to customize the script :
+- You can create [custom admonition with material docs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) and adding the name in `custom_admonition.yml`. 
+- You can completely exclude some folder of your vault with `exclude_folder.yml`. You can exclude specific path as `folder1/subfolderA` etc.
+- Using the `\docs\assets\css\custom_attributes.css` you can create specific aspect for your tags, and it also adds compatibility with CM6 Attribute and Contextual Typography. 
+
+## Limitation
+- **Nested admonition doesn't work for the moment.** I don't use it a lot, but if you want, you could improve the script or create a mkdocs plugin to care of that. 
+- The script will not delete the file and folder if you change the `category` key. Beware of this. 
+- Share “all” can be long on big vault. 
+- File with same name can have some problem while scanning because I don't keep your folder structure. Please, beware of this! Don't forget, you can use `title` if you want a specific name (and this name already exist). 
+- Bloc citation doesn't work, the script will care of that. 
+- Embed file (citation and # too) doesn't work, the script will also care about it !
+
+## Support
+The script can work on any platform that support python. The script doesn't use Cpython, so don't worry about it for IOS.
+
 ### Obsidian
 → Please use Wikilinks with “short links” (I BEG YOU)
 You can integrate the script within obsidian using the nice plugin [Obsidian ShellCommands](https://github.com/Taitava/obsidian-shellcommands).
@@ -197,19 +213,35 @@ You can use :
 - [Customizable Sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)
 - [Obsidian Customizable Menu](https://github.com/kzhovn/obsidian-customizable-menu)
 To have a button to share your file directly in Obsidian !
+
+#### Metacopy
+Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quickly copy a link to a shared page, without using this option (so, yes, the script does not edit your source file !). 
+To create a link, you need to configure :
+ 1. `category` in `key`
+ 2. Add your `set_url` in `base link`
+ 3. Add `category` in `key link`
+
+Also, you can remove the metacopy from your file menu using a key, so you can active metacopy only for `share: true`. Metacopy support also the `paginations.index`. 
+
+The final configuration of metacopy for mkdocs_obsidian will be :
+![](screenshot/metacopy3.png)
+![](screenshot/metacopy2.png)
+
+So, in the end, a menu will appear on file with `share: true` and a `category` configured. This menu is on the left click and the file-menu. You can quickly copy a link from there, like a google or notion sharing link !
+
+[Here is a demo](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d) : 
+[![click to get a video !](screenshot/demo.gif)](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d)
+
 # Frontmatter and option
 ## Script
-
 The script need one key, to share the file. You can configure the key in the configuration of the script.
-
 If you want a folder structure in `docs`, you need to use the `category` keys, with the form of `path/path`. You can also block a file to update with `update: false`.
-
 Note : With `awesome-pages` you can hide folder from navigation. To hide a file, just use `hidden` in `category` (as `category: hidden`). Links, image will work without problem. 
 
 ## Mkdocs
 Material give you the possibility to add SEO tags with :
 - `description`  
-- `title` (will change too the title in the navigation)
+- `title` (will change also the title in the navigation)
 - `image`: Add an image (don't forget the format) / Need to be a relative link.
 
 ## Template
@@ -222,3 +254,5 @@ description:
 category:
 ---
 ```
+
+
