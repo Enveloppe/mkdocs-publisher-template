@@ -16,7 +16,7 @@ Mkdocs Obsidian is an association between a python script and a Material mkdocs 
 <details><summary><u><b>Screenshot</u></b> </summary>
 
 ![image_1](screenshot/image_1.png)
-![image_2(screenshot/image_2.png)
+![image_2](screenshot/image_2.png)
 ![image_3](screenshot/image_3.png)
 ![image_4](screenshot/image_4.png)
 
@@ -35,7 +35,9 @@ You can install all package with `pip install -r requirements.txt`
 
 
 ## Get started
-First, copy the template in [GitHub](https://github.com/Mara-Li/mkdocs_obsidian_template). To make it your, you need to change, in `mkdocs.yml`
+First, **fork** the template in [GitHub](https://github.com/Mara-Li/mkdocs_obsidian_template) and download it with `git` (as `git clone ssh:yourlink`)
+
+To make it your, you need to change, in `mkdocs.yml`
 - `site_name`,
 - `site_description` 
 - `site_url`
