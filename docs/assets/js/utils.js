@@ -36,3 +36,9 @@ for (var i = 0; i < img.length; i++) {
         img[i].width = img[i].alt.match(/\|?\d+$/)[0].replace('|', '')
     }
 }
+
+var wikilink = document.querySelectorAll('a')
+for (var i = 0; i < wikilink.length; i++) {
+    wikilink[i].href = wikilink[i].href.replace(/(.*)\/\.+\//, links)
+    wikilink[i].href = wikilink[i].href.replace('.md', '')
+}
