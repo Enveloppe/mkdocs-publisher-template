@@ -33,3 +33,20 @@
 .dataview {
     display: none !important;
 }
+
+.tooltip_templates { display: none; }
+
+[data-md-color-scheme="slate"] .tooltipster-sidetip .tooltipster-box {
+	background-color: #00000063 !important;
+	border: none;
+}
+
+[data-md-color-scheme="default"] .tooltipster-sidetip .tooltipster-box {
+	background-color: hsla(0, 0%, 100%, 0.9) !important;
+	border:none;
+}
+
+[data-md-color-scheme="default"] .tooltipster-sidetip .tooltipster-content {
+	color: black !important;
+	font-family: var(--md-text-font-family);
+}
