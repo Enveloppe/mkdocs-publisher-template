@@ -5,3 +5,4 @@ mkdocs-roamlinks-plugin
 obs2mk
 mkdocs-awesome-pages-plugin
 mdx_breakless_lists
+git+git://github.com/Mara-Li/mkdocs-tooltipster-links-plugin#egg=mkdocs-tooltipster-links-plugin
