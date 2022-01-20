@@ -7,7 +7,6 @@ function heading(str) {
             title = truc.join().split('|')[1]
             title = '[[' + title
             str = str.replace(str_list[i].match(title_regex), title)
-
         }
     }
     return str
@@ -25,12 +24,12 @@ for (var i = 0; i < ht.length; i++) {
         ht[i].innerHTML = ht[i].innerHTML.replace(found_p, not_found);
     }
 }
-document.innerHTML = ht;
 
 var p_img = /\.+\\/gi
 var img = document.querySelectorAll('img');
 var links = document.querySelector("link[rel='icon']").href.replace('assets/logo/favicons.png', '');
 for (var i = 0; i < img.length; i++) {
+    (img[i].attributes.src.nodeValue)
     img[i].attributes.src.nodeValue = img[i].attributes.src.nodeValue.replace(/\.+\\/, links)
     if (img[i].alt.match(/\|?\d+$/)) {
         img[i].width = img[i].alt.match(/\|?\d+$/)[0].replace('|', '')
@@ -39,6 +38,16 @@ for (var i = 0; i < img.length; i++) {
 
 var wikilink = document.querySelectorAll('a')
 for (var i = 0; i < wikilink.length; i++) {
-    wikilink[i].href = wikilink[i].href.replace(/(.*)\/\.+\//, links)
-    wikilink[i].href = wikilink[i].href.replace('.md', '')
+    console.log(wikilink[i])
+    console.log(wikilink[i].href.replace(/(.*)\/\.+\//, links))
+    console.log(wikilink[i].href.replace('.md', ''))
 }
+
+var scr=/\^(.*)/gi;
+for (var i = 0; i <ht.length;i++){
+    const fp=ht[i].innerHTML.match(scr)
+	if (fp) {
+        ht[i].innerHTML=ht[i].innerHTML.replace(fp, '')
+    }
+}
+document.innerHTML = ht;
