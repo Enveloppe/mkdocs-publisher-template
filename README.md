@@ -6,6 +6,8 @@
 	<a href="https://github.com/Mara-Li/mkdocs_obsidian_template/wiki/Q&A/"><img src="https://img.shields.io/badge/-Q%26A-blue?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMkM2LjQ4NiAyIDIgNi40ODYgMiAxMnM0LjQ4NiAxMCAxMCAxMCAxMC00LjQ4NiAxMC0xMFMxNy41MTQgMiAxMiAyem0wIDE4Yy00LjQxMSAwLTgtMy41ODktOC04czMuNTg5LTggOC04IDggMy41ODkgOCA4LTMuNTg5IDgtOCA4eiIvPjxwYXRoIGQ9Ik0xMSAxMWgydjZoLTJ6bTAtNGgydjJoLTJ6Ii8+PC9zdmc+"></img></a>
 </p>
 
+![](screenshot/script_demo.gif)
+
 # Mkdocs Obsidian
 Mkdocs Obsidian is an association between a python script and a Material mkdocs template to get a personal wiki site based on your Obsidian Vault.
 
@@ -25,6 +27,8 @@ Mkdocs Obsidian is an association between a python script and a Material mkdocs 
 
 ## Pre-requiries
 
+<details><summary><u><b>Requirements</u></b></summary>
+	
 - [Git](https://git-scm.com/)
 - [Python](https://www.python.org/) and Pip
 - [Mkdocs](https://www.mkdocs.org/getting-started/) : `pip install mkdocs`
@@ -33,7 +37,11 @@ Mkdocs Obsidian is an association between a python script and a Material mkdocs 
 - [Roamlinks](https://github.com/Jackiexiao/mkdocs-roamlinks-plugin) : `pip install mkdocs-roamlinks-plugin`
 - [mkdocs-obsidian](https://pypi.org/project/obs2mk/) : `pip install obs2mk`
 - [mkdocs-awesome-pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin) : `pip install mkdocs-awesome-pages-plugin`
+- [mkdocs-tooltipster](https://github.com/Mara-Li/mkdocs-tooltipster-links-plugin)
+- [mkdocs-embed-file-plugins](https://github.com/Mara-Li/mkdocs_embed_file_plugins)
 
+    </details>
+	
 You can install all package with `pip install -r requirements.txt`
 
 ## Get started
@@ -62,6 +70,7 @@ So, with the configuration I have done, the mkdocs support :
 - Wikilinks and relative links
 - Highlight and tilde markdown
 - Mathjax and Mermaid 
+- Embed files (entire file, inline, heading)
 - Custom Attribute, as [CM6 Attribute (with tags)](https://github.com/nothingislost/obsidian-cm6-attributes/releases), [Markdown Attribute](https://github.com/valentine195/obsidian-markdown-attributes) and [Contextual Typography (with tags)](https://github.com/mgmeyers/obsidian-contextual-typography).
 
 I didn't found a way to embed file with wiki links for the moment. Because of the strange behavior of roam links, these embedded file will be rendered as image. The script will care of this bug. 
@@ -141,7 +150,10 @@ Using the command `--ignore` will ignore the `share` state : you can share your 
 `usage: obs2mk [-h] [--git | --mobile] [--meta] [--keep] [--config]
                    [--force] [--ignore]`
 
-## Mobile option
+### Mobile
+
+<details><summary><i>Read more</i></summary>
+	
 The mobile option is similar to the `git` option but with some nuance. When used to publish a single file, you can use only the file name, without the path.
 
 :warning: Be careful though, in case you have several files with the same name, the script will take the first file found. 
@@ -188,7 +200,7 @@ obs2mk --config
 ```
 
 After, in a-shell, you can use the same option as on a PC.
-
+</details>
 
 ## Customization
 There are some files to customize the script :
@@ -201,23 +213,22 @@ There are some files to customize the script :
 - The script will not delete the file and folder if you change the `category` key. Beware of this. 
 - Share “all” can be long on big vault. 
 - File with same name can have some problem while scanning because I don't keep your folder structure. Please, beware of this! Don't forget, you can use `title` if you want a specific name (and this name already exist). 
-- Bloc citation doesn't work, the script will care of that. 
-- Embed file (citation and # too) doesn't work, the script will also care about it !
+
 
 ## Support
 The script can work on any platform that support python. The script doesn't use Cpython, so don't worry about it for IOS.
 
 ### Obsidian
-→ Please use Wikilinks with “short links” (I BEG YOU)
-You can integrate the script within obsidian using the nice plugin [Obsidian ShellCommands](https://github.com/Taitava/obsidian-shellcommands).
+→ Please use Wikilinks with “short links” (I BEG YOU)  
 
+You can integrate the script within obsidian using the nice plugin [Obsidian ShellCommands](https://github.com/Taitava/obsidian-shellcommands).  
 You could create two commands :
 1. `share all` : `obs2mk`
 2. `share one` : `obs2mk --f {{file_path:absolute}}`
 
 You can use :
-- [Customizable Sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)
-- [Obsidian Customizable Menu](https://github.com/kzhovn/obsidian-customizable-menu)
+- [Customizable Sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)  
+- [Obsidian Customizable Menu](https://github.com/kzhovn/obsidian-customizable-menu)  
 To have a button to share your file directly in Obsidian !
 
 #### Metacopy
@@ -236,6 +247,7 @@ The final configuration of metacopy for mkdocs_obsidian will be :
 So, in the end, a menu will appear on file with `share: true` and a `category` configured. This menu is on the left click and the file-menu. You can quickly copy a link from there, like a google or notion sharing link !
 
 [Here is a demo](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d) : 
+
 [![click to get a video !](screenshot/demo.gif)](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d)
 
 # Frontmatter and option
@@ -261,3 +273,4 @@ category:
 ---
 ```
 
+If you have more question, don't forget to read the [Q&A](https://github.com/Mara-Li/mkdocs_obsidian_template/wiki/Q&A/) !
