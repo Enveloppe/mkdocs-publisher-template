@@ -50,3 +50,31 @@
 	color: black !important;
 	font-family: var(--md-text-font-family);
 }
+[data-md-color-scheme="default"]  .citation {
+	background-color: rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid lightgrey;
+
+}
+
+[data-md-color-scheme="slate"]  .citation {
+	background-color: rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid black;
+
+}
+
+.citation {
+    margin: 0 10%;
+    padding:10px;
+    border-radius: 5px;
+}
+
+.citation > * {
+    margin: 0 !important;
+}
+
+.link_citation {
+	display: inline-block;
+    width: 90%;
+    text-align: right;
+    font-weight: normal;
+}

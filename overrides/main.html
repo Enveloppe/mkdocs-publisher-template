@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block extrahead %}
-  {% set title = config.site_name %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+                $(document).ready(function() {
+                    $('.link-tooltip').tooltipster();
+                });
+        </script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+{% set title = config.site_name %}
   {% if page and page.meta and page.meta.title %}
     {% set title = page.meta.title %}
   {% elif page and page.title and not page.is_homepage %}
