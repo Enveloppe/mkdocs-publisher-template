@@ -36,12 +36,6 @@ for (var i = 0; i < img.length; i++) {
     }
 }
 
-var wikilink = document.querySelectorAll('a')
-for (var i = 0; i < wikilink.length; i++) {
-    console.log(wikilink[i])
-    console.log(wikilink[i].href.replace(/(.*)\/\.+\//, links))
-    console.log(wikilink[i].href.replace('.md', ''))
-}
 
 var scr=/\^(.*)/gi;
 for (var i = 0; i <ht.length;i++){
