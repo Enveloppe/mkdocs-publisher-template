@@ -3,11 +3,12 @@
     display: inline;
     color: grey;
     border-radius: 5px;
-    padding: 5px;
+	padding-right:0;
+	padding-left: 3px;
 }
 
 [data-md-color-scheme="slate"] .not_found {
-    color: rgb(182, 181, 181);
+    color: rgb(182, 181, 181) !important;
     background-color: rgba(231, 232, 243, 0.185);
 }
 

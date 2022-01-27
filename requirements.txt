@@ -1,7 +1,7 @@
 mkdocs
 mkdocs-material
 mkdocs-mermaid2-plugin
-mkdocs-roamlinks-plugin
+git+git://github.com/Mara-Li/mkdocs-ezlinks-plugin
 obs2mk
 mkdocs-awesome-pages-plugin
 mdx_breakless_lists

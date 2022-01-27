@@ -73,7 +73,8 @@ markdown_extensions:
           format: !!python/name:mermaid2.fence_mermaid
 plugins:
   - search
-  - roamlinks
+  - ezlinks:
+        wikilinks: true
   - mermaid2
   - awesome-pages
   - tooltipster-links
