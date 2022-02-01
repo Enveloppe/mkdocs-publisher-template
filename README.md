@@ -127,6 +127,10 @@ By default, the script will remove all file that doesn't exist in the vault, and
 
 > A little note about "Folder Note": If the file has the same name as the last part of `category`, it will be renamed `index` during conversion.  
 > However, this prevents the file from being deleted if its source is deleted from your vault: in this case, you have to delete it manually. 
+
+> ⚠️ You need to configure and use an alias to cite an index file ; By default, this alias is `(i)` but it can be configured in environment configuration. 
+> Some example : `[[Real file|(i) Alias]]` → `[[index|Alias]]` | `[[Real File|(i)]]` → `[[index|Real file]]`
+
 > Git Note : If a folder is empty, it will be "erased" in git. 
 
 ### Share one file
@@ -186,12 +190,14 @@ vault=
 blog_path=
 blog=
 share=
+index_key=
 ```
 With :
 - `vault`: Vault Absolute Path
 - `blog_path` : Blog repository absolute path
 - `blog` : Blog link (same as `site_url` from `mkdocs.yml`)
 - `share` : your wanted share key ; by default : `share`
+- `index_key`: For folder note citation
 
 Before running the shortcuts, you need to install all requirements, aka :
 ```
@@ -223,8 +229,12 @@ The script can work on any platform that support python. The script doesn't use 
 
 You can integrate the script within obsidian using the nice plugin [Obsidian ShellCommands](https://github.com/Taitava/obsidian-shellcommands).  
 You could create two commands :
-1. `share all` : `obs2mk`
-2. `share one` : `obs2mk --f {{file_path:absolute}}`
+1. Publish everything: Alias `Publish` with `obs2mk --obsidian`
+3. Publish one specific file : Alias `Publish {{title}}` with `obs2mk --obsidian --f {{file_path:absolute}}`
+
+With the `0.10` you could also add event shortcuts :
+- File menu event `Publish {{event_file_name}}`: `obs2mk --obsidian --f "{{event_file_path:absolute}}"`
+- Folder Note event `Publish {{event_folder_name}}`: `obs2mk --obsidian --f "{{event_folder_path:relative}}\{{event_folder_name}}.md"`
 
 You can use :
 - [Customizable Sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)  
@@ -254,7 +264,7 @@ So, in the end, a menu will appear on file with `share: true` and a `category` c
 ## Script
 The script need one key, to share the file. You can configure the key in the configuration of the script.
 If you want a folder structure in `docs`, you need to use the `category` keys, with the form of `path/path`. You can also block a file to update with `update: false`.
-Note : With `awesome-pages` you can hide folder from navigation. To hide a file, just use `hidden` in `category` (as `category: hidden`). Links, image will work without problem. 
+Note : With `awesome-pages` you can hide folder from navigation. To hide a file, just use `hidden` in `category` (as `category: hidden`). Links, image will work without problem.
 
 ## Mkdocs
 Material give you the possibility to add SEO tags with :
