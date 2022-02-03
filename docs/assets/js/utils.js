@@ -1,7 +1,24 @@
+function UrlExists(url) {
+    ref = url.href
+    var http = new XMLHttpRequest();
+    http.open('GET', ref, true);
+    http.onload=function(e) {
+        if (http.status == '404') {
+            const newItem = document.createElement('div');
+            newItem.innerHTML = url.innerHTML;
+            newItem.classList.add('not_found');
+            url.parentNode.replaceChild(newItem, url);
+        }
+        else {
+            return true;
+        }
+    }
+    http.send()
+}
 
 
-
-var p_search = /\.\.%5C/gi
+var p_search = /\.{2}\//gi
+not_found = []
 var ht = document.querySelectorAll('a');
 for (var i = 0; i < ht.length; i++) {
     var link = UrlExists(ht[i]);
@@ -27,3 +44,18 @@ for (var i = 0; i <ht.length;i++){
     }
 }
 document.innerHTML = ht;
+
+var cite = document.querySelectorAll('.citation');
+if (cite) {
+    for (var i = 0; i < cite.length; i++) {
+        var img = cite[i].innerHTML.match(/!?(\[{2}|\[).*(\]{2}|\))/gi)
+        if (img) {
+            for (var j = 0; j < img.length; j++) {
+                cite[i].innerHTML = cite[i].innerHTML.replace(img[j], '')
+            }
+            if (cite[i].innerText.trim().length < 2) {
+                cite[i].style.display='none';
+            }
+            }
+        }
+    }
