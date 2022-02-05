@@ -10,6 +10,7 @@ theme:
     font:
         text: Karla
         code: Ubuntu Mono
+    language: fr
     palette:
 
     # Light mode
@@ -32,6 +33,8 @@ theme:
     features:
         - navigation.indexes
         - navigation.top
+        - navigation.tabs
+        - navigation.tabs.sticky
 # Extensions
 markdown_extensions:
   - footnotes
@@ -67,7 +70,7 @@ markdown_extensions:
       custom_fences:
         - name: dataview
           class: dataview
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: !!python/name:pymdownx.superfences.fence_div_format
         - name: mermaid
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid
@@ -79,19 +82,16 @@ plugins:
   - awesome-pages
   - tooltipster-links
   - embed_file
-
 extra_javascript:
   - assets/js/mathjax.js
   - assets/js/utils.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - assets/js/tooltipster.bundle.js  
-
 extra_css:
     - assets/css/img-grids-floats.css
     - assets/css/utils.css
     - assets/css/custom_attributes.css
     - assets/css/tooltipster.bundle.min.css
-
 extra:
   generator: false
