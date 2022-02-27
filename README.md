@@ -48,7 +48,6 @@ You can install all package with `pip install -r requirements.txt`
 First, create the template in [GitHub](https://github.com/Mara-Li/mkdocs_obsidian_template) and download it with `git` (as `git clone git@github.com:your_username/blog_name.git`)
 
 ## Customization
-
 To make it your, you need to change, in `mkdocs.yml`
 - `site_name`,
 - `site_description` 
@@ -70,11 +69,8 @@ So, with the configuration I have done, the mkdocs support :
 - Wikilinks and relative links
 - Highlight and tilde markdown
 - Mathjax and Mermaid 
-- Embed files (entire file, inline, heading)
+- Embed (citation) files (entire file, inline, heading)
 - Custom Attribute, as [CM6 Attribute (with tags)](https://github.com/nothingislost/obsidian-cm6-attributes/releases), [Markdown Attribute](https://github.com/valentine195/obsidian-markdown-attributes) and [Contextual Typography (with tags)](https://github.com/mgmeyers/obsidian-contextual-typography).
-
-I didn't found a way to embed file with wiki links for the moment. Because of the strange behavior of roam links, these embedded file will be rendered as image. The script will care of this bug. 
-
 
 # Mkdocs Obsidian
 ## Utilities and interest
@@ -84,7 +80,7 @@ The script will care about some things you can forget :
 - Moving your image in assets ;
 - Change the admonition from the plugin to material admonition (mainly for codeblocks)
 - Remove Obsidian comment (`%% text %%`) 
-- **Create a folder structure** based on the `category` key. Without it, the note will be created in `docs/notes`.
+- **Create a folder structure** based on the `category` key. Without it, the note will be created in `docs/notes`. (you can configure the default folder, use `/` for root.)
 
 If you use the `--meta` option, it will also add, in the **original file** a link to the blog. 
 
@@ -92,13 +88,11 @@ If you use the `--meta` option, it will also add, in the **original file** a lin
 
 ## Usage
 ```powershell
-usage: obs2mk [-h] [--git | --mobile] [--meta] [--keep] [--config]
-                   [--force] [--filepath FILEPATH | --ignore]
+usage: obs2mk [-h] [--git | --mobile] [--meta] [--keep] [--config] [--force] [--filepath FILEPATH | --ignore]
 
-Create file in docs and relative folder, move image in assets, convert
-admonition code_blocks, add links and push.
+Create file in docs and relative folder, move image in assets, convert admonition code_blocks, add links and push.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --git, --g, --G       No commit and no push to git
   --mobile, --shortcuts, --s, --S
@@ -110,12 +104,12 @@ optional arguments:
   --filepath FILEPATH, --f FILEPATH
                         Filepath of the file you want to convert
   --ignore, --ignore-share, --no-share, --i, --vault
-                        Convert the entire vault without relying on share
-                        state.
+                        Convert the entire vault without relying on share state.
 ```
 
 At the first start of the script, it will ask you :
 - The **absolute path** of your vault and blog in your PC.
+> To facilitate the process, the script will open a file dialog to help you !
 - The key you want to use to share the file (default : `share`).
 
 This file will be in your `site_package/mkdocs_obsidian` folder.
@@ -172,46 +166,24 @@ Mobile supports all previous option, including `--ignore`.
 ### IOS 
 Using :
 - [a-shell](https://holzschu.github.io/a-Shell_iOS/) (Free)
-- [Working Copy](https://workingcopyapp.com/)
-You can update the docs.
+- [pyto](https://pyto.app) (3$ lite version / 10$ complete version)
+- [Working Copy](https://workingcopyapp.com/) (Free for student / 19$)
+ 
+You can update your blog.
 
-First, in a-shell, run `pickFolder` and choose the folder of your vault, and rerun `pickFolder` to choose the folder where are the blog data (you need to clone with [Working Copy](https://workingcopyapp.com/))
-After, do `showmarks` and copy the two path in any note app. Check if the path is not broken because of the paste!
-You can also do :
-```bash
-cd 
-showmarks > bookmark
-vim bookmark
-```
+The script will rely on some a-shell or pyto command to help you to build the environment, so you don't need to edit manually the file in case of you change your folder. Also, on IOS, get a path manually is a mess so...
 
-Here is a blank sheet to help you if you want to manually write / edit it :
-```
-vault=
-blog_path=
-blog=
-share=
-index_key=
-```
-With :
-- `vault`: Vault Absolute Path
-- `blog_path` : Blog repository absolute path
-- `blog` : Blog link (same as `site_url` from `mkdocs.yml`)
-- `share` : your wanted share key ; by default : `share`
-- `index_key`: For folder note citation
+:warning: For pyto, you need to add the writing autorization for your vault folder and blog repo folder.
+> You can access to it in parameters > Runtime > Accessive folder
 
-Before running the shortcuts, you need to install all requirements, aka :
-```
-pip install obs2mk
-obs2mk --config
-```
-
-After, in a-shell, you can use the same option as on a PC.
+After, you can use the same option as on a PC.
 </details>
 
 ## Customization
 There are some files to customize the script :
 - You can create [custom admonition with material docs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) and adding the name in `custom_admonition.yml`. 
-- You can completely exclude some folder of your vault with `exclude_folder.yml`. You can exclude specific path as `folder1/subfolderA` etc.
+- You can completely exclude some folder from **conversion** using `exclude.yml`. You can exclude specific path as `folder1/subfolderA` etc. The folder you want to exclude must be after the `folder` key. These file won't be converted by the script, no matter the `share`'s state. 
+- You can exclude file from **deletion** using `exclude.yml`. Just insert the name of the file (as `index` or `CNAME`). These file won't be deleted by the script. 
 - Using the `\docs\assets\css\custom_attributes.css` you can create specific aspect for your tags, and it also adds compatibility with CM6 Attribute and Contextual Typography. 
 
 ## Limitation
@@ -264,7 +236,10 @@ So, in the end, a menu will appear on file with `share: true` and a `category` c
 ## Script
 The script need one key, to share the file. You can configure the key in the configuration of the script.
 If you want a folder structure in `docs`, you need to use the `category` keys, with the form of `path/path`. You can also block a file to update with `update: false`.
-Note : With `awesome-pages` you can hide folder from navigation. To hide a file, just use `hidden` in `category` (as `category: hidden`). Links, image will work without problem.
+Note : With [awesome-pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin) you can hide folder from navigation. To hide a file, just use `hidden` in `category` (as `category: hidden`). Links, image will work without problem.
+You also can use `category: false` to use the hidden folder.  
+
+*PS: Awesome Pages allow a lot of configuration for folder, as file order ! Don't forget to check it out !*
 
 ## Mkdocs
 Material give you the possibility to add SEO tags with :
