@@ -27,67 +27,98 @@ Mkdocs Obsidian is an association between a python script and a Material mkdocs 
 
 ## Pre-requiries
 
-<details><summary><u><b>Requirements</u></b></summary>
-	
+<
+# Prerequisites
+You need : 
 - [Git](https://git-scm.com/)
-- [Python](https://www.python.org/) and Pip
-- [Mkdocs](https://www.mkdocs.org/getting-started/) : `pip install mkdocs`
-- [Material Mkdocs](https://squidfunk.github.io/mkdocs-material/getting-started/) using `pip install mkdocs-material`
-- [Mermaid2](https://github.com/fralau/mkdocs-mermaid2-plugin) with `pip install mkdocs-mermaid2-plugin`.
-- [Roamlinks](https://github.com/Jackiexiao/mkdocs-roamlinks-plugin) : `pip install mkdocs-roamlinks-plugin`
-- [mkdocs-obsidian](https://pypi.org/project/obs2mk/) : `pip install obs2mk`
-- [mkdocs-awesome-pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin) : `pip install mkdocs-awesome-pages-plugin`
-- [mkdocs-tooltipster](https://github.com/Mara-Li/mkdocs-tooltipster-links-plugin)
-- [mkdocs-embed-file-plugins](https://github.com/Mara-Li/mkdocs_embed_file_plugins)
+- [Python](https://www.python.org/)
+- Optional *(Windows)*: [Windows Terminal](https://docs.microsoft.com/fr-fr/windows/terminal/)
 
-    </details>
-	
-You can install all package with `pip install -r requirements.txt`
+## Quick installation tutorial
+1. Click on [use this template](https://github.com/Mara-Li/mkdocs_obsidian_template/generate) ; Use the name of your choice.
+2. Click on [code](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories) → SSH ; Copy the link
+3. Run : 
+```bash
+git clone [[PASTE THE LINK HERE]] publish_blog
+cd publish_blog
+pip install obs2mk --upgrade
+pip install -r requirements.txt
+```
 
-## Get started
-First, create the template in [GitHub](https://github.com/Mara-Li/mkdocs_obsidian_template) and download it with `git` (as `git clone git@github.com:your_username/blog_name.git`)
-
+# Creating the blog
 ## Customization
-To make it your, you need to change, in `mkdocs.yml`
-- `site_name`,
-- `site_description` 
-- `site_url`
-- The logo and favicons
-- If you want, the palette, use [color scheme from material](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/) and edit `scheme` and `accent`.
+In your new `publish_blog` folder, you will spot a `mkdocs.yml`. This file allows you to customize your blog! The most important to edit :
+1. `site_name` 
+2. `site_description`
+3. `site_url` (critical) : By default, it's `https://github_username.io/repo_name`
 
-The material's theme includes a lot of parameters and personalization, so don't forget to check to make the site yours! Also, there is a hundred of plug-ins (“extension”) for mkdocs so don't hesitate to give an eye! [You will find a lot here](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins).
+To edit the logo and the favicon, first put the chosen file in `assets/logo`, and change `logo` and `favicon` :
+1. `logo: assets/logo/logo_name.png`
+2. `favicon: assets/logo/favicon.png`
 
-To try your site without online, use `mkdocs serve`.
-You can publish your website using [Github Page](https://pages.github.com/) using the `gh-page` branch. This branch is pulled by the `.workflow` file, so don't worry about it.
+You can customize :
+- font
+- Color scheme, palette, icons 
+- Language
+[Check the documentation to get more information](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/)
 
-Now you have two choices : move the file you want in `docs` (and the subfolder you want) or you can use `Mkdocs_Obsidian`.
+You don't need to touch everything in `features ; markdown_extensions…`
 
-## Obsidian compatibility
-So, with the configuration I have done, the mkdocs support :
-- Folder note : the file need to be named “index” (instead of the name of the folder)
-- Admonition
-- Wikilinks and relative links
-- Highlight and tilde markdown
-- Mathjax and Mermaid 
-- Embed (citation) files (entire file, inline, heading)
-- Custom Attribute, as [CM6 Attribute (with tags)](https://github.com/nothingislost/obsidian-cm6-attributes/releases), [Markdown Attribute](https://github.com/valentine195/obsidian-markdown-attributes) and [Contextual Typography (with tags)](https://github.com/mgmeyers/obsidian-contextual-typography).
+## Local testing
+To locally build template, you need to run `pip install -r requirements.txt` after cloning : 
+```bash
+git clone git@github.com:your_username/your_blog_name.git
+cd your_blog_name
+pip install -r requirements.txt
+```
+To run locally the blog : `mkdocs serve`
 
-# Mkdocs Obsidian
-## Utilities and interest
-*A vast party of the script is taken from my previous project, YAFPA*
+The blog will be published through [GitHub Page](https://pages.github.com/) using the `gh-page` branch. Everything is already configured by the template for that.
 
-The script will care about some things you can forget :
-- Moving your image in assets ;
-- Change the admonition from the plugin to material admonition (mainly for codeblocks)
-- Remove Obsidian comment (`%% text %%`) 
-- **Create a folder structure** based on the `category` key. Without it, the note will be created in `docs/notes`. (you can configure the default folder, use `/` for root.)
+# Obs2mk : Obsidian to Mkdocs
+The script's goal is to move an authorized file (or multiple authorized file) from your Obsidian's vault to your blog's repository. It will :
+- Move linked image in `docs/assets/img`
+- Convert the **code block** [Admonition](https://github.com/valentine195/obsidian-admonition) to [material Admonition](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)[^1]
+- Remove Obsidian's comments as `%% comments %%`
+- Copy the file in `docs` or a specific folder structure. 
+- Add custom CSS based on markdown attribute or tags ([CM6 Live Preview](https://github.com/nothingislost/obsidian-cm6-attributes) ; [Markdown Attribute](https://github.com/valentine195/obsidian-markdown-attributes) and [Contextual Typography](https://github.com/mgmeyers/obsidian-contextual-typography)). 
 
-If you use the `--meta` option, it will also add, in the **original file** a link to the blog. 
+Furthermore, it will also carry :
+- Of the support of [Folder Note — Pagination Indexes](#folder-note)
+- Copy a link to the blog converted file
 
-⚠️ If the script crash for any reason at the moment where the script updates the frontmatter, you can lose some file.
+## File's front matter
+The script relies on the front matter** of the notes you want to publish. 
+1. `share: true` allow publishing the file[^2]
+2. `category` to choose where the file will be after conversion ; allowing categorization for the blog. 
+    - `category: false` will **hide** the file from navigation.
+    - `category: hidden` will do the same.
+    - `category: folder1/folder2/` will move the file in `folder2`, under `folder1`
+    - `category: folder1/folder2/filename` will rename the file `index` and allow support of [section's index page](https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages)
+    You can customize the folder with [Awesome Pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin)
+3. `update: false` prevent to update the file after the first publishing
+4. `description` : Add a description to the file (for meta-tag sharing)[^3]
+5. `title` : Change the title in the navigation.
+6. `image` : Add an image for meta-tags sharing.[^4] It needs to be the name of the file, as `image.png`. 
 
 ## Usage
-```powershell
+The script can be use :
+- Directly in Obsidian, using [Obsidian Shell Commands](https://github.com/Taitava/obsidian-shellcommands) (see [Obsidian Shell's configuration](#obsidian-shell-configuration))
+- In [Terminal](#terminal).
+The platform supported are :
+- macOS, Linux and Windows (referred as 'Computer')
+- [IOS](#ios) (with [Pyto](https://pyto.app) and/or [a-shell](https://holzschu.github.io/a-Shell_iOS/) with [Working Copy](https://workingcopyapp.com/))
+
+### Configuration
+At the first run, you will be asked to configure some key and specific path.
+1. <u>Vault</u> : Use the file dialog to choose your vault folder.
+2. <u>Publish repository folder : </u> As vault path, use the file dialog.
+3. <u>share</u> : You can change the `share` key. By default, it's `share`
+4. <u>Index key:</u> Support for citation of [pagination index pages](#folder-note). By default, it uses `(i)`
+5. <u>Default blog folder:</u> By default, the notes will be in `docs/notes` but you can change that, or use `/` for root. 
+
+### Terminal 
+```bash
 usage: obs2mk [-h] [--git | --mobile] [--meta] [--keep] [--config] [--force] [--filepath FILEPATH | --ignore]
 
 Create file in docs and relative folder, move image in assets, convert admonition code_blocks, add links and push.
@@ -107,155 +138,146 @@ options:
                         Convert the entire vault without relying on share state.
 ```
 
-At the first start of the script, it will ask you :
-- The **absolute path** of your vault and blog in your PC.
-> To facilitate the process, the script will open a file dialog to help you !
-- The key you want to use to share the file (default : `share`).
+#### Share one file : `obs2mk --f FILEPATH`
+It will :
+- Update the `share` state in original file
+- Convert one file, regardless of what is the `share` state.
 
-This file will be in your `site_package/mkdocs_obsidian` folder.
-> On pyto, it will be directly in site_package
+#### Share all file : `obs2mk`
+You can share multiple documents at once with scanning your Vault, looking for the `share: true`. It will convert automatically these files.
+Only file with modification since the last sharing will be updated.
 
-You can reconfigure the option with `obs2mk --config`.
+#### Options
+1. `--vault` : This option allows sharing the entire vault, regardless of the `share` key.
+2. `--mobile` : See [iOS](#ios) for more information.
+3. `--git` : Forbid push ;
+4. `--keep` : Keep deleted file from vault and removed shared file.
+5. `--force` : Force conversion (in case the vault's file and blog's file are the same)
+6. `--config` : Reconfigure the environment (path and key)
 
-By default, the script will remove all file that doesn't exist in the vault, and file where you remove the share (`share: false`, or removed the key). You can keep all these file with `--k`. Empty folder will be also removed in this process.  
+### Obsidian Shell Configuration
+You could create :
+1. A command to publish everything : alias `Publish` with `obs2mk --obsidian`
+2. A command to publish one specific file : alias `Publish {{title}}` with `obs2mk --obsidian --f {{file_path:absolute}}`
+3. Event shortcuts for file menu event : `Publish {{event_file_name}}`: `obs2mk --obsidian --f "{{event_file_path:absolute}}
+4. Folder Note event (folder menu event): `Publish {{event_folder_name}}`: `obs2mk --obsidian --f "{{event_folder_path:relative}}\{{event_folder_name}}.md"`
+You can create a button with :
+- [Customizable Sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)    
+- [Obsidian Customizable Menu](https://github.com/kzhovn/obsidian-customizable-menu)
 
-> A little note about "Folder Note": If the file has the same name as the last part of `category`, it will be renamed `index` during conversion.  
-> However, this prevents the file from being deleted if its source is deleted from your vault: in this case, you have to delete it manually. 
+The file will be in `site-packages/mkdocs_obsidian`  
 
-> ⚠️ You need to configure and use an alias to cite an index file ; By default, this alias is `(i)` but it can be configured in environment configuration. 
-> Some example : `[[Real file|(i) Alias]]` → `[[index|Alias]]` | `[[Real File|(i)]]` → `[[index|Real file]]`
+### IOS
+The script support IOS using :
+- [a-shell](https://holzschu.github.io/a-Shell_iOS/) (Free)  
+- [Pyto](https://pyto.app) ($3 lite version / $10 complete version) [^5]
+- [Working Copy](https://workingcopyapp.com/) (Free for student / $19)
 
-> Git Note : If a folder is empty, it will be "erased" in git. 
+>The option `mobile` will **never** push. You need to use Working Copy to push the converted file.
 
-### Share one file
-To share **only** one file : `obs2mk --f FILEPATH`. It will :
-- Update the state status in original file (`share: true`)
-- Re-write the file if exist or create it in the folder you put in `category` 
-This option will pull the file, regardless of what is the `share` state.
-
-### Share “all” files
-You can share multiple documents using the `share: true` key, in frontmatter. The script will scan your entire vault and automatically convert the file with this key.
-There is two options :
-- By default, the script will compare with the older version and write only if changement are detected, based on the content of the file and the last modified time. 
-- Using `--force` will force the re-writing. 
-
-You can force to skip the update with `update: false` in the frontmatter : the file, no matter what, will not be updated. 
-
-#### Share the entire vault
-
-Using the command `--ignore` will ignore the `share` state : you can share your entire vault using that, whatever the state is. By default, it will not overwrite file already exist (and not different), so the `--force` option can also be used.
-
-`usage: obs2mk [-h] [--git | --mobile] [--meta] [--keep] [--config]
-                   [--force] [--ignore]`
-
-### Mobile
-
-<details><summary><i>Read more</i></summary>
-	
-The mobile option is similar to the `git` option but with some nuance. When used to publish a single file, you can use only the file name, without the path.
-
-:warning: Be careful though, in case you have several files with the same name, the script will take the first file found. 
-
-This option can be used especially with the "Shortcuts" application on IOS, to share a file directly from the share sheet.
-
-One file usage : `obs2mk --mobile --f "filename"`
-All file usage : `obs2mk --mobile`
+You can :
+1. Share the entire vault : `obs2mk --mobile`
+2. Share a specific file, using its name : `obs2mk --mobile --f "filename"`.[^6] This option can be used especially with [Shortcuts](https://support.apple.com/guide/shortcuts/welcome/ios)
 
 Mobile supports all previous option, including `--ignore`.
 
-### IOS 
-Using :
-- [a-shell](https://holzschu.github.io/a-Shell_iOS/) (Free)
-- [pyto](https://pyto.app) (3$ lite version / 10$ complete version)
-- [Working Copy](https://workingcopyapp.com/) (Free for student / 19$)
- 
-You can update your blog.
-
-The script will rely on some a-shell or pyto command to help you to build the environment, so you don't need to edit manually the file in case of you change your folder. Also, on IOS, get a path manually is a mess so...
-
-:warning: For pyto, you need to add the writing autorization for your vault folder and blog repo folder.
-> You can access to it in parameters > Runtime > Accessive folder
-
-After, you can use the same option as on a PC.
-</details>
-
-## Customization
-There are some files to customize the script :
-- You can create [custom admonition with material docs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) and adding the name in `custom_admonition.yml`. 
-- You can completely exclude some folder from **conversion** using `exclude.yml`. You can exclude specific path as `folder1/subfolderA` etc. The folder you want to exclude must be after the `folder` key. These file won't be converted by the script, no matter the `share`'s state. 
-- You can exclude file from **deletion** using `exclude.yml`. Just insert the name of the file (as `index` or `CNAME`). These file won't be deleted by the script. 
-- Using the `\docs\assets\css\custom_attributes.css` you can create specific aspect for your tags, and it also adds compatibility with CM6 Attribute and Contextual Typography. 
-
-## Limitation
-- **Nested admonition doesn't work for the moment.** I don't use it a lot, but if you want, you could improve the script or create a mkdocs plugin to care of that. 
-- The script will not delete the file and folder if you change the `category` key. Beware of this. 
-- Share “all” can be long on big vault. 
-- File with same name can have some problem while scanning because I don't keep your folder structure. Please, beware of this! Don't forget, you can use `title` if you want a specific name (and this name already exist). 
+### Customization
+- You can prevent the script to share file in specific folder, with editing `folder` list in `exclude.yml`
+- You can prevent the script to **delete** some file with editing `file` list in the same file.
+- You can, also, create some CSS customization with hashtag, with editing `docs/assets/css/custom_attributes.css`. See [Custom Attribute](#custom-attribute-example) for some example.
 
 
-## Support
-The script can work on any platform that support python. The script doesn't use Cpython, so don't worry about it for IOS.
+# Blog : Customization
+## Custom attribute example
+You can create [Inline Markdown Attribute](https://python-markdown.github.io/extensions/attr_list/) using hashtags in Obsidian. For example, to align some text to right :
+1. Add 
+```css
+#right {
+ display: inline-block;
+ width: 100%;
+ text-align: right;
+ font-weight: normal;
+}
+```
+2. Add `#right` on the last part of a line : 
+```md
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In mollis, libero porttitor gravida accumsan, justo metus pulvinar nulla, vitae dictum odio ligula non nisl. Vivamus id venenatis nulla. Nullam sed euismod ligula. Pellentesque tempor elit felis, lobortis vulputate risus gravida et. Curabitur auctor sed libero nec consectetur. Nam placerat rhoncus risus, euismod sagittis eros bibendum ac. Maecenas tellus libero, porttitor ac purus sit amet, viverra suscipit dolor. Proin id nisl velit. Ut at tincidunt libero, ac pharetra mi. Integer non luctus nisi. #right
+```
+It will appear as: 
+![](screenshot/custom_attribute.png)
 
-### Obsidian
-→ Please use Wikilinks with “short links” (I BEG YOU)  
+## Folder note
+You can create a folder note if you use a `category` front matter key that have the last folder with the same name as the file. For example : 
+`category: folder1/folder2/filename`. The file `filename` will be renamed `index` and the folder will be named `filename`.
 
-You can integrate the script within obsidian using the nice plugin [Obsidian ShellCommands](https://github.com/Taitava/obsidian-shellcommands).  
-You could create two commands :
-1. Publish everything: Alias `Publish` with `obs2mk --obsidian`
-3. Publish one specific file : Alias `Publish {{title}}` with `obs2mk --obsidian --f {{file_path:absolute}}`
+To support the citation and link to these page, you need to use an index key (cf [configuration](#configuration)).
 
-With the `0.10` you could also add event shortcuts :
-- File menu event `Publish {{event_file_name}}`: `obs2mk --obsidian --f "{{event_file_path:absolute}}"`
-- Folder Note event `Publish {{event_folder_name}}`: `obs2mk --obsidian --f "{{event_folder_path:relative}}\{{event_folder_name}}.md"`
+Some examples of citation and their transformation : 
+| In Obsidian               | In Publish            |
+| ------------------------- | --------------------- |
+| `[[Real File|(i) Alias]]` | `[[index|Alias]]`     |
+| `[[Real File|(i)]]`       | `[[index|Real File]]` |
+| `[(i) Alias](Real file) ` | `[Alias](index)`      |
+| `[(i)](real file)`        | `[real file](index)`  | 
 
-You can use :
-- [Customizable Sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)  
-- [Obsidian Customizable Menu](https://github.com/kzhovn/obsidian-customizable-menu)  
-To have a button to share your file directly in Obsidian !
+# Obsidian
+**Some useful plugin to support the script** : 
+- [Metacopy](https://github.com/Mara-Li/obsidian-metacopy)
+- [Obsidian Shell](https://github.com/Taitava/obsidian-shellcommands) (cf [Obsidian Shell](#obsidian-shell-configuration))
+- [Customizable Sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)    
+- [Obsidian Customizable Menu](https://github.com/kzhovn/obsidian-customizable-menu)
+- [Alx Folder Note](https://github.com/aidenlx/alx-folder-note)
+- Custom Attribute :
+	- [CM6 Live Preview](https://github.com/nothingislost/obsidian-cm6-attributes) ; 
+	- [Markdown Attribute](https://github.com/valentine195/obsidian-markdown-attributes)
+	- [Contextual Typography](https://github.com/mgmeyers/obsidian-contextual-typography) 
 
-#### Metacopy
-Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quickly copy a link to a shared page, without using this option (so, yes, the script does not edit your source file !). 
-To create a link, you need to configure :
- 1. `category` in `key`
- 2. Add your `set_url` in `base link`
- 3. Add `category` in `key link`
-
-Also, you can remove the metacopy from your file menu using a key, so you can active metacopy only for `share: true`. Metacopy support also the `paginations.index`. 
-
-The final configuration of metacopy for mkdocs_obsidian will be :
-![](screenshot/metacopy3.png)
-![](screenshot/metacopy2.png)
-
-So, in the end, a menu will appear on file with `share: true` and a `category` configured. This menu is on the left click and the file-menu. You can quickly copy a link from there, like a google or notion sharing link !
-
-[Here is a demo](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d) : 
-
+### Metacopy
+Using [metacopy](https://github.com/Mara-Li/obsidian-metacopy) you can quickly copy a link to a shared page, without using this option (so, yes, the script does not edit your source file !).   
+To create a link, you need to configure :  
+ 1. `category` in `key`  
+ 2. Add your `set_url` in `base link`  
+ 3. Add `category` in `key link`  
+  
+Also, you can remove the metacopy from your file menu using a key, so you can activate metacopy only for `share: true`. Metacopy also support the [folder note](#folder-note).   
+  
+The final configuration of metacopy for mkdocs_obsidian will be :  
+![](screenshot/metacopy3.png)  
+![](screenshot/metacopy2.png)  
+  
+So, in the end, a menu will appear on file with `share: true` and a `category` configured. This menu is on the left click and the file-menu. You can quickly copy a link from there, like a Google or notion sharing link!  
+  
+[Here is a demo](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d) :   
+  
 [![click to get a video !](screenshot/demo.gif)](https://www.loom.com/share/88c64da2ba194e219578d5911fb8e08d)
 
-# Frontmatter and option
-## Script
-The script need one key, to share the file. You can configure the key in the configuration of the script.
-If you want a folder structure in `docs`, you need to use the `category` keys, with the form of `path/path`. You can also block a file to update with `update: false`.
-Note : With [awesome-pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin) you can hide folder from navigation. To hide a file, just use `hidden` in `category` (as `category: hidden`). Links, image will work without problem.
-You also can use `category: false` to use the hidden folder.  
-
-*PS: Awesome Pages allow a lot of configuration for folder, as file order ! Don't forget to check it out !*
-
-## Mkdocs
-Material give you the possibility to add SEO tags with :
-- `description`  
-- `title` (will change also the title in the navigation)
-- `image`: Add an image (don't forget the format) / Need to be a relative link.
-
-## Template
-So, the final frontmatter template is :
-```yaml
----
-title:
-share:
-description:
+## Front matter template
+```yml
+title:  
+share: 
+description:  
 category:
----
 ```
 
+# Limitation
+- The plugin rely a lot on filename, without regarding the folder. Please use **unique naming** and use the `title` key if you need to.
+- The plugin will not delete the `index` files (cf [Folder Note](#folder-note))
+- The script can be long on big vault.
+- The script will not manually move the file if you change a `category` : you need to delete it manually to prevent duplicate.
+- ⚠️You must use `shortlinks` in Obsidian configuration. 
+
+# TLDR
+1. Install / update with `pip install obs2mk --upgrade`
+2. Add `share: true` in front matter
+3. Customize the `category` key in front matter
+4. Run the script `obs2mk`
+
 If you have more question, don't forget to read the [Q&A](https://github.com/Mara-Li/mkdocs_obsidian_template/wiki/Q&A/) !
+
+
+
+[^1]: No support for nested admonition and [Microsoft Document Syntax](https://github.com/valentine195/obsidian-admonition#microsoft-document-syntax)
+[^2]: This key can be configured 
+[^3]: **Meta tags** are snippets of text that describe a page’s content; the meta tags don’t appear on the page itself, but only in the page’s source code. Meta tags are essentially little content descriptors that help tell search engines what a web page is about. [Source](https://www.wordstream.com/meta-tags)
+[^4]: Using Pyto you need to add the writing authorization for your vault and blog repository. You can access it in parameters > Runtime. Also, the configuration file will be in `site_package` directly.
+[^5]: Beware, if it exists a file with the same name, it will take the first found. 
