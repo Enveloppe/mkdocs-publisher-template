@@ -5,9 +5,5 @@ git+https://github.com/Mara-Li/mkdocs-ezlinks-plugin
 obs2mk
 mkdocs-awesome-pages-plugin
 mdx_breakless_lists
-<<<<<<< HEAD
 git+https://github.com/Mara-Li/mkdocs-tooltipster-links-plugin
-=======
-git+https://github.com/Mara-Li/mkdocs-tooltipster-links-plugin#egg=mkdocs-tooltipster-links-plugin
->>>>>>> 6867ab9803ec72d4e242d1949ca9f4f1a2c6f3c8
 mkdocs-embed-file-plugins
