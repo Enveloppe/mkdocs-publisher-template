@@ -1,6 +1,3 @@
-# mkdocs_obsidian_template
-The template for mkdocs-obsidian
-
 <h1 align="center"><a href="https://mara-li.github.io/mkdocs_obsidian_template/">TEMPLATE DOCUMENTATION</a></h1>
 
 ---
