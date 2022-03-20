@@ -1,6 +1,6 @@
-site_name: Obsidian Mkdocs
-site_description: A mkdocs wiki template for Obsidian
-site_url: https://mara-li.github.io/mkdocs_obsidian_template
+site_name: my-blog
+site_description: Lorem ipsum
+site_url: https://your-userbame.github.io/your-blog-name
 
 theme:
     name: 'material'
