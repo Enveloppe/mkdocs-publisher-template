@@ -10,7 +10,7 @@ theme:
     font:
         text: Karla
         code: Ubuntu Mono
-    language: fr
+    language: en
     palette:
 
     # Light mode
