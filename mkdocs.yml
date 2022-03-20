@@ -1,6 +1,6 @@
-site_name: my-blog
-site_description: Lorem ipsum
-site_url: https://your-userbame.github.io/your-blog-name
+site_name: 
+site_description: 
+site_url: 
 
 theme:
     name: 'material'
