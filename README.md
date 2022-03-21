@@ -1,4 +1,4 @@
-<h1 align="center"><a href="You must be connected to copy the template ! You can test locally through clone > https : git clone https://github.com/Mara-Li/mkdocs_obsidian_template.git or with downloading the ZIP ↩ ">TEMPLATE DOCUMENTATION</a></h1>
+<h1 align="center"><a href="https://mara-li.github.io/mkdocs_obsidian_template/documentation/start_here/">TEMPLATE DOCUMENTATION</a></h1>
 
 ---
 <p align="center">
