@@ -87,3 +87,7 @@
     text-align: right;
     font-weight: normal;
 }
+
+code {
+  display: inline-block;
+}
