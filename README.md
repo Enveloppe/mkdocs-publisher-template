@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://mara-li.github.io/mkdocs_obsidian_template/">TEMPLATE DOCUMENTATION</a></h1>
+<h1 align="center"><a href="You must be connected to copy the template ! You can test locally through clone > https : git clone https://github.com/Mara-Li/mkdocs_obsidian_template.git or with downloading the ZIP ↩ ">TEMPLATE DOCUMENTATION</a></h1>
 
 ---
 <p align="center">
@@ -17,7 +17,7 @@
 6. Run the script `obs2mk`
 
 # Quick installation tutorial
-1. Click on [use this template](https://github.com/Mara-Li/mkdocs_obsidian_template/generate)[^7]
+1. Click on [use this template](https://github.com/Mara-Li/mkdocs_obsidian_template/generate)[^1]
 2. Use the name of your choice.
 3. Click on [code](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories) → SSH ; Copy the link
 4. Run (in terminal):
@@ -25,3 +25,5 @@
 git clone [[PASTE THE LINK HERE]] publish_blog
 pip install obs2mk --upgrade
 ```
+
+[^1]: You must be connected to copy the template ! You can test locally through clone > https : `git clone https://github.com/Mara-Li/mkdocs_obsidian_template.git` or with downloading the ZIP
