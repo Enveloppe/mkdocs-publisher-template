@@ -7,4 +7,3 @@ mdx_breakless_lists
 mkdocs-preview-links-plugin
 mkdocs-embed-file-plugins
 Markdown
-mdx-wikilinked-plus
