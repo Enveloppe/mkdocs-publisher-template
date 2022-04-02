@@ -1,11 +1,18 @@
-function UrlExists(url) {
-    ref = url.href
+function UrlExists(url, type_url) {
+    if (type_url === 0) {
+        ref = url.href
+        title = url.innerHTML
+    }
+    else if (type_url === 1) {
+        ref = url.src
+        title = url.alt
+    }
     var http = new XMLHttpRequest();
     http.open('GET', ref, true);
     http.onload=function(e) {
         if (http.status == '404') {
             const newItem = document.createElement('div');
-            newItem.innerHTML = url.innerHTML;
+            newItem.innerHTML = title;
             newItem.classList.add('not_found');
             url.parentNode.replaceChild(newItem, url);
         }
@@ -21,7 +28,7 @@ var p_search = /\.{2}\//gi
 not_found = []
 var ht = document.querySelectorAll('a');
 for (var i = 0; i < ht.length; i++) {
-    var link = UrlExists(ht[i]);
+    var link = UrlExists(ht[i],0);
 }
 
 var p_img = /\.+\\/gi
@@ -31,6 +38,7 @@ for (var i = 0; i < img.length; i++) {
     if (img[i].alt.match(/\|?\d+$/)) {
         img[i].width = img[i].alt.match(/\|?\d+$/)[0].replace('|', '')
     }
+    var link = UrlExists(img[i],1);
 }
 
 
