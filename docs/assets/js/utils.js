@@ -1,7 +1,9 @@
 function UrlExists(url, type_url) {
+    let ref = "";
+    let title = "";
     if (type_url === 0) {
         ref = url.href
-        title = url.innerHTML
+        title = url.title
     }
     else if (type_url === 1) {
         ref = url.src
@@ -11,6 +13,7 @@ function UrlExists(url, type_url) {
     http.open('GET', ref, true);
     http.onload=function(e) {
         if (http.status == '404') {
+            console.log(title, ref)
             const newItem = document.createElement('div');
             newItem.innerHTML = title;
             newItem.classList.add('not_found');
