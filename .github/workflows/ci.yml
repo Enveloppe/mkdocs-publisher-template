@@ -5,12 +5,39 @@ on:
       - master
       - main
 jobs:
+  obs2mk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.10.2
+      - name: obs2mk source files
+        run: |
+          pip install git+https://github.com/Mara-Li/mkdocs_obsidian_publish.git@github-actions
+          for f in ${{ github.workspace}}/source/*
+          do
+            obs2mk --GA --keep file $f
+          done
+      - name: clean source files
+        run: |
+          rm ${{github.workspace}}/source/*
+      - name: Push new files
+        run: |
+          git config --global user.name 'mara-li'
+          git config --global user.email 'mara-li@users.noreply.github.com'
+          git commit -am "Updated blog 🎉"
+          git push
+
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
-          python-version: 3.x
-      - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+          python-version: 3.10.2
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v3
+        with: 
+          path: requirements.txt
+      - run: mkdocs gh-deploy --force --clean
