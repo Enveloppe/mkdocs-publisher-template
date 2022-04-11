@@ -4,30 +4,47 @@ on:
     branches:
       - master
       - main
+
 jobs:
+  path-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.filter.outputs.sources }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            sources:
+              - 'source/**'
   obs2mk:
     runs-on: ubuntu-latest
+    needs: path-filter
+    if: needs.path-filter.outputs.output1 == 'true'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
         with:
           python-version: 3.10.2
+  
       - name: obs2mk source files
         run: |
-          pip install obs2mk
+          pip install git+https://github.com/Mara-Li/mkdocs_obsidian_publish.git@github-actions
           for f in ${{ github.workspace}}/source/*
           do
             if [[ "$f" == *md ]] 
             then
-              obs2mk --GA --keep file $f
+              obs2mk --GA --keep file "$f"
             fi
           done
+          obs2mk --GA clean
       - name: clean source files
         run: rm ${{github.workspace}}/source/*
       - name: Push new files
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config --global user.name 'mara-li'
+          git config --global user.email 'mara-li@users.noreply.github.com'
           git add . 
           git commit -am "Updated blog 🎉"
           git push
