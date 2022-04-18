@@ -26,7 +26,6 @@
     filter: saturate(200%);
 }
 
-
 .md-footer {
     display: none;
 }
@@ -89,5 +88,9 @@
 }
 
 code {
-  display: inline-block;
+    display: inline-block;
+}
+
+.md-typeset :is(.admonition, details){
+    font-size: 1em;
 }
