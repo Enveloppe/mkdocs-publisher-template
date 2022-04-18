@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://mara-li.github.io/mkdocs_obsidian_template/documentation/start_here/">TEMPLATE DOCUMENTATION</a></h1>
+<h1 align="center"><a href="https://mara-li.github.io/obsidian-mkdocs-publisher-template/documentation/start_here/">TEMPLATE DOCUMENTATION</a></h1>
 
 ---
 <p align="center">
