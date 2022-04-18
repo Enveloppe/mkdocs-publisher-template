@@ -8,7 +8,7 @@
 </p>
 
 # TLDR
-1. Install / update with `pip install obs2mk --upgrade`
+1. Install / update with `pip install obs2mk --upgrade` (useless if used with [Obsidian Plugin](https://github.com/Mara-Li/obsidian-mkdocs-publisher-plugin))
 2. Template the blog, clone it and configure the blog. 
 3. Configure the script (first run)
 4. Add `share: true` in Obsidian's note frontmatter
@@ -24,5 +24,10 @@
 git clone [[PASTE THE LINK HERE]] publish_blog
 pip install obs2mk --upgrade
 ```
+
+# Others links
+- [Obsidian Plugin](https://github.com/Mara-Li/obsidian-mkdocs-publisher-plugin)
+- [Template](https://github.com/Mara-Li/obsidian-mkdocs-publisher-template)
+- [Main Repo](https://github.com/Mara-Li/obsidian_mkdocs_publisher/)
 
 [^1]: You must be connected to copy the template ! You can test locally through clone > https : `git clone https://github.com/Mara-Li/mkdocs_obsidian_template.git` or with downloading the ZIP
