@@ -1,6 +1,6 @@
-site_name: 
-site_description: 
-site_url: 
+site_name: your_site_name
+site_description: A cool description
+site_url: https://mara-li.github.io/obsidian-mkdocs-publisher-template/
 
 theme:
     name: 'material'
