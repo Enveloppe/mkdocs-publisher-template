@@ -1,7 +1,3 @@
----
-title: Create the blog
----
-
 In your new `publish_blog` folder, you will spot a `mkdocs.yml`. This file allows you to customize your blog! The most important to edit :
 1. `site_name` 
 2. `site_description`
@@ -32,5 +28,13 @@ mkdocs serve
 ```
 
 The blog will be published through [GitHub Page](https://pages.github.com/) using the `gh-page` branch. Everything is already configured by the template for that.
+
+---
+
+- [Main Repo](https://github.com/Mara-Li/obsidian_mkdocs_publisher)
+- [Obsidian Plugin](https://github.com/Mara-Li/obsidian-mkdocs-publisher-plugin/)
+- [Python package](https://github.com/Mara-Li/obsidian-mkdocs-publisher-python)
+- [Template](https://github.com/Mara-Li/obsidian-mkdocs-publisher-template)
+- [Documentation](https://mara-li.github.io/obsidian_mkdocs_publisher_docs/)
 
 [^1]: You can found the link in Repository settings > Pages. 
