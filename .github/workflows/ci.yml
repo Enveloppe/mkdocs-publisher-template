@@ -13,7 +13,7 @@ jobs:
   
       - name: obs2mk source files
         run: |
-          pip install git+https://github.com/Mara-Li/mkdocs_obsidian_publish.git@github-actions
+          pip install obs2mk
           for f in ${{ github.workspace}}/source/*
           do
             echo $f
