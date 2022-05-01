@@ -12,8 +12,6 @@ You can customize :
 - Color scheme, palette, icons 
 - Language  
 
-Also, don't forget to delete the documentation folder, the contents in assets and clean the notes folder!
-
 [Check the documentation to get more information](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/)
 
 You don't need to touch anything in `features` ; `markdown_extensions…`
@@ -27,7 +25,12 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
-The blog will be published through [GitHub Page](https://pages.github.com/) using the `gh-page` branch. Everything is already configured by the template for that.
+The blog will be published through [GitHub Page](https://pages.github.com/) using the `gh-page` branch. In case your blog is not published through mkdocs :
+- Check the `gh-pages` branch and activate it if necessary in `Settings` → `Pages` : ![image](https://user-images.githubusercontent.com/30244939/166161220-973cee87-75eb-4b9f-b521-1c67d273def7.png)
+- Check if workflow run normally :
+  - Check the run and error in `Actions` 
+  - Check if the actions have the good write and read access in `settings → Actions → General → workflow permission` ![image](https://user-images.githubusercontent.com/30244939/166161294-0f4f70c2-fda5-4465-89b0-d6b1b5e6995d.png)
+
 
 ---
 
