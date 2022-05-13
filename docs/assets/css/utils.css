@@ -92,3 +92,8 @@ code {
 .md-typeset :is(.admonition, details){
     font-size: 1em;
 }
+
+.md-typeset pre > code {
+    word-break: break-word;
+    white-space: pre-wrap;
+}
