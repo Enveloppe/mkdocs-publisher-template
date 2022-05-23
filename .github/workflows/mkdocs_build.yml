@@ -1,7 +1,6 @@
-name: mkdocs_build
+name: mkdocs build
 
 on:
-  workflow_dispatch:
   push:
     paths:
       - 'README.md'
