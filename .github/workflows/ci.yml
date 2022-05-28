@@ -1,33 +1,38 @@
 name: ci
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v3
         with:
           python-version: 3.10.2
+      - name: get changed files
+        uses: tj-actions/changed-files@v21
+        with:
+          since_last_remote_commit: true
       - name: obs2mk source files
         run: |
           pip install obs2mk
-          for f in ${{ github.workspace}}/source/*
-          do
-            echo $f
-            if [[ "$f" == *md ]] 
-            then
-              obs2mk --GA --keep file "$f"
-            fi
-          done
-          obs2mk --GA clean    
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ "$file" == *md ]] 
+              then
+                obs2mk --minimal file "$file"
+              fi
+            done
       - name: Mkdocs build
         run: |
           pip install -r requirements.txt
           mkdocs gh-deploy --force --clean
-      - name: clean source files
-        run: rm ${{github.workspace}}/source/*
       - name: Push updateds files
         run: |
           git pull
