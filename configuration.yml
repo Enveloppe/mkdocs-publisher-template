@@ -1,0 +1,22 @@
+default:
+  configuration:
+    input: /docs_tests/input
+    output: ./docs_tests/output
+  frontmatter:
+    category:
+      default value: notes
+      key: category
+    index: (i)
+    share: share
+  weblink: cc
+minimal:
+  configuration:
+    input: null
+    output: null
+  frontmatter:
+    category:
+      default value: notes
+      key: category
+    index: (i)
+    share: share
+  weblink: null
