@@ -1,0 +1,260 @@
+{# title #}
+{% if not "\x3ch1" in page.content %}
+    <h1>{{ page.title | d(config.site_name, true) }}</h1>
+{% endif %}
+
+{# description #}
+<p>
+    {{ page.content }}
+</p>
+
+<hr>
+
+
+{# page collection #}
+{% set  valid_pages=[] %}
+{% for p in pages %}
+    {% set pg = p.page %}
+    {% set _ = pg.__setattr__('date', pg.meta.git_revision_date_localized_raw_iso_date) %}
+    {% set main_category = pg.canonical_url | replace(config.site_url, '') %}
+    {% set main_category = main_category.split('/')[0] %}
+    {% if page.meta.category == main_category %}
+        {{ valid_pages.append(pg) or "" }}
+    {% endif %}
+{% endfor %}
+
+{% set blog_pages=[] %}
+{% for pg in valid_pages | sort(attribute = 'date', reverse=True) %}
+    {% set hidden = true if (pg.meta and pg.meta.hidden) %}
+        {% if (not pg.is_homepage) and
+            (not pg.markdown == '') and
+            (not hidden) and not (pg.title == 'index')
+        %}
+            {{ blog_pages.append(pg) or "" }}
+        {% endif %}
+{% endfor %}
+
+{% if blog_pages|count > 0 %}
+
+    {# count the number of pages #}
+    {% set page_num = (blog_pages|count / 10)|round(method='ceil')|int %}
+
+    <div id="page_num" data-value="{{page_num}}"></div>
+
+    {# styles #}
+    <style>
+        .md-typeset hr {
+            margin: 0;
+        }
+
+        /* post */
+        .md-typeset .post {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5em;
+            border-bottom: .05rem solid var(--md-default-fg-color--lightest);
+        }
+        .md-typeset .post .post-category {
+            color: gray;
+            font-size: small;
+        }
+        .md-typeset .post .post-title {
+            margin: 0.25rem 0;
+            text-decoration: none;
+            font-size: 1.3em;
+        }
+        .md-typeset .post .post-info-wrap{
+            display: flex;
+        }
+        .md-typeset .post .post-info {
+            width: 100%;
+        }
+        .md-typeset .post .post-banner {
+            margin-top: -1rem;
+            height: 100%;
+            max-height: 4rem;
+            border-radius: 5px;
+        }
+        .md-typeset .post .post-description {
+            margin: 0 1rem 0 0;
+        }
+        .md-typeset .post .post-extra {
+            margin: 0.5rem 1rem 0 0;
+            font-size: small;
+            color: darkgray;
+        }
+        .md-typeset .post .post-tags {
+            margin: 0;
+            text-align: end;
+        }
+        .md-typeset .post .post-date {
+            margin: 0;
+        }
+        .md-typeset .twemoji,
+        .md-typeset .icon-text,
+        .md-typeset .git-revision-date-localized-plugin {
+            vertical-align: middle;
+            display: inline-block;
+        }
+        /* page */
+        .md-typeset .pages>.page {
+            display: none;
+        }
+        .md-typeset .pages>.page:target {
+            display: block;
+        }
+
+        /* pagination */
+        .md-typeset .center {
+            text-align: center;
+        }
+        .md-typeset .pagination {
+            display: inline-block;
+            margin-top: 0.5em;
+        }
+        .md-typeset .pagination a {
+            color: var(--md-primary-bg-color);
+            float: left;
+            padding: 0 0.5em;
+            margin: 0 0.1em;
+            text-decoration: none;
+            border-radius: 2em;
+        }
+        .md-typeset .pagination a.active {
+            background-color: var(--md-primary-fg-color);
+            color: var(--md-primary-bg-color);
+            font-weight: bold;
+        }
+        .md-typeset .pagination a:hover:not(.active) {
+            background-color: var(--md-accent-fg-color);
+        }
+    </style>
+
+<div class="center">
+        <div class="pagination" id="pagination-top">
+            <!-- <a href="#">&laquo;</a> -->
+            {% for pg_group in blog_pages|slice(page_num) %}
+                <a class="page-number {% if loop.index==1 %}active{% endif%}" href="#page{{ loop.index }}">
+                    {{ loop.index }}
+                </a>
+            {% endfor %}
+            <!-- <a href="#">&raquo;</a> -->
+        </div>
+    </div>
+   {# pagination #}
+    <div class="pages">
+        {% for pg_group in blog_pages|slice(page_num) %}
+        <div class="page" id="page{{ loop.index }}">
+            {% for pg in pg_group %}
+                {% set pg_image = "" %}
+                {% if pg.meta and pg.meta.banner %}
+                    {% set pg_image = pg.canonical_url ~ pg.meta.banner %}
+                {% elif pg.meta and pg.meta.image %}
+                    {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
+                {% endif %}
+                <div class="post">
+                    <h4 class="post-title">
+                        <a href="{{ pg.canonical_url }}">{{ pg.title }}</a>
+                    </h4>
+                    <div class="post-info-wrap">
+                        <div class="post-info">
+                            <p class="post-description">
+                                {% if pg.meta and pg.meta.description %}
+                                    {{ pg.meta.description | truncate(200) }}
+                                {% endif %}
+                            </p>
+                            <div class="post-extra row">
+                                <div class="col">
+                                    <p class="post-date">
+                                        <span class="twemoji">
+                                            {% include ".icons/material/calendar.svg" %}
+                                        </span>
+                                        <span class="icon-text">
+                                            {{ pg.meta.git_revision_date_localized_raw_date }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% if pg_image %}
+                            <img class="post-banner " src='{{ pg_image }}' />
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="center">
+        <div class="pagination" id="pagination-bottom">
+            <!-- <a href="#">&laquo;</a> -->
+            {% for pg_group in blog_pages|slice(page_num) %}
+                <a class="page-number {% if loop.index==1 %}active{% endif%}" href="#page{{ loop.index }}">
+                    {{ loop.index }}
+                </a>
+            {% endfor %}
+            <!-- <a href="#">&raquo;</a> -->
+        </div>
+    </div>
+
+    <hr>
+
+    <p class="center">Total <b>{{ blog_pages|count }}</b> posts in {{ page_num }} pages.</p>
+
+    <script>
+        function scrollToTop() {
+            // delay a little for css to calculate windows size
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+            }, 100);
+        }
+
+        function activatePaginationLinks(name) {
+            var pagination = document.getElementById("pagination-" + name);
+            if (pagination) {
+                var links = pagination.getElementsByClassName("page-number");
+                if (links.length) {
+                    for (var i = 0; i < links.length; i++) {
+                        if (links[i].getAttribute("href") == window.location.hash) {
+                            links[i].classList.add("active");
+                        } else {
+                            links[i].classList.remove("active")
+                        }
+                    }
+                }
+            }
+        }
+
+        // show page 1 as default
+        window.location.hash = "#page1";
+
+        // listen to hash change
+        window.onhashchange = function () {
+            var hash = window.location.hash;
+            const regexp = /^#page[0-9]+$/;
+            if (regexp.test(hash)) {
+                var num = parseInt(hash.substr(5));
+                var max = parseInt(document.getElementById('page_num').dataset.value);
+                if (num >= 1 && num <= max) {
+                    activatePaginationLinks("top");
+                    activatePaginationLinks("bottom");
+                    scrollToTop();
+                    return;
+                }
+            }
+
+            window.location.hash = "#page1";
+        }
+    </script>
+
+{% else %}
+    <style>
+        .md-typeset .center {
+            text-align: center;
+        }
+    </style>
+    <p class="center">
+        No page found!
+    </p>
+{% endif %}

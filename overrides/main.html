@@ -25,10 +25,10 @@
     {% endif %}
     {% if page and page.meta and page.meta.image %}
         <meta name="twitter:card"  content="summary_large_image">
-         <meta content="{{config.site_url}}/assets/img/{{page.meta.image}}"
+         <meta content="{{config.site_url}}assets/img/{{page.meta.image}}"
                property="og:image">
          <meta name="twitter:image"
-               content="{{config.site_url}}/assets/img/{{page.meta.image}}">
+               content="{{config.site_url}}assets/img/{{page.meta.image}}">
     {% else %}
          <meta name="twitter:card"  content="summary">
             <meta content="{{config.site_url}}/assets/logo/LOGO_SEO.png"
