@@ -44,13 +44,17 @@ jobs:
         run: |
           pip install -r requirements.txt
           mkdocs gh-deploy --force --clean
-      - name: Push updateds files
+      - name: Push updated files
         run: |
           git pull
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
           rm -rf ./site/
-          git add . 
+          git add .
+          if [[ -z $(git diff --cached --name-only) ]]; then
+            echo "No changes to commit"
+            exit 0
+          fi
           fileList=$(git status --porcelain | tr -d '\n' | tr -d 'M' |tr -d '??')
           git commit -m "🏓 Publishing from ObsidianMD" -m "${fileList}"
           git push
