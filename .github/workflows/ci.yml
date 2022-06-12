@@ -21,12 +21,13 @@ jobs:
         id: changed-files
         with:
           since_last_remote_commit: true
-          separator: ","
+          separator: ";"
       - name: Install OBS2Mk
         run: |
           pip install obs2mk --upgrade
       - name: obs2mk source files
         run: |
+          IFS=$';'
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *md ]] 
               then
