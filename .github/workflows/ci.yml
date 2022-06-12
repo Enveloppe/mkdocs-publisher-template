@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: 3.10.4
       - name: get changed files
-        uses: tj-actions/changed-files@v23
+        uses: tj-actions/changed-files@v21
         id: changed-files
         with:
           since_last_remote_commit: true
@@ -25,17 +25,20 @@ jobs:
       - name: Install OBS2Mk
         run: |
           pip install obs2mk --upgrade
+      - uses: jannekem/run-python-script-action@v1
+        with:
+          script: |
+            print(${{steps.changed-files.outputs.all_changed_files}})
       - name: obs2mk source files
         run: |
           IFS=$';'
-          edited=${${{ steps.changed-files.outputs.all_changed_files }}}
-          echo $edited | iconv -f UTF-8
-          for file in ${edited}; do
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *md ]] 
               then
                 obs2mk --minimal file "$file"
               fi
             done
+          unset IFS
       - name: Mkdocs build
         run: |
           pip install -r requirements.txt
