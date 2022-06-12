@@ -147,7 +147,7 @@
             {% for pg in pg_group %}
                 {% set pg_image = "" %}
                 {% if pg.meta and pg.meta.banner %}
-                    {% set pg_image = pg.canonical_url ~ pg.meta.banner %}
+                    {% set pg_image = pg.meta.banner %}
                 {% elif pg.meta and pg.meta.image %}
                     {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
                 {% endif %}
