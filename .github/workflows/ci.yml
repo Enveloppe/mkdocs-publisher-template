@@ -28,7 +28,8 @@ jobs:
       - name: obs2mk source files
         run: |
           IFS=$';'
-          for file in ${{{ steps.changed-files.outputs.all_changed_files }}}; do
+          edited=${{ steps.changed-files.outputs.all_changed_files }}
+          for file in ${edited}; do
             if [[ "$file" == *md ]] 
               then
                 obs2mk --minimal file "$file"
