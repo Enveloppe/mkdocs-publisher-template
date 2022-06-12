@@ -27,10 +27,6 @@ jobs:
       - name: Install OBS2Mk
         run: |
           pip install obs2mk --upgrade
-      - uses: jannekem/run-python-script-action@v1
-        with:
-          script: |
-            print(${{steps.changed-files.outputs.all_changed_files}})
       - name: obs2mk source files
         run: |
           IFS=$';'
