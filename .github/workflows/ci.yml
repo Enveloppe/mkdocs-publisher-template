@@ -28,9 +28,8 @@ jobs:
       - name: obs2mk source files
         run: |
           IFS=$';'
-          edited=${{ steps.changed-files.outputs.all_changed_files }}
-          echo ${{ steps.changed-files.outputs.all_changed_files }}
-          echo ${{ steps.changed-files.outputs.all_changed_files }} | iconv -f UTF-8
+          edited=${${{ steps.changed-files.outputs.all_changed_files }}}
+          echo $edited | iconv -f UTF-8
           for file in ${edited}; do
             if [[ "$file" == *md ]] 
               then
