@@ -83,6 +83,10 @@ plugins:
   - awesome-pages
   - tooltipster-links
   - embed_file
+  - git-revision-date-localized:
+        type: date
+        fallback_to_build_date: true
+        locale: en
 extra_javascript:
   - assets/js/mathjax.js
   - assets/js/utils.js
