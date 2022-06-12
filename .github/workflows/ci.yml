@@ -27,7 +27,7 @@ jobs:
           pip install obs2mk --upgrade
       - name: obs2mk source files
         run: |
-          for file in "${{ steps.changed-files.outputs.all_changed_files }}"; do
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *md ]] 
               then
                 obs2mk --minimal file "$file"
