@@ -21,6 +21,7 @@ jobs:
         id: changed-files
         with:
           since_last_remote_commit: true
+          separator: ","
       - name: Install OBS2Mk
         run: |
           pip install obs2mk --upgrade
