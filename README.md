@@ -37,7 +37,7 @@ The blog will be published through [GitHub Page](https://pages.github.com/) usin
   - Check the run and error in `Actions` 
   - Check if the actions have the good write and read access in `settings → Actions → General → workflow permission` ![image](https://user-images.githubusercontent.com/30244939/166161294-0f4f70c2-fda5-4465-89b0-d6b1b5e6995d.png)
 
->[!Warning] In case of worfklow problem
+> [!Warning] In case of worfklow problem
 > In the [issue #4](https://github.com/obsidianMkdocs/obsidian-github-publisher/issues/4), we discover that sometimes, Github Actions refuse to run without reason. If this happend to you, please, contact the Github Support!
 
 ---
