@@ -1,15 +1,14 @@
-name: ci
+name: mkdocs conversion
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
     paths:
       - 'docs/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: startsWith(github.event.head_commit.message, '[PUBLISHER]')
     steps:
       - uses: actions/checkout@v3
         with:
@@ -18,15 +17,18 @@ jobs:
         with:
           python-version: 3.10.4
       - name: get changed files
-        uses: tj-actions/changed-files@v21
+        uses: tj-actions/changed-files@v23
         id: changed-files
         with:
-          since_last_remote_commit: true
           separator: ";"
           quotepath: "false"
+          since_last_remote_commit: true
       - name: Install OBS2Mk
         run: |
           pip install obs2mk --upgrade
+      - name: generate markdown
+        run: |
+          echo "File processed:  " >> $GITHUB_STEP_SUMMARY
       - name: obs2mk source files
         run: |
           IFS=$';'
@@ -34,6 +36,7 @@ jobs:
           for file in $changed; do
             if [[ "$file" == *md ]] 
               then
+                echo "- $file " >> $GITHUB_STEP_SUMMARY
                 obs2mk --minimal file "$file"
               fi
             done
@@ -52,3 +55,6 @@ jobs:
           fileList=$(git status --porcelain | tr -d '\n' | tr -d 'M' |tr -d '??')
           git commit -m "🏓 Publishing from ObsidianMD" -m "${fileList}"
           git push
+      - name: Ending summary
+        run: |
+          echo "🎉 Published to $PAGE_LINK" >> $GITHUB_STEP_SUMMARY
