@@ -25,8 +25,10 @@ def time_to_iso(time):
         return time
 
 def on_env(env, config, files, **kwargs):
-    print('get locale', locale.getlocale())
-    locale.setlocale(locale.LC_ALL, '')
+    with open('.github/.env', 'r', encoding='utf-8') as f:
+        locale_toSet = f.read()
+    local_toSet = locale_toSet.split('\n')[0]
+    locale.setlocale(locale.LC_ALL, locale_toSet)
     print('get locale', locale.getlocale())
     env.filters['convert_time'] = time_time
     env.filters['iso_time'] = time_to_iso
