@@ -27,6 +27,10 @@ def time_to_iso(time):
 def on_env(env, config, files, **kwargs):
     print('locale to set:', config['theme']['language'])
     print('get locale', locale.getlocale())
+    locale_toset = config['theme']['language']
+    if (locale_toset != locale_toset + '_' + locale_toset.upper()):
+        locale_toset = locale_toset + '_' + locale_toset.upper()
+    print(locale_toset)
     locale.setlocale(locale.LC_TIME,config['theme']['language'])
     env.filters['convert_time'] = time_time
     env.filters['iso_time'] = time_to_iso
