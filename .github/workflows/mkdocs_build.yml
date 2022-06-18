@@ -18,11 +18,10 @@ jobs:
     if: ${{ !startsWith(github.event.head_commit.message, '[PUBLISHER]') }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
-          python-version: 3.10.2
+          python-version: "3.10.4"
+          cache: 'pip'
       - name: Install Python dependencies
-        uses: py-actions/py-dependency-install@v3
-        with: 
-          path: requirements.txt
+        run: pip install -r requirements.txt
       - run: mkdocs gh-deploy --force --clean
