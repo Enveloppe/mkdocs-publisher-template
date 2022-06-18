@@ -16,6 +16,9 @@ def time_time(time):
         print('value error!')
         return time
 
+def time_todatetime(time):
+    return parser.parse(time)
+
 def time_to_iso(time):
     time=time.replace('-', '/')
     
@@ -29,4 +32,5 @@ def on_env(env, config, files, **kwargs):
     print('get locale', locale.getlocale())
     env.filters['convert_time'] = time_time
     env.filters['iso_time'] = time_to_iso
+    env.filters['time_todatetime'] = time_todatetime
     return env
