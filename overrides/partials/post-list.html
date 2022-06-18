@@ -37,7 +37,7 @@
             (not hidden) and not (pg.title == 'index')
         %}
             {% set datetime = pg.date |time_todatetime %}
-            {% set dateti=datetime.strftime('%d %B %Y') %}
+            {% set dateti=datetime.strftime('%d/%m/%Y') %}
             {% set _ = pg.__setattr__('new_date', dateti) %}
             {{ blog_pages.append(pg) or "" }}
         {% endif %}
