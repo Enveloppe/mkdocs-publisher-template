@@ -11,6 +11,7 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - 'requirements.txt'
+      - '.github/workflow/**'
 
 jobs:
   mkdocs:
