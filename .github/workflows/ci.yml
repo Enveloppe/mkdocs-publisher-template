@@ -25,7 +25,7 @@ jobs:
       - name: set lg outputs
         id: lg_out
         run: |
-          changed=${{ steps.changed-files.outputs.all_changed_files }}
+          changed="${{ steps.changed-files.outputs.all_changed_files }}"
           lg_steps=${#changed}
           LINK=$(head -n 1 .github/.env)
           echo "$changed"
