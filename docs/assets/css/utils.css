@@ -92,3 +92,25 @@ code {
 .md-typeset :is(.admonition, details){
     font-size: 1em;
 }
+
+[data-md-color-scheme="slate"] #mkdocs-content-password {
+    background-color:rgba(0, 0, 0, 0.11)
+}
+
+[data-md-color-scheme="default"] #mkdocs-content-password {
+    background-color:white;
+}
+
+#mkdocs-content-password {
+    border-radius: 5px;
+    height: 40px;
+    width: 50%;
+    padding-left: 10px;
+}
+
+#mkdocs-decrypt-button {
+    border-radius: 5px;
+    fill: var(--md-default-fg-color--light);
+    height: 30px;
+    width: 5%;
+}
