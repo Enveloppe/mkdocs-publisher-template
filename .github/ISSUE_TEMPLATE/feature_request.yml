@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest an idea for this project
+title: "[FR]: "
+labels: ["enhancement"]
+assignees:
+  - Mara-Li
+body:
+  - type: markdown
+    id: info-user
+    attributes:
+      value: |
+        If your request concern the [Obsidian Plugin](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-template) (including workflow and mkdocs build), create an [request](https://github.com/obsidianMkdocs/obsidian-github-publisher/issues/new?assignees=Mara-Li&labels=enhancement&template=request_form.yml&title=%5BFR%5D%3A+) here.
+  - type: textarea
+    id: describe-request
+    attributes:
+      label: Is your feature related to a problem ?
+      description: If you found a solution with the inherent limit I had with Obsidian, please, add it here! 
+      placeholder: "Tell me the original problem"
+  - type: textarea
+    id: describe-solution
+    attributes:
+      label: What solution do you want to see ?
+      description: Describe your idea here!
+    validations:
+      required: true
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Describe the alternative you've considered
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: |
+        Links? References? Anything that will give us more context about the request you want to see!
+        Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
