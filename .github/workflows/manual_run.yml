@@ -39,7 +39,7 @@ jobs:
       - name: obs2mk
         run: |
           nb_convert=0
-          files="${{ steps.locate_file.outputs.localized }}"
+          files="${{ needs.get_file.outputs.localized }}"
           IFS=$"\n"
           for file in $files; do
             if [[ "$file" == *md ]] ; then
