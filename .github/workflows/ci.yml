@@ -19,7 +19,7 @@ jobs:
         uses: tj-actions/changed-files@v23
         id: changed-files
         with:
-          separator: "\n"
+          separator: ";;;"
           quotepath: "false"
           since_last_remote_commit: "true"
       - name: set lg outputs
@@ -52,12 +52,12 @@ jobs:
           echo "File processed:  " >> $GITHUB_STEP_SUMMARY
       - name: obs2mk source files
         run: |
-          IFS=$'\n'
+          IFS=$';;;'
           changed="${{ needs.build.outputs.changed-files }}"
           for file in $changed; do
             if [[ "$file" == *md ]] 
               then
-                echo "- $file " >> $GITHUB_STEP_SUMMARY
+                echo "- $file" >> $GITHUB_STEP_SUMMARY
                 obs2mk --minimal file "$file"
               fi
             done
