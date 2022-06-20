@@ -19,7 +19,7 @@ jobs:
         uses: tj-actions/changed-files@v23
         id: changed-files
         with:
-          separator: ";"
+          separator: "\n"
           quotepath: "false"
           since_last_remote_commit: "true"
       - name: set lg outputs
@@ -51,7 +51,7 @@ jobs:
           echo "File processed:  " >> $GITHUB_STEP_SUMMARY
       - name: obs2mk source files
         run: |
-          IFS=$';'
+          IFS=$'\n'
           changed="${{ needs.build.outputs.changed-files }}"
           for file in $changed; do
             if [[ "$file" == *md ]] 
@@ -65,6 +65,7 @@ jobs:
         run: |
           mkdocs gh-deploy --force --clean
       - name: Push updated files
+        continue-on-error: true
         run: |
           git pull
           git config --global user.name 'github-actions'
