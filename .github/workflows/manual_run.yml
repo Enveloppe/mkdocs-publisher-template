@@ -18,7 +18,7 @@ jobs:
       - name: locate file
         id: locate_file
         run: |
-          files=$(find ./docs -path "${{ github.event.inputs.file }}")
+          files=$(find -path "${{ github.event.inputs.file }}" -printf "%p;;;")
           nb=${#files}
           echo "found $files"
           echo "::set-output name=localized::$files"
@@ -43,9 +43,10 @@ jobs:
           echo "found ${{ needs.get_file.outputs.localized }}"
           files="${{ needs.get_file.outputs.localized }}"
           nb_convert=0
-          IFS=$"\n"
+          IFS=$";;;"
           for file in $files; do
             if [[ "$file" == *md ]] ; then
+                echo "- $file" >> $GITHUB_STEP_SUMMARY
                 obs2mk --minimal file "$file"
                 nb_convert=$((nb_convert+1))
             fi
