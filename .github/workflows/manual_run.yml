@@ -11,8 +11,8 @@ jobs:
   get_file:
     runs-on: ubuntu-latest
     outputs:
-      localized: ${{ steps.locate_file.files }}
-      nb_file: ${{ steps.locate_file.nb_file }}
+      localized: ${{ steps.locate_file.outputs.files }}
+      nb_file: ${{ steps.locate_file.outputs.nb_file }}
     steps:
       - uses: actions/checkout@v3
       - name: locate file
@@ -20,6 +20,7 @@ jobs:
         run: |
           files=$(find ./docs -path "${{ github.event.inputs.file }}")
           nb_file=${#files}
+          echo "found $files"
           echo "::set-output name=localized::$files"
           echo "::set-output name=nb_file::$nb_file"
   convertion:
