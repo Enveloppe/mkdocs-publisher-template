@@ -62,9 +62,6 @@ jobs:
               fi
             done
           unset IFS
-      - name: Mkdocs build
-        run: |
-          mkdocs gh-deploy --force --clean
       - name: Push updated files
         continue-on-error: true
         run: |
