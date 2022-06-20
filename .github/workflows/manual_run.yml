@@ -46,9 +46,8 @@ jobs:
           IFS=$"\n"
           for file in $files; do
             if [[ "$file" == *md ]] ; then
-                echo "- $file" >> $GITHUB_STEP_SUMMARY
                 obs2mk --minimal file "$file"
-                nb_convert=$(nb_convert + 1)
+                nb_convert=$((nb_convert+1))
             fi
           done
           unset IFS
