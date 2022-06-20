@@ -23,7 +23,7 @@ jobs:
           echo "found $files"
           echo "::set-output name=localized::$files"
           echo "::set-output name=nb_file::$nb_file"
-  convertion:
+  conversion:
     runs-on: ubuntu-latest
     needs: [get_file]
     if: needs.get_file.outputs.nb_file > 0
