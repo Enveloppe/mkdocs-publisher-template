@@ -67,6 +67,8 @@
         .md-typeset .post .post-category {
             color: gray;
             font-size: small;
+            float: right;
+            width: 100%;
         }
         .md-typeset .post .post-title {
             margin: 0.25rem 0;
@@ -106,6 +108,11 @@
             vertical-align: middle;
             display: inline-block;
         }
+
+        .post-category > .twemoji {
+            vertical-align: sub;
+        }
+
         /* page */
         .md-typeset .pages>.page {
             display: none;
@@ -158,10 +165,34 @@
         <div class="page" id="page{{ loop.index }}">
             {% for pg in pg_group %}
                 {% set pg_image = "" %}
-                {% if pg.meta and pg.meta.banner %}
-                    {% set pg_image = pg.meta.banner %}
-                {% elif pg.meta and pg.meta.image %}
-                    {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
+                {% set pg_category = "" %}
+                {% set pg_description = "" %}
+                {% set category_link = "" %}
+                {% if pg.meta %}
+                    {%if pg.meta.banner %}
+                        {% set pg_image = pg.meta.banner %}
+                    {% elif pg.meta.image %}
+                        {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
+                    {% endif %}
+                    {% if pg.meta.category %}
+                        {% set pg_category = pg.meta.category | replace(page.meta.category, '') | replace('/', '') %}                
+                        {% if pg_category | length > 1 %}
+                            {% set category_link = config.docs_dir ~ "/" ~ page.meta.category ~ '/' ~ pg_category ~ '/index.md' %}
+                            {% set category_exists = category_link | page_exists %}
+                            {% if category_exists %}
+                                {% set link = pg.meta.category %}
+                                {% set link = config.site_url ~ link ~ '/' %}
+                                {% set pg_category = '<a href="' ~ link ~ '">' ~ pg_category ~ '</a>' %}
+                                <script>
+                                </script>
+                            {% endif %}
+                        {% endif %}
+                        <script>
+                        </script>
+                    {% endif %}
+                    {% if pg.meta.description %}
+                        {% set pg_description = pg.meta.description | truncate(200)%}
+                    {% endif %}
                 {% endif %}
                 <div class="post">
                     <h4 class="post-title">
@@ -170,9 +201,7 @@
                     <div class="post-info-wrap">
                         <div class="post-info">
                             <p class="post-description">
-                                {% if pg.meta and pg.meta.description %}
-                                    {{ pg.meta.description | truncate(200) }}
-                                {% endif %}
+                                {{ pg_description }}
                             </p>
                             <div class="post-extra row">
                                 <div class="col">
@@ -183,6 +212,14 @@
                                         <span class="icon-text">
                                             {{ pg.new_date }}
                                         </span>
+                                        {% if pg_category | length > 1 %}
+                                        <span class="post-category">
+                                            <span class="twemoji">
+                                                {% include ".icons/material/folder.svg" %}
+                                            </span>
+                                            {{ pg_category }}
+                                            </span>
+                                        {% endif %}
                                     </p>
                                 </div>
                             </div>
