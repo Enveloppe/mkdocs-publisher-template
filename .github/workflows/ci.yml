@@ -27,7 +27,7 @@ jobs:
         run: |
           changed="${{ steps.changed-files.outputs.all_changed_files }}"
           lg_steps=${#changed}
-          LINK=$(head -n 1 .github/.env)
+          LINK=$(head -n 1 .github/env.txt)
           echo "$changed"
           echo "$lg_steps"
           echo "::set-output name=lg_files::$lg_steps"
