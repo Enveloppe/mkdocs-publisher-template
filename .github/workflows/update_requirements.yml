@@ -1,0 +1,27 @@
+name: update requirements
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update-requirements:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: install pur
+        run: pip install pur
+      - name: Update requirements.txt
+        run: pur -r requirements.txt
+      - name: commit the new change (if found)
+        continue-on-error: true
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+          git commit -am "Update requirements"
+          git push
