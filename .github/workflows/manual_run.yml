@@ -11,7 +11,7 @@ jobs:
   get_file:
     runs-on: ubuntu-latest
     outputs:
-      localized: ${{ steps.locate_file.outputs.files }}
+      localized: ${{ steps.locate_file.outputs.localized }}
       nb_file: ${{ steps.locate_file.outputs.nb_file }}
     steps:
       - uses: actions/checkout@v3
@@ -19,16 +19,18 @@ jobs:
         id: locate_file
         run: |
           files=$(find ./docs -path "${{ github.event.inputs.file }}")
-          nb_file=${#files}
+          nb=${#files}
           echo "found $files"
           echo "::set-output name=localized::$files"
-          echo "::set-output name=nb_file::$nb_file"
+          echo "::set-output name=nb_file::$nb"
   conversion:
     runs-on: ubuntu-latest
     needs: [get_file]
     if: needs.get_file.outputs.nb_file > 0
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
           python-version: '3.10'
@@ -38,13 +40,15 @@ jobs:
           pip install -r requirements.txt
       - name: obs2mk
         run: |
-          nb_convert=0
+          echo "found ${{ needs.get_file.outputs.localized }}"
           files="${{ needs.get_file.outputs.localized }}"
+          nb_convert=0
           IFS=$"\n"
           for file in $files; do
             if [[ "$file" == *md ]] ; then
                 echo "- $file " >> $GITHUB_STEP_SUMMARY
                 obs2mk --minimal file "$file"
+                nb_convert=$(nb_convert + 1)
             fi
           done
           unset IFS
