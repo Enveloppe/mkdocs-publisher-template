@@ -52,8 +52,8 @@ jobs:
       - name: mkdocs build
         run: |
             mkdocs gh-deploy --force --clean
-            LINK=$(head -n 1 .github/.env)
-            echo "Blog online ! You can found it at: [$link]($link)" >> $GITHUB_STEP_SUMMARY
+            LINK=$(head -n 1 .github/env.txt)
+            echo "[Blog online !]($LINK)" >> $GITHUB_STEP_SUMMARY
       - name: push change
         continue-on-error: true
         run: |
