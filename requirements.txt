@@ -12,3 +12,4 @@ mkdocs-git-revision-date-localized-plugin==1.0.1
 mkdocs-encryptcontent-plugin==2.2.0
 mkdocs-simple-hooks==0.1.5
 obs2mk==4.1.1
+mkdocs-callouts @ git+https://github.com/Mara-Li/mkdocs-callouts.git@v1.3.0
