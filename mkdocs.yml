@@ -83,7 +83,6 @@ plugins:
   - awesome-pages
   - tooltipster-links
   - embed_file
-  - 
   - git-revision-date-localized:
         type: date
         fallback_to_build_date: true
