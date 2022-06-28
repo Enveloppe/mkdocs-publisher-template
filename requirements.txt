@@ -13,3 +13,4 @@ mkdocs-encryptcontent-plugin==2.2.0
 mkdocs-simple-hooks==0.1.5
 obs2mk==5.0.0
 mkdocs-callouts==1.4.0
+mkdocs-custom-tags-attributes==0.1.0
