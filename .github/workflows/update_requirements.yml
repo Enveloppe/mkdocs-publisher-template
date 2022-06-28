@@ -18,6 +18,8 @@ jobs:
         run: pip install pur
       - name: Update requirements.txt
         run: pur -r requirements.txt
+      - name: install requirements
+        run: pip install -r requirements.txt
       - name: commit the new change (if found)
         continue-on-error: true
         run: |
