@@ -61,7 +61,8 @@ markdown_extensions:
   - pymdownx.tasklist:
        custom_checkbox: true
   - pymdownx.emoji:
-      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - admonition
   - toc:
       permalink: true
@@ -91,6 +92,7 @@ plugins:
   - mkdocs-simple-hooks:
       hooks:
         on_env: "overrides.partials.hooks:on_env"
+        on_page_markdown: "overrides.partials.comments:on_page_markdown"
   - encryptcontent:
       title_prefix: '🔐'
       password_button: True
@@ -109,5 +111,7 @@ extra_css:
     - assets/css/custom_attributes.css
     - assets/css/tooltipster.bundle.min.css
     - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css
+    - assets/css/grid.css
+    - assets/css/admonition.css
 extra:
   generator: false
