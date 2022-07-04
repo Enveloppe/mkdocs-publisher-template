@@ -1,6 +1,7 @@
 from datetime import datetime
 from dateutil import parser
 from pathlib import Path
+import urllib.parse
 
 def time_time(time):
     time=time.replace('-', '/')
@@ -28,9 +29,13 @@ def time_to_iso(time):
 def page_exists(page):
     return Path(page).exists()
 
+def url_decode(url):
+    return urllib.parse.unquote(url)
+
 def on_env(env, config, files, **kwargs):
     env.filters['convert_time'] = time_time
     env.filters['iso_time'] = time_to_iso
     env.filters['time_todatetime'] = time_todatetime
     env.filters['page_exists'] = page_exists
+    env.filters['url_decode'] = url_decode
     return env

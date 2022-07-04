@@ -22,9 +22,9 @@
         {% set date = page.meta.git_creation_date_localized_raw_iso_date | iso_time %}
         {% set _ = pg.__setattr__('date', page.meta.git_creation_date_localized_raw_iso_date) %}
     {% endif %}
-    {% set main_category = pg.canonical_url | replace(config.site_url, '') %}
-    {% set main_category = main_category.split('/')[0] %}
-    {% if page.meta.category == main_category %}
+    {% set page_category = pg.url | replace('/' ~ pg.title ~ '/', '') | lower | url_decode %}
+    {% set main_category = page.meta.category | lower %}
+    {% if main_category in page_category %}
         {{ valid_pages.append(pg) or "" }}
     {% endif %}
 {% endfor %}
@@ -168,6 +168,7 @@
                 {% set pg_category = "" %}
                 {% set pg_description = "" %}
                 {% set category_link = "" %}
+                {% set main_category = page.meta.category | lower %}
                 {% if pg.meta %}
                     {%if pg.meta.banner %}
                         {% set pg_image = pg.meta.banner %}
@@ -175,9 +176,9 @@
                         {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
                     {% endif %}
                     {% if pg.meta.category %}
-                        {% set pg_category = pg.meta.category | replace(page.meta.category, '') | replace('/', '') %}                
+                        {% set pg_category = pg.meta.category | lower | replace(main_category, '') | replace('/', '') | title %}        
                         {% if pg_category | length > 1 %}
-                            {% set category_link = config.docs_dir ~ "/" ~ page.meta.category ~ '/' ~ pg_category ~ '/index.md' %}
+                            {% set category_link = config.docs_dir ~ "/" ~ main_category ~ '/' ~ pg_category ~ '/index.md' %}
                             {% set category_exists = category_link | page_exists %}
                             {% if category_exists %}
                                 {% set link = pg.meta.category %}
