@@ -10,8 +10,17 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report.
-        - If your problem concern the [Obsidian Plugin](https://github.com/obsidianMkdocs/obsidian-github-publisher) (including workflow and mkdocs build), create an [issue here](https://github.com/obsidianMkdocs/obsidian-github-publisher/issues/new?assignees=Mara-Li&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+).
-         - If your problem concern the [Python Package](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python), create the issue [here](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python/issues/new?assignees=Mara-Li&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+)
+  - type: checkboxes
+    attributes: 
+      label: Issue validator
+      description: "Thanks to check if your issue is relative to the repository. Any non relative issue will be moved and closed."
+      options:
+        - label: "My issue doesn't concern the [Obsidian Plugin](https://github.com/obsidianMkdocs/obsidian-github-publisher)
+          required: true
+        - label: "My issue doesn't concern the [Python Package](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python)"
+          required: true
+        - label: "My issue is not a question relative to [Material Mkdocs](https://squidfunk.github.io/mkdocs-material/) nor [Mkdocs](https://www.mkdocs.org/)"
+          required: true
   - type: textarea
     id: describe-bug
     attributes:
