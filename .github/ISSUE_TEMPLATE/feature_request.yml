@@ -10,9 +10,9 @@ body:
       label: Issue validator
       description: "Thanks to check if your issue is relative to the repository. Any non relative or duplicate issue will closed."
       options:
-        - label: "My issue doesn't concern the [Obsidian Plugin](https://github.com/obsidianMkdocs/obsidian-github-publisher) (*[Make an feature request here](https://github.com/obsidianMkdocs/obsidian-github-publisher/issues/new?assignees=Mara-Li&labels=enhancement&template=request_form.yml&title=%5BFR%5D%3A+)*)"
+        - label: "My issue doesn't concern the [Obsidian Plugin](https://github.com/obsidianMkdocs/obsidian-github-publisher) (*[Make a feature request here](https://github.com/obsidianMkdocs/obsidian-github-publisher/issues/new?assignees=Mara-Li&labels=enhancement&template=request_form.yml&title=%5BFR%5D%3A+)*)"
           required: true
-        - label: "My issue doesn't concern the [Python Package](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python) (*[Make an feature request here](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python/issues/new?assignees=Mara-Li&labels=enhancement&template=feature_request.yml&title=%5BFR%5D%3A+)*)"
+        - label: "My issue doesn't concern the [Python Package](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python) (*[Make a feature request here](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python/issues/new?assignees=Mara-Li&labels=enhancement&template=feature_request.yml&title=%5BFR%5D%3A+)*)"
           required: true
         - label: "My issue is not a question relative to [Material Mkdocs](https://squidfunk.github.io/mkdocs-material/) nor [Mkdocs](https://www.mkdocs.org/) (*[You can open a discussion to get help!](https://github.com/squidfunk/mkdocs-material/discussions)*)"
           required: true
