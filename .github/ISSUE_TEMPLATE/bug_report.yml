@@ -12,12 +12,12 @@ body:
         Thanks for taking the time to fill out this bug report.
   - type: checkboxes
     attributes: 
-      label: Issue validator
-      description: "Thanks to check if your issue is relative to the repository. Any non relative or duplicate issue will closed."
+      label: Issue validation
+      description: "Thanks to check if your issue is relative to the repository. Any non relative or duplicate issue will be closed."
       options:
-        - label: "My issue doesn't concern the [Obsidian Plugin](https://github.com/obsidianMkdocs/obsidian-github-publisher) (*[Make an bug issue here](https://github.com/obsidianMkdocs/obsidian-github-publisher/issues/new?assignees=Mara-Li&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+)*)"
+        - label: "My issue doesn't concern the [Obsidian Plugin](https://github.com/obsidianMkdocs/obsidian-github-publisher) (*[Make an bug report here](https://github.com/obsidianMkdocs/obsidian-github-publisher/issues/new?assignees=Mara-Li&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+)*)"
           required: true
-        - label: "My issue doesn't concern the [Python Package](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python) (*[Make an issue here](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python/issues/new?assignees=Mara-Li&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+)*)"
+        - label: "My issue doesn't concern the [Python Package](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python) (*[Make an bug report here](https://github.com/obsidianMkdocs/obsidian-mkdocs-publisher-python/issues/new?assignees=Mara-Li&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+)*)"
           required: true
         - label: "My issue is not a question relative to [Material Mkdocs](https://squidfunk.github.io/mkdocs-material/) nor [Mkdocs](https://www.mkdocs.org/) (*[You can open a discussion to get more help!](https://github.com/squidfunk/mkdocs-material/discussions)*)"
           required: true
