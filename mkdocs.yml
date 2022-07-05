@@ -36,6 +36,10 @@ theme:
         - navigation.tabs
         - navigation.tabs.sticky
         - navigation.expand
+        - navigation.instant
+        - search.suggest
+        - search.highlight
+        
 # Extensions
 markdown_extensions:
   - footnotes
@@ -91,8 +95,8 @@ plugins:
         locale: en
   - mkdocs-simple-hooks:
       hooks:
-        on_env: "overrides.partials.hooks:on_env"
-        on_page_markdown: "overrides.partials.comments:on_page_markdown"
+        on_env: "overrides.hooks.on_env:on_env"
+        on_page_markdown: "overrides.hooks.on_page_markdown:on_page_markdown"
   - encryptcontent:
       title_prefix: '🔐'
       password_button: True
