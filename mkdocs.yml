@@ -1,6 +1,6 @@
-site_name: your_site_name
+site_name: PXL Projectmanagement
 site_description: A cool description
-site_url: https://mara-li.github.io/obsidian-mkdocs-publisher-template/
+site_url: https://janc-pxl.github.io/pxl-projectmanagement-d
 
 theme:
     name: 'material'
