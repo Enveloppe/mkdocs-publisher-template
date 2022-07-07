@@ -3,6 +3,10 @@ from dateutil import parser
 from pathlib import Path
 import urllib.parse
 
+def logging(text):
+    print(text)
+    return ''
+
 def time_time(time):
     time=time.replace('-', '/')
     time = parser.parse(time).isoformat()
@@ -38,4 +42,5 @@ def on_env(env, config, files, **kwargs):
     env.filters['time_todatetime'] = time_todatetime
     env.filters['page_exists'] = page_exists
     env.filters['url_decode'] = url_decode
+    env.filters['logging'] = logging
     return env

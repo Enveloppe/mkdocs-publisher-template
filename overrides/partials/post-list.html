@@ -178,14 +178,12 @@
                     {% if pg.meta.category %}
                         {% set pg_category = pg.meta.category | lower | replace(main_category, '') | replace('/', '') | title %}        
                         {% if pg_category | length > 1 %}
-                            {% set category_link = config.docs_dir ~ "/" ~ main_category ~ '/' ~ pg_category ~ '/index.md' %}
+                            {% set category_link = config.docs_dir ~ "/" ~ page.meta.category ~ '/' ~ pg_category ~ '/index.md' %}
                             {% set category_exists = category_link | page_exists %}
                             {% if category_exists %}
                                 {% set link = pg.meta.category %}
                                 {% set link = config.site_url ~ link ~ '/' %}
                                 {% set pg_category = '<a href="' ~ link ~ '">' ~ pg_category ~ '</a>' %}
-                                <script>
-                                </script>
                             {% endif %}
                         {% endif %}
                         <script>
