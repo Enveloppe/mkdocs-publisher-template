@@ -23,18 +23,17 @@
         <meta name="og:description" content="{{ config.site_description }}">
         <meta name="twitter:description" content="{{ config.site_description }}">
     {% endif %}
+    {% set image = config.site_url ~ config.extra['SEO'] %}
     {% if page and page.meta %}
         {% if page.meta.image %}
-                {% set image = config.site_url ~ 'assets/img/' ~ page.meta.image %}
+          {% set image = config.site_url ~ 'assets/img/' ~ page.meta.image %}
         {% elif page.meta.banner %}
-                {% set image = page.meta.banner %}
+          {% set image = page.meta.banner %}
         {% endif %}
-    {% else %}
-        {% set image = config.site_url ~ 'assets/img/LOGO_SEO.png' %}
     {% endif %}
-        <meta name="twitter:card" content="summary_large_image">
-        <meta content="{{ image }}"
-              property="og:image">
-        <meta name="twitter:image"
-              content="{{ image }}">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta content="{{ image }}"
+            property="og:image">
+      <meta name="twitter:image"
+            content="{{ image }}">
 {% endblock %}
