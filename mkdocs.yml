@@ -110,13 +110,15 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - assets/js/tooltipster.bundle.js  
 extra_css:
-    - assets/css/img-grids-floats.css
-    - assets/css/utils.css
-    - assets/css/custom_attributes.css
-    - assets/css/tooltipster.bundle.min.css
     - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css
-    - assets/css/grid.css
+    - assets/css/template/blog.css
+    - assets/css/template/grid.css
+    - assets/css/template/img-grids-float.css
+    - assets/css/template/tooltipster.bundle.min.css
+    - assets/css/template/utils.css
     - assets/css/admonition.css
+    - assets/css/custom_attributes.css
+    - assets/css/customization.css
 extra:
   generator: false
   SEO: assets/logo/SEO.png
