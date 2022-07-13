@@ -1,4 +1,4 @@
-name: mkdocs_build
+name: Building Mkdocs Page
 
 on:
   workflow_dispatch:
@@ -15,9 +15,10 @@ on:
 jobs:
   mkdocs:
     runs-on: ubuntu-latest
-    if: ${{ !startsWith(github.event.head_commit.message, '[PUBLISHER]') }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
