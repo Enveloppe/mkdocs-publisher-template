@@ -1,0 +1,129 @@
+name: Index Creation
+
+on: 
+  workflow_dispatch:
+    inputs:
+      category_name:
+        type: string
+        required: true
+        description: "The new folder name"
+      path:
+        type: string
+        required: false
+        description: "The path of the new folder. Ex: category/subcategory"
+      description: 
+        type: string
+        required: false
+        description: "The description of the category."
+      toc_hide:
+        type: boolean
+        required: false
+        description: "Hide the toc in the index file."
+      nav_hide:
+        type: boolean
+        required: false
+        description: "Hide the navigation menu in the index file."
+      dry_run:
+        type: boolean
+        required: false
+        description: "Do not create new category index, just log."
+jobs:
+  runner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo variable
+        run: |
+          echo "📫 Commands arguments" >> $GITHUB_STEP_SUMMARY
+          echo "- Category name : ${{ inputs.category_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Parent path : ${{ inputs.path }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Description : ${{ inputs.description }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Hide toc ? ${{ inputs.toc_hide }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Hide nav ? ${{ inputs.nav_hide }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Dry run ? ${{ inputs.dry_run }}" >> $GITHUB_STEP_SUMMARY
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install requirements
+        run: pip install pyyaml
+      - name: Gettings arguments
+        id: args
+        run: |
+          echo 🔁 Get python arguments
+          echo "💠Arguments : "
+          toc_hide=''
+          nav_hide=''
+          dry_run=''
+          description=''
+          parent=''
+          desc="${{ inputs.description }}"
+          desc_len=${#desc}
+          path="${{ inputs.path }}"
+          path_len=${#path}
+          if [[ "${{inputs.dry_run}}" == "true" ]]
+          then
+            dry_run='--dry-run'
+            echo "--dry-run"
+          fi
+          if [[ "${{inputs.toc_hide}}" == "true" ]]
+          then
+            toc_hide='--toc'
+            echo "--toc"
+          fi
+          if [[ "${{inputs.nav_hide}}" == "true" ]]
+          then
+            nav_hide='--nav'
+            echo "--nav"
+          fi
+          if [[ $desc_len -ge 1 ]]
+          then
+            description='--description "${{inputs.description}}"'
+            echo $description
+          fi
+          if [[ $path_len -ge 1 ]]
+          then
+            parent='--parent "${{inputs.path}}"'
+            echo $parent
+          fi
+          echo "::set-output name=dry_run::$dry_run"
+          echo "::set-output name=toc_hide::$toc_hide"
+          echo "::set-output name=nav_hide::$nav_hide"
+          echo "::set-output name=description::$description"
+          echo "::set-output name=parent::$parent"
+      - name: Creating index
+        run: |
+          echo "🐍 Creating category"
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          python3 category.py "${{ inputs.category_name }}" ${{steps.args.outputs.dry_run}} ${{ steps.args.outputs.toc_hide }} ${{ steps.args.outputs.nav_hide }} ${{ steps.args.outputs.description }} ${{ steps.args.outputs.parent }} >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+      - name: Set github accounts
+        if: ${{ inputs.dry_run == false }}
+        run: |
+          echo "🗃️ Set github accounts"
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+      - name: mkdocs build
+        if: ${{ inputs.dry_run == false }}
+        run: |
+          echo "💠Deploy to mkdocs"
+          pip install -r requirements.txt
+          mkdocs gh-deploy --force --clean
+      - name: Push new files
+        if: ${{ inputs.dry_run == false }}
+        run: |
+          echo "📤 Push to repository"
+          git pull
+          rm -rf ./site/
+          git add .
+          git commit -am "Index created"
+          git push
+
+
+
+
+
+
