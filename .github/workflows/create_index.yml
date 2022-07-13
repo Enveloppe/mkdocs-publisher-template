@@ -98,7 +98,7 @@ jobs:
           echo "🐍 Creating category"
           echo "---" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          python3 category.py "${{ inputs.category_name }}" ${{steps.args.outputs.dry_run}} ${{ steps.args.outputs.toc_hide }} ${{ steps.args.outputs.nav_hide }} ${{ steps.args.outputs.description }} ${{ steps.args.outputs.parent }} >> $GITHUB_STEP_SUMMARY
+          python3 overrides/hooks/category.py "${{ inputs.category_name }}" ${{steps.args.outputs.dry_run}} ${{ steps.args.outputs.toc_hide }} ${{ steps.args.outputs.nav_hide }} ${{ steps.args.outputs.description }} ${{ steps.args.outputs.parent }} >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
       - name: Set github accounts
         if: ${{ inputs.dry_run == false }}
