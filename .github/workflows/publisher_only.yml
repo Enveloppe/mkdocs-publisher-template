@@ -1,0 +1,28 @@
+name: Building Mkdocs Page
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'README.md'
+      - 'overrides/**'
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements.txt'
+
+jobs:
+  mkdocs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - run: mkdocs gh-deploy --force --clean
