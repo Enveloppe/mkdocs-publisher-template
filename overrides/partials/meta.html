@@ -1,0 +1,54 @@
+
+{% set title = config.site_name %}
+{% if page and page.meta and page.meta.title %}
+    {% set title = page.meta.title %}
+{% elif page and page.title and not page.is_homepage %}
+    {% set title = page.title %}
+{% endif %}
+<meta
+    property="og:title"
+    content="{{ title }}"
+>
+<meta
+    name="twitter:title"
+    content="{{ title }}"
+>
+{% if page and page.meta and page.meta.description %}
+    <meta
+        name="description"
+        content="{{ page.meta.description }}"
+    >
+    <meta
+        name="twitter:description"
+        content="{{ page.meta.description }}"
+    >
+{% else %}
+    <meta
+        name="og:description"
+        content="{{ config.site_description }}"
+    >
+    <meta
+        name="twitter:description"
+        content="{{ config.site_description }}"
+    >
+{% endif %}
+{% set image = config.site_url ~ config.extra['SEO'] %}
+{% if page and page.meta %}
+    {% if page.meta.image %}
+        {% set image = config.site_url ~ 'assets/img/' ~ page.meta.image %}
+    {% elif page.meta.banner %}
+        {% set image = page.meta.banner %}
+    {% endif %}
+{% endif %}
+<meta
+    name="twitter:card"
+    content="summary_large_image"
+>
+<meta
+    content="{{ image }}"
+    property="og:image"
+>
+<meta
+    name="twitter:image"
+    content="{{ image }}"
+>
