@@ -17,7 +17,7 @@ jobs:
       - name: install pur
         run: pip install pur
       - name: Update requirements.txt
-        run: pur -r requirements.txt
+        run: pur -r requirements.txt --skip Markdown
       - name: install requirements
         run: pip install -r requirements.txt
       - name: commit the new change (if found)
