@@ -4,7 +4,7 @@ mkdocs-mermaid2-plugin==0.6.0
 mkdocs-ezlinked-plugin==0.3.0
 mkdocs-awesome-pages-plugin==2.7.0
 mdx_breakless_lists==1.0.1
-mkdocs-preview-links-plugin==0.4.0
+mkdocs-preview-links-plugin==0.5.0
 mkdocs-embed-file-plugins==1.4.0
 Markdown==3.4.1
 mkdocs_custom_fences==0.1.1
