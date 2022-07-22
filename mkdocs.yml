@@ -36,7 +36,6 @@ theme:
         - navigation.tabs
         - navigation.tabs.sticky
         - navigation.expand
-        - navigation.instant
         - search.suggest
         - search.highlight
         
@@ -74,9 +73,6 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences:
       custom_fences:
-        - name: dataview
-          class: dataview
-          format: !!python/name:pymdownx.superfences.fence_div_format
         - name: mermaid
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid
@@ -86,8 +82,14 @@ plugins:
         wikilinks: true
   - mermaid2
   - awesome-pages
-  - tooltipster-links
-  - embed_file
+  - tooltipster-links:
+      callouts: true
+      custom-attributes: 'assets/css/custom_attributes.css'
+      max-characters: 500
+      truncate-character: '...'
+  - embed_file:
+      callouts: true
+      custom-attributes: 'assets/css/custom_attributes.css'
   - callouts
   - git-revision-date-localized:
         type: date
