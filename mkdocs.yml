@@ -1,6 +1,6 @@
 site_name: your_site_name
 site_description: A cool description
-site_url: https://mara-li.github.io/obsidian-mkdocs-publisher-template/
+site_url: https://change_me.io/
 
 theme:
     name: 'material'
@@ -8,7 +8,7 @@ theme:
     favicon: assets/logo/favicons.png
     custom_dir: overrides
     font:
-        text: Karla
+        text: Ubuntu
         code: Ubuntu Mono
     language: en
     palette:
