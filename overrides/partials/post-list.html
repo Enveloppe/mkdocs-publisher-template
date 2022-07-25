@@ -14,218 +14,214 @@
 {# page collection #}
 {% set valid_pages=[] %}
 {% for p in pages %}
-{% set pg = p.page %}
-{% if pg.meta and pg.meta.date %}
-{% set date = pg.meta.date | iso_time %}
-{% set _ = pg.__setattr__("date", date) %}
-{% else %}
-{% set date = page.meta.git_creation_date_localized_raw_iso_date | iso_time %}
-{% set _ = pg.__setattr__('date', page.meta.git_creation_date_localized_raw_iso_date) %}
-{% endif %}
-{% set page_category = pg.url | replace('/' ~ pg.title ~ '/', '') | lower | url_decode %}
-{% set main_category = page.meta.category | lower %}
-{% if main_category in page_category %}
-{{ valid_pages.append(pg) or "" }}
-{% endif %}
+    {% set pg = p.page %}
+    {% if pg.meta and pg.meta.date %}
+        {% set date = pg.meta.date | iso_time %}
+        {% set _ = pg.__setattr__("date", date) %}
+    {% else %}
+        {% set date = page.meta.git_creation_date_localized_raw_iso_date | iso_time %}
+        {% set _ = pg.__setattr__('date', page.meta.git_creation_date_localized_raw_iso_date) %}
+    {% endif %}
+    {% set page_category = pg.url | replace('/' ~ pg.title ~ '/', '') | lower | url_decode %}
+    {% set main_category = page.meta.category | lower %}
+    {% if main_category in page_category %}
+        {{ valid_pages.append(pg) or "" }}
+    {% endif %}
 {% endfor %}
 
 {% set blog_pages=[] %}
 {% for pg in valid_pages | sort(attribute = 'date', reverse=True) %}
-{% set hidden = true if (pg.meta and pg.meta.hidden) %}
-{% if (not pg.is_homepage) and
-(not pg.markdown == '') and
-(not hidden) and not (pg.title == 'index')
-%}
-{% set datetime = pg.date |time_todatetime %}
-{% set dateti=datetime.strftime('%d/%m/%Y') %}
-{% set _ = pg.__setattr__('new_date', dateti) %}
-{{ blog_pages.append(pg) or "" }}
-{% endif %}
+    {% set hidden = true if (pg.meta and pg.meta.hidden) %}
+    {% if (not pg.is_homepage) and
+        (not pg.markdown == '') and
+        (not hidden) and not (pg.title == 'index')
+    %}
+        {% set datetime = pg.date |time_todatetime %}
+        {% set dateti=datetime.strftime('%d/%m/%Y') %}
+        {% set _ = pg.__setattr__('new_date', dateti) %}
+        {{ blog_pages.append(pg) or "" }}
+    {% endif %}
 {% endfor %}
 
 {% if blog_pages|count > 0 %}
+    {# count the number of pages #}
+    {% set page_num = (blog_pages|count / 10)|round(method='ceil')|int %}
 
-{# count the number of pages #}
-{% set page_num = (blog_pages|count / 10)|round(method='ceil')|int %}
-
-<div
-    id="page_num"
-    data-value="{{page_num}}"
-></div>
-
-<div class="center">
     <div
-        class="pagination"
-        id="pagination-top"
-    >
-        <!-- <a href="#">&laquo;</a> -->
-        {% for pg_group in blog_pages|slice(page_num) %}
-        <a
-            class="page-number {% if loop.index==1 %}active{% endif%}"
-            href="#page{{ loop.index }}"
+        id="page_num"
+        data-value="{{page_num}}"
+    ></div>
+
+    <div class="center">
+        <div
+            class="pagination"
+            id="pagination-top"
         >
-            {{ loop.index }}
-        </a>
-        {% endfor %}
-        <!-- <a href="#">&raquo;</a> -->
+            <!-- <a href="#">&laquo;</a> -->
+            {% for pg_group in blog_pages|slice(page_num) %}
+            <a
+                class="page-number {% if loop.index==1 %}active{% endif%}"
+                href="#page{{ loop.index }}"
+            >
+                {{ loop.index }}
+            </a>
+            {% endfor %}
+            <!-- <a href="#">&raquo;</a> -->
+        </div>
     </div>
-</div>
-{# pagination #}
-<div class="pages">
-    {% for pg_group in blog_pages|slice(page_num) %}
-    <div
-        class="page"
-        id="page{{ loop.index }}"
-    >
-        {% for pg in pg_group %}
-        {% set pg_image = "" %}
-        {% set pg_category = "" %}
-        {% set pg_description = "" %}
-        {% set category_link = "" %}
-        {% set main_category = page.meta.category | lower %}
-        {% if pg.meta %}
-        {%if pg.meta.banner %}
-        {% set pg_image = pg.meta.banner %}
-        {% elif pg.meta.image %}
-        {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
-        {% endif %}
-        {% if pg.meta.category %}
-        {% set pg_category = pg.meta.category | lower | replace(main_category, '') | replace('/', '') | title %}
-        {% if pg_category | length > 1 %}
-        {% set category_link = config.docs_dir ~ "/" ~ page.meta.category ~ '/' ~ pg_category ~ '/index.md' %}
-        {% set category_exists = category_link | page_exists %}
-        {% if category_exists %}
-        {% set link = pg.meta.category %}
-        {% set link = config.site_url ~ link ~ '/' %}
-        {% set pg_category = '<a href="' ~ link ~ '">' ~ pg_category ~ '</a>' %}
-        {% endif %}
-        {% endif %}
-        <script>
-        </script>
-        {% endif %}
-        {% if pg.meta.description %}
-        {% set pg_description = pg.meta.description | truncate(200)%}
-        {% endif %}
-        {% endif %}
-        <div class="post">
-            <h4 class="post-title">
-                <a href="{{ pg.canonical_url }}">{{ pg.title }}</a>
-            </h4>
-            <div class="post-info-wrap">
-                <div class="post-info">
-                    <p class="post-description">
-                        {{ pg_description }}
-                    </p>
-                    <div class="post-extra row">
-                        <div class="col">
-                            <p class="post-date">
-                                <span class="twemoji">
-                                    {% include ".icons/material/calendar.svg" %}
-                                </span>
-                                <span class="icon-text">
-                                    {{ pg.new_date }}
-                                </span>
-                                {% if pg_category | length > 1 %}
-                                <span class="post-category">
-                                    <span class="twemoji">
-                                        {% include ".icons/material/folder.svg" %}
-                                    </span>
-                                    {{ pg_category }}
-                                </span>
-                                {% endif %}
+    {# pagination #}
+    <div class="pages">
+        {% for pg_group in blog_pages|slice(page_num) %}
+            <div
+                class="page"
+                id="page{{ loop.index }}"
+            >
+            {% for pg in pg_group %}
+                {% set pg_image = "" %}
+                {% set pg_category = "" %}
+                {% set pg_description = "" %}
+                {% set category_link = "" %}
+                {% set main_category = page.meta.category | lower %}
+                {% if pg.meta %}
+                    {% if pg.meta.banner %}
+                        {% set pg_image = pg.meta.banner %}
+                    {% elif pg.meta.image %}
+                        {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
+                    {% endif %}
+                    {% if pg.meta.category %}
+                        {% set pg_category = pg.meta.category | lower | replace(main_category, '') | replace('/', '') | title %}
+                        {% if pg_category | length > 1 %}
+                            {% set category_link = config.docs_dir ~ "/" ~ page.meta.category ~ '/' ~ pg_category ~ '/index.md' %}
+                            {% set category_exists = category_link | page_exists %}
+                            {% if category_exists %}
+                                {% set link = pg.meta.category %}
+                                {% set link = config.site_url ~ link ~ '/' %}
+                                {% set pg_category = '<a href="' ~ link ~ '">' ~ pg_category ~ '</a>' %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    {% if pg.meta.description %}
+                        {% set pg_description = pg.meta.description | truncate(200)%}
+                    {% endif %}
+                {% endif %}
+                <div class="post">
+                    <h4 class="post-title">
+                        <a href="{{ pg.canonical_url }}">{{ pg.title }}</a>
+                    </h4>
+                    <div class="post-info-wrap">
+                        <div class="post-info">
+                            <p class="post-description">
+                                {{ pg_description }}
                             </p>
+                            <div class="post-extra row">
+                                <div class="col">
+                                    <p class="post-date">
+                                        <span class="twemoji">
+                                            {% include ".icons/material/calendar.svg" %}
+                                        </span>
+                                        <span class="icon-text">
+                                            {{ pg.new_date }}
+                                        </span>
+                                        {% if pg_category | length > 1 %}
+                                        <span class="post-category">
+                                            <span class="twemoji">
+                                                {% include ".icons/material/folder.svg" %}
+                                            </span>
+                                            {{ pg_category }}
+                                        </span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
+                        {% if pg_image %}
+                        <img
+                            class="post-banner "
+                            src='{{ pg_image }}'
+                        />
+                        {% endif %}
                     </div>
                 </div>
-                {% if pg_image %}
-                <img
-                    class="post-banner "
-                    src='{{ pg_image }}'
-                />
-                {% endif %}
-            </div>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
 
-<div class="center">
-    <div
-        class="pagination"
-        id="pagination-bottom"
-    >
-        <!-- <a href="#">&laquo;</a> -->
-        {% for pg_group in blog_pages|slice(page_num) %}
-        <a
-            class="page-number {% if loop.index==1 %}active{% endif%}"
-            href="#page{{ loop.index }}"
+    <div class="center">
+        <div
+            class="pagination"
+            id="pagination-bottom"
         >
-            {{ loop.index }}
-        </a>
-        {% endfor %}
-        <!-- <a href="#">&raquo;</a> -->
+            <!-- <a href="#">&laquo;</a> -->
+            {% for pg_group in blog_pages|slice(page_num) %}
+            <a
+                class="page-number {% if loop.index==1 %}active{% endif%}"
+                href="#page{{ loop.index }}"
+            >
+                {{ loop.index }}
+            </a>
+            {% endfor %}
+            <!-- <a href="#">&raquo;</a> -->
+        </div>
     </div>
-</div>
 
-<hr>
+    <hr>
 
-<p class="center">Total <b>{{ blog_pages|count }}</b> posts in {{ page_num }} pages.</p>
+    <p class="center">Total <b>{{ blog_pages|count }}</b> posts in {{ page_num }} pages.</p>
 
-<script>
-    function scrollToTop() {
-        // delay a little for css to calculate windows size
-        setTimeout(function () {
-            window.scrollTo(0, 0);
-        }, 100);
-    }
+    <script>
+        function scrollToTop() {
+            // delay a little for css to calculate windows size
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+            }, 100);
+        }
 
-    function activatePaginationLinks(name) {
-        var pagination = document.getElementById("pagination-" + name);
-        if (pagination) {
-            var links = pagination.getElementsByClassName("page-number");
-            if (links.length) {
-                for (var i = 0; i < links.length; i++) {
-                    if (links[i].getAttribute("href") == window.location.hash) {
-                        links[i].classList.add("active");
-                    } else {
-                        links[i].classList.remove("active")
+        function activatePaginationLinks(name) {
+            var pagination = document.getElementById("pagination-" + name);
+            if (pagination) {
+                var links = pagination.getElementsByClassName("page-number");
+                if (links.length) {
+                    for (var i = 0; i < links.length; i++) {
+                        if (links[i].getAttribute("href") == window.location.hash) {
+                            links[i].classList.add("active");
+                        } else {
+                            links[i].classList.remove("active")
+                        }
                     }
                 }
             }
         }
-    }
 
-    // show page 1 as default
-    window.location.hash = "#page1";
-
-    // listen to hash change
-    window.onhashchange = function () {
-        var hash = window.location.hash;
-        const regexp = /^#page[0-9]+$/;
-        if (regexp.test(hash)) {
-            var num = parseInt(hash.substr(5));
-            var max = parseInt(document.getElementById('page_num').dataset.value);
-            if (num >= 1 && num <= max) {
-                activatePaginationLinks("top");
-                activatePaginationLinks("bottom");
-                scrollToTop();
-                return;
-            }
-        }
-
+        // show page 1 as default
         window.location.hash = "#page1";
-    }
-</script>
 
+        // listen to hash change
+        window.onhashchange = function () {
+            var hash = window.location.hash;
+            const regexp = /^#page[0-9]+$/;
+            if (regexp.test(hash)) {
+                var num = parseInt(hash.substr(5));
+                var max = parseInt(document.getElementById('page_num').dataset.value);
+                if (num >= 1 && num <= max) {
+                    activatePaginationLinks("top");
+                    activatePaginationLinks("bottom");
+                    scrollToTop();
+                    return;
+                }
+            }
+
+            window.location.hash = "#page1";
+        }
+    </script>
 {% else %}
-<style>
-    .md-typeset .center {
-        text-align: center;
-    }
-</style>
-<p class="center">
-    No page found!
-</p>
+    <style>
+        .md-typeset .center {
+            text-align: center;
+        }
+    </style>
+    <p class="center">
+        No page found!
+    </p>
 {% endif %}
