@@ -26,8 +26,21 @@
     filter: saturate(200%);
 }
 
-.tooltip_templates {
+.tooltipster-base {
+    max-width: 50%;
+}
+
+.tooltipster-content img.wikilink {
+    max-width: 10%;
+}
+
+.tooltip_templates,
+.tooltipster-arrow {
     display: none;
+}
+
+.tooltipster-content {
+    font-size: 16px;
 }
 
 [data-md-color-scheme="slate"] .tooltipster-sidetip .tooltipster-box {
@@ -44,7 +57,6 @@
     color: black !important;
     font-family: var(--md-text-font-family);
 }
-
 [data-md-color-scheme="default"] .citation {
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
