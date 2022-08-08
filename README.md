@@ -102,10 +102,6 @@ To gain deploy time and bandswith, you need to desactivate the deploy preview. T
 > [!note]
 > It can be possible that you need to remove your `gh-pages` in GitHub to remove GitHub Pages.
 
-Afin de gagner du temps sur la build et économiser votre bande passante/temps de déploiement, vous devez désactiver la prévisualisation du blog à chaque push. 
-Pour cela, rendez-vous dans le menu `settings` -> `build & deploy` -> `deploy-previews`
-![picture 1](https://i.imgur.com/DNS0DdX.png)  
-
 > [!info] Pros/cons
 >> [!info] Pros
 >> - Faster than GitHub Pages (1min vs 3min)
