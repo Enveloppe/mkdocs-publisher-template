@@ -1,3 +1,4 @@
+
 .md-typeset hr {
     margin: 0;
 }
@@ -6,13 +7,23 @@
 .md-typeset .post {
     margin-bottom: 1rem;
     padding: 1em;
-    border: 1px solid var(--md-default-fg-color--lightest);
-    border-radius: 5px;
-    background-color: var(--md-default-fg-color--lightest);
+    transition: all 0.3s ease-in-out;
+    left: 0;
+    position: relative;
 }
 
 .post:hover {
-    border: none;
+    left: 10px;
+    position: relative;
+    border-radius: 5px;
+}
+
+[data-md-color-scheme="default"] .post:hover {
+        box-shadow: 3px 4px 10px #2f2f2f;
+}
+
+[data-md-color-scheme="slate"] .post:hover {
+        box-shadow: 3px 4px 10px #0000009e;
 }
 
 .md-typeset .post .post-category {
