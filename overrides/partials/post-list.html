@@ -8,8 +8,6 @@
     {{ page.content }}
 </p>
 
-<hr>
-
 
 {# page collection #}
 {% set valid_pages=[] %}
@@ -46,29 +44,35 @@
 {% if blog_pages|count > 0 %}
     {# count the number of pages #}
     {% set page_num = (blog_pages|count / 10)|round(method='ceil')|int %}
-
-    <div
-        id="page_num"
-        data-value="{{page_num}}"
-    ></div>
-
-    <div class="center">
+    {% set pagination_translation = "posts in" %}
+    {% if config.extra['pagination'] %}
+        {% if config.extra["pagination_translation"] %}
+            {% set pagination_translation = config.extra["pagination_translation"] %}
+        {% endif %}
+        <hr>
         <div
-            class="pagination"
-            id="pagination-top"
-        >
-            <!-- <a href="#">&laquo;</a> -->
-            {% for pg_group in blog_pages|slice(page_num) %}
-            <a
-                class="page-number {% if loop.index==1 %}active{% endif%}"
-                href="#page{{ loop.index }}"
+            id="page_num"
+            data-value="{{page_num}}"
+        ></div>
+
+        <div class="center">
+            <div
+                class="pagination"
+                id="pagination-top"
             >
-                {{ loop.index }}
-            </a>
-            {% endfor %}
-            <!-- <a href="#">&raquo;</a> -->
+                <!-- <a href="#">&laquo;</a> -->
+                {% for pg_group in blog_pages|slice(page_num) %}
+                <a
+                    class="page-number {% if loop.index==1 %}active{% endif%}"
+                    href="#page{{ loop.index }}"
+                >
+                    {{ loop.index }}
+                </a>
+                {% endfor %}
+                <!-- <a href="#">&raquo;</a> -->
+            </div>
         </div>
-    </div>
+    {% endif %}
     {# pagination #}
     <div class="pages">
         {% for pg_group in blog_pages|slice(page_num) %}
@@ -147,28 +151,30 @@
         {% endfor %}
     </div>
 
-
-    <div class="center">
-        <div
-            class="pagination"
-            id="pagination-bottom"
-        >
-            <!-- <a href="#">&laquo;</a> -->
-            {% for pg_group in blog_pages|slice(page_num) %}
-            <a
-                class="page-number {% if loop.index==1 %}active{% endif%}"
-                href="#page{{ loop.index }}"
+    {% if config.extra['pagination'] %}
+        <div class="center">
+            <div
+                class="pagination"
+                id="pagination-bottom"
             >
-                {{ loop.index }}
-            </a>
-            {% endfor %}
-            <!-- <a href="#">&raquo;</a> -->
+                <!-- <a href="#">&laquo;</a> -->
+                {% for pg_group in blog_pages|slice(page_num) %}
+                <a
+                    class="page-number {% if loop.index==1 %}active{% endif%}"
+                    href="#page{{ loop.index }}"
+                >
+                    {{ loop.index }}
+                </a>
+                {% endfor %}
+                <!-- <a href="#">&raquo;</a> -->
+            </div>
         </div>
-    </div>
+    {% endif %}
 
-    <hr>
-
-    <p class="center">Total <b>{{ blog_pages|count }}</b> posts in {{ page_num }} pages.</p>
+    {% if config.extra["pagination"] %}
+        <hr>
+        <p class="center">Total <b>{{ blog_pages|count }}</b> {{ pagination_translation }} {{ page_num }} pages.</p>
+    {% endif %}
 
     <script>
         function scrollToTop() {
