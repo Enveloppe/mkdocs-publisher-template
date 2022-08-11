@@ -1,12 +1,16 @@
 ---
-title: Configuration
-share: true
+title: Créer & publier votre propre blog
 ---
 
-## Configuration
 ## Configuration de Mkdocs
 
-Dans votre nouveau dossier `publish_blog`, vous trouverez un `mkdocs.yml`. Ce fichier vous permet de personnaliser votre blog ! Les plus importants à éditer :
+Vous avez besoin de configurer à la fois le module Obsidian et mkdocs afin que tout fonctionne proprement.
+
+Vous pouvez obtenir plus d'information au sujet de la création de site via Material Mkdocs [ici](https://squidfunk.github.io/mkdocs-material/creating-your-site/#advanced-configuration).
+
+Au sein de votre template nouvellement clonée, vous trouverez un `mkdocs.yml`. Ce fichier vous permet de personnaliser votre blog ! 
+
+Les plus importants à éditer :
 1. `site_name` 
 2. `site_description`
 3. `site_url` (critique) : Par défaut, c'est `https://github_username.io/repo_name` [^1]
@@ -14,6 +18,7 @@ Dans votre nouveau dossier `publish_blog`, vous trouverez un `mkdocs.yml`. Ce fi
 Pour modifier le logo et le favicon, mettez d'abord le fichier choisi dans `assets/logo`, et changez `logo` et `favicon` :
 1. `logo : assets/meta/logo_name.png`
 2. `favicon : assets/meta/favicon.png`.
+3. `extra` : `SEO : 'assets/meta/LOGO_SEO.png'` afin de faire fonctionner proprement les SEO.
 
 Vous pouvez personnaliser :
 - Police
@@ -24,27 +29,8 @@ Vous pouvez personnaliser :
 
 Vous n'avez pas besoin de toucher à quoi que ce soit dans `features` ; `markdown_extensions...`
 
-### Plugins
 
-Le fichier `mkdocs.yml` contient également la configuration de [Mkdocs Plugin] (https://www.mkdocs.org/dev-guide/plugins/). Si vous ajoutez le plugin, vous **devez** l'ajouter à votre `requirements.txt` car la build l'utilise pour construire le blog.
-
-J'ai inclus :
-- [Ezlinks (from mkdocs-ezlinked-plugin)](https://pypi.org/project/mkdocs-ezlinked-plugin/) : to support directly wikilinks
-- [Mermaid2](https://github.com/fralau/mkdocs-mermaid2-plugin)
-- [Awesome pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin)
-- [Tooltipster-links (from mkdocs-preview-links-plugin)](https://github.com/Mara-Li/mkdocs-preview-links-plugin)
-- [Embed File](https://github.com/Mara-Li/mkdocs_embed_file_plugins), to support embedding file as in Obsidian (with the `![](file)` or `![[file]]` syntax)
-- [Git revision date localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin), to add a date listing 
-- [Mkdocs Simple Hooks](https://pypi.org/project/mkdocs-simple-hooks/), to allow creating simple python script for mkdocs (including jinja template editing!). 
-- [Mkdocs Encrypt Contents](https://github.com/CoinK0in/mkdocs-encryptcontent-plugin) will allow you to "hide" file in the site. [[Template/snippets and tools#Page encrypted|See here]] for more information.
-- [Mkdocs Callout](https://pypi.org/project/mkdocs-callouts/)
-- [Custom tags attributes](https://pypi.org/project/mkdocs-custom-tags-attributes/)
-
-> [!info] Superfences & dataviewjs
-> Vous remarquerez que j'ai ajouté une [`custom fences`](https://facelessuser.github.io/pymdown-extensions/extensions/superfences/) pour dataviewjs. Désolé, dataviewjs n'est pas encore supporté par mkdocs ni Obsidian Publisher. Ce "custom fence" cachera tous les blocs dataviewjs. 
-> Elle empêchera donc l'affichage de blocs étranges dans votre fichier markdown. Si vous avez besoin de l'afficher comme du code, changez le langage (comme `js` par exemple).
-
-## Test local (*optionnel*)
+### Test local (*optionnel*)
 
 Pour faire fonctionner le blog en local, vous devez installer les pré-requis et lancer `mkdocs serve`.
 ```
@@ -59,9 +45,12 @@ conda activate Publisher
 ```
 Juste avant l'installation du `pip` !
 
----
+## Déploiement & publication
 
-# Deploiement
+Vous pouvez publier votre site via :
+- [Netlify](https://www.netlify.com/)
+- [Github Pages](https://pages.github.com/)
+
 ## Par GitHub Pages
 
 Le blog sera publié via [GitHub Page](https://pages.github.com/) en utilisant la branche `gh-page`. 
