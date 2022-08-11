@@ -1,13 +1,14 @@
 ---
-title: Configuration
-share: true
+title: Creating & publishing your own blog
 ---
 
-
-# Configuration
 ## Mkdocs configuration
 
-In your new `publish_blog` folder, you will spot a `mkdocs.yml`. This file allows you to customize your blog! The most important to edit :
+You need to configure the plugin to work properly, and in parallels, the `mkdocs` configuration.
+
+You can see more information about the site creation using [The Material Mkdocs Documentation](https://squidfunk.github.io/mkdocs-material/creating-your-site/#advanced-configuration).
+
+In your new cloned blog, you will spot a `mkdocs.yml`. This file allows you to customize your blog! The most important to edit :
 1. `site_name` 
 2. `site_description`
 3. `site_url` (critical) : By default, it's `https://github_username.io/repo_name`[^1]
@@ -15,7 +16,7 @@ In your new `publish_blog` folder, you will spot a `mkdocs.yml`. This file allow
 To edit the logo and the favicon, first put the chosen file in `assets/logo`, and change `logo` and `favicon` :
 1. `logo: assets/meta/logo_name.png`
 2. `favicon: assets/meta/favicon.png`
-
+3. In order to properly work with SEO, also edit the `extra` with `SEO: 'assets/meta/LOGO_SEO.png'`
 You can customize :
 - Font
 - Color scheme, palette, icons 
@@ -25,29 +26,7 @@ You can customize :
 
 You don't need to touch anything in `features` ; `markdown_extensions…`
 
-### Plugins
-
-The `mkdocs.yml` also contains the configuration for [Mkdocs Plugin](https://www.mkdocs.org/dev-guide/plugins/). If you add plugin, you **need** to add it to your `requirements.txt` because the build use it to construct the blog.
-
-I included :
-- [Ezlinks (from mkdocs-ezlinked-plugin)](https://pypi.org/project/mkdocs-ezlinked-plugin/) : to support directly wikilinks
-- [Mermaid2](https://github.com/fralau/mkdocs-mermaid2-plugin)
-- [Awesome pages](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin)
-- [Tooltipster-links (from mkdocs-preview-links-plugin)](https://github.com/Mara-Li/mkdocs-preview-links-plugin)
-- [Embed File](https://github.com/Mara-Li/mkdocs_embed_file_plugins), to support embedding file as in Obsidian (with the `![](file)` or `![[file]]` syntax)
-- [Git revision date localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin), to add a date listing 
-- [Mkdocs Simple Hooks](https://pypi.org/project/mkdocs-simple-hooks/), to allow creating simple python script for mkdocs (including jinja template editing!). 
-- [Mkdocs Encrypt Contents](https://github.com/CoinK0in/mkdocs-encryptcontent-plugin) will allow you to "hide" file in the site. [[Template/snippets and tools#Page encrypted|See here]] for more information.
-- [Mkdocs Callout](https://pypi.org/project/mkdocs-callouts/)
-- [Custom tags attributes](https://pypi.org/project/mkdocs-custom-tags-attributes/)
-
-> [!info] Superfences & dataviewjs
-> You will spot that I added a [`custom fences`](https://facelessuser.github.io/pymdown-extensions/extensions/superfences/) for dataviewjs. Sorry, dataviewjs is not currently supported by mkdocs nor Obsidian Publisher. This custom fences will hide every dataviewjs block. 
-> It will, so, prevent display stange block in your markdown file. If you need to display it as code, change the language (like `js` for example).
----
-
-## Local testing (*optional*)
-
+### Local testing
 To run locally the blog, you need to install the requirements and run `mkdocs serve`.
 ```
 cd publish_blog
@@ -61,11 +40,13 @@ conda activate Publisher
 ```
 Just before the `pip install`!
 
+## Publishing 
 
----
+You can publish your site using : 
+- [Netlify](https://www.netlify.com/) 
+- [Github Pages](https://pages.github.com/)
 
-# Deploy
-## Through GitHub
+### Through Github Pages
 
 The blog will be published through [GitHub Page](https://pages.github.com/) using the `gh-page` branch. 
 
@@ -79,8 +60,7 @@ The blog will be published through [GitHub Page](https://pages.github.com/) usin
 >> [!Warning] In case of worfklow problem
 >> In the [issue #4](https://github.com/obsidianPublisher/obsidian-github-publisher/issues/4), we discover that sometimes, Github Actions refuse to run without reason. If this happend to you, please, contact the Github Support!
 
-## Through Netlify
-
+### Through Netlify
 Netlify.app is a great tool to deploy your blog. It's a free service that allows you to deploy your blog on the web, and the build will be faster than GitHub Pages.
 
 To deploy your blog, you can click here : [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ObsidianPublisher/obsidian-mkdocs-publisher-template)
@@ -114,8 +94,6 @@ To gain deploy time and bandswith, you need to desactivate the deploy preview. T
 >> - You need to have a Netlify account
 >> - Limited by Bandswith for all site (100 GB)
 >> - Limited to 300 minutes/builds per month. 
-
-
 
 ---
 - [Main Repo](https://github.com/Mara-Li/obsidian_mkdocs_publisher)
