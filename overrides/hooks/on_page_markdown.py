@@ -33,9 +33,12 @@ def fix_tags(metadata):
         metadata['tags'] = tags
     return metadata
 
-def on_page_markdown(markdown, files, page, **kwargs):
-    markdown = strip_comments(markdown)
-    markdown = update_heading(markdown)
+def on_page_markdown(markdown, files, page, config, **kwargs):
+    config_hooks = config['extra'].get('hooks', {'strip_comments': True, 'fix_heading': False})
+    if config_hooks['strip_comments']:
+        markdown = strip_comments(markdown)
+    if config_hooks['fix_heading']:
+        markdown = update_heading(markdown)
     metadata = fix_tags(page.meta)
     page.meta = metadata
     return markdown

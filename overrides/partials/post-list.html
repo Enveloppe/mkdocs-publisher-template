@@ -8,6 +8,11 @@
     {{ page.content }}
 </p>
 
+{% if config.extra['blog_list'] %}
+    {% set config_pagination = config.extra['blog_list'] %}
+{% else %}
+    {% set config_pagination = {'pagination': True, 'pagination_message': True, 'pagination_translation': 'posts in'} %}
+{% endif %}
 
 {# page collection #}
 {% set valid_pages=[] %}
@@ -44,10 +49,9 @@
 {% if blog_pages|count > 0 %}
     {# count the number of pages #}
     {% set page_num = (blog_pages|count / 10)|round(method='ceil')|int %}
-    {% set pagination_translation = "posts in" %}
-    {% if config.extra['pagination'] %}
-        {% if config.extra["pagination_translation"] %}
-            {% set pagination_translation = config.extra["pagination_translation"] %}
+    {% if config_pagination['pagination'] %}
+        {% if config_pagination['pagination_translation'] %}
+            {% set pagination_translation = config_pagination["pagination_translation"] %}
         {% endif %}
         <div
             id="page_num"
@@ -150,7 +154,7 @@
         {% endfor %}
     </div>
 
-    {% if config.extra['pagination'] %}
+    {% if config_pagination['pagination'] %}
         <div class="center">
             <div
                 class="pagination"
@@ -170,7 +174,7 @@
         </div>
     {% endif %}
 
-    {% if config.extra["pagination"] and config.extra["pagination_message"] %}
+    {% if config_pagination["pagination"] and config_pagination["pagination_message"] %}
         <p class="center">Total : <b>{{ blog_pages|count }}</b> {{ pagination_translation }} {{ page_num }} pages.</p>
     {% endif %}
 
