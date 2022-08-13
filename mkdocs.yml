@@ -124,7 +124,7 @@ extra_css:
 extra:
   generator: false
   SEO: assets/logo/SEO.png
-    blog_list:
+  blog_list:
     pagination: true
     pagination_message: true
     pagination_translation: 'posts in'
