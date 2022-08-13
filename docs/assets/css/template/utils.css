@@ -26,6 +26,11 @@
     filter: saturate(200%);
 }
 
+.tooltipster-box {
+    padding: 15px;
+    list-style-position: inside;
+}
+
 .tooltipster-base {
     max-width: 50%;
 }
