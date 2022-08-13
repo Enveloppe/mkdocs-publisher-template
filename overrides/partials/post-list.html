@@ -49,7 +49,6 @@
         {% if config.extra["pagination_translation"] %}
             {% set pagination_translation = config.extra["pagination_translation"] %}
         {% endif %}
-        <hr>
         <div
             id="page_num"
             data-value="{{page_num}}"
@@ -171,9 +170,8 @@
         </div>
     {% endif %}
 
-    {% if config.extra["pagination"] %}
-        <hr>
-        <p class="center">Total <b>{{ blog_pages|count }}</b> {{ pagination_translation }} {{ page_num }} pages.</p>
+    {% if config.extra["pagination"] and config.extra["pagination_message"] %}
+        <p class="center">Total : <b>{{ blog_pages|count }}</b> {{ pagination_translation }} {{ page_num }} pages.</p>
     {% endif %}
 
     <script>
