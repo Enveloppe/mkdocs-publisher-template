@@ -1,5 +1,8 @@
 import re
 
+def non_breaking_space(markdown):
+    return re.sub('[\u00A0\u1680\u180E\u2000-\u200B\u202F\u205F\u3000\uFEFF]', '&emsp;', markdown)
+
 def update_heading(markdown):
     file_content = markdown.split('\n')
     markdown = ''
@@ -41,4 +44,5 @@ def on_page_markdown(markdown, files, page, config, **kwargs):
         markdown = update_heading(markdown)
     metadata = fix_tags(page.meta)
     page.meta = metadata
+    markdown = non_breaking_space(markdown)
     return markdown
