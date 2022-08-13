@@ -124,3 +124,10 @@ extra_css:
 extra:
   generator: false
   SEO: assets/logo/SEO.png
+    blog_list:
+    pagination: true
+    pagination_message: true
+    pagination_translation: 'posts in'
+  hooks:
+    strip_comments: true
+    fix_heading: true
