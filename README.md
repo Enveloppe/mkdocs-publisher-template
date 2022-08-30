@@ -3,7 +3,7 @@ title: Configuration
 ---
 
 - [Obsidian Plugin](https://github.com/ObsidianPublisher/obsidian-github-publisher)
-- [Template](https://github.com/Mara-Li/obsidian-mkdocs-publisher-template)
+- [Template](https://github.com/ObsidianPublisher/obsidian-mkdocs-publisher-template)
 - [Documentation](https://obsidian-publisher.netlify.app/)
 
 ## Mkdocs configuration
