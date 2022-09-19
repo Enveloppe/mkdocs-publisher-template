@@ -66,12 +66,12 @@
             >
                 <!-- <a href="#">&laquo;</a> -->
                 {% for pg_group in blog_pages|slice(page_num) %}
-                <a
-                    class="page-number {% if loop.index==1 %}active{% endif%}"
-                    href="#page{{ loop.index }}"
-                >
-                    {{ loop.index }}
-                </a>
+                    <a
+                        class="page-number {% if loop.index==1 %}active{% endif%}"
+                        href="#page{{loop.index}}"
+                    >
+                        {{ loop.index }}
+                    </a>
                 {% endfor %}
                 <!-- <a href="#">&raquo;</a> -->
             </div>
@@ -80,10 +80,12 @@
     {# pagination #}
     <div class="pages">
         {% for pg_group in blog_pages|slice(page_num) %}
-            <div
-                class="page"
-                id="page{{ loop.index }}"
-            >
+            {% if config_pagination['pagination'] %}
+                <div
+                    class="page"
+                    id="page{{ loop.index }}"
+                >
+            {% endif %}
             {% for pg in pg_group %}
                 {% set pg_image = "" %}
                 {% set pg_category = "" %}
@@ -162,6 +164,7 @@
                 id="pagination-bottom"
             >
                 <!-- <a href="#">&laquo;</a> -->
+                
                 {% for pg_group in blog_pages|slice(page_num) %}
                 <a
                     class="page-number {% if loop.index==1 %}active{% endif%}"
@@ -186,44 +189,48 @@
                 window.scrollTo(0, 0);
             }, 100);
         }
-
-        function activatePaginationLinks(name) {
-            var pagination = document.getElementById("pagination-" + name);
-            if (pagination) {
-                var links = pagination.getElementsByClassName("page-number");
-                if (links.length) {
-                    for (var i = 0; i < links.length; i++) {
-                        if (links[i].getAttribute("href") == window.location.hash) {
-                            links[i].classList.add("active");
-                        } else {
-                            links[i].classList.remove("active")
+    </script>
+    {% if config_pagination['pagination'] %}
+        <script>
+            function activatePaginationLinks(name) {
+                var pagination = document.getElementById("pagination-" + name);
+                if (pagination) {
+                    var links = pagination.getElementsByClassName("page-number");
+                    if (links.length) {
+                        for (var i = 0; i < links.length; i++) {
+                            if (links[i].getAttribute("href") == window.location.hash) {
+                                links[i].classList.add("active");
+                            } else {
+                                links[i].classList.remove("active")
+                            }
                         }
                     }
                 }
             }
-        }
 
-        // show page 1 as default
-        window.location.hash = "#page1";
-
-        // listen to hash change
-        window.onhashchange = function () {
-            var hash = window.location.hash;
-            const regexp = /^#page[0-9]+$/;
-            if (regexp.test(hash)) {
-                var num = parseInt(hash.substr(5));
-                var max = parseInt(document.getElementById('page_num').dataset.value);
-                if (num >= 1 && num <= max) {
-                    activatePaginationLinks("top");
-                    activatePaginationLinks("bottom");
-                    scrollToTop();
-                    return;
-                }
-            }
-
+            // show page 1 as default
+            
             window.location.hash = "#page1";
-        }
-    </script>
+
+            // listen to hash change
+            window.onhashchange = function () {
+                var hash = window.location.hash;
+                const regexp = /^#page[0-9]+$/;
+                if (regexp.test(hash)) {
+                    var num = parseInt(hash.substr(5));
+                    var max = parseInt(document.getElementById('page_num').dataset.value);
+                    if (num >= 1 && num <= max) {
+                        activatePaginationLinks("top");
+                        activatePaginationLinks("bottom");
+                        scrollToTop();
+                        return;
+                    }
+                }
+
+                window.location.hash = "#page1";
+            }
+        </script>
+    {% endif %}
 {% else %}
     <style>
         .md-typeset .center {
