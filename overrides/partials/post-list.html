@@ -48,8 +48,9 @@
 
 {% if blog_pages|count > 0 %}
     {# count the number of pages #}
-    {% set page_num = (blog_pages|count / 10)|round(method='ceil')|int %}
+    {% set page_num = 1 %}
     {% if config_pagination['pagination'] %}
+        {% set page_num = (blog_pages|count / 10)|round(method='ceil')|int %}
         {% if config_pagination['pagination_translation'] %}
             {% set pagination_translation = config_pagination["pagination_translation"] %}
         {% endif %}

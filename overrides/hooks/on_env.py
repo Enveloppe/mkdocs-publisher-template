@@ -1,7 +1,9 @@
 from datetime import datetime
+from re import T
 from dateutil import parser
 from pathlib import Path
 import urllib.parse
+from babel.dates import format_date
 
 def logging(text):
     print(text)
@@ -18,6 +20,12 @@ def time_time(time):
     except ValueError:
         print('value error!')
         return time
+
+def to_local_time(time, locale):
+    date = time.replace('-', '/')
+    date = parser.parse(date)
+    return format_date(date, locale=locale)
+
 
 def time_todatetime(time):
     return parser.parse(time)
@@ -43,4 +51,5 @@ def on_env(env, config, files, **kwargs):
     env.filters['page_exists'] = page_exists
     env.filters['url_decode'] = url_decode
     env.filters['logging'] = logging
+    env.filters['to_local_time'] = to_local_time
     return env
