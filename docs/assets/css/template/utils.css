@@ -117,3 +117,25 @@ code {
     width: 5%;
 }
 
+.tippy {
+    overflow: hidden !important;
+    height: 5% !important;
+    border-radius: 5px;
+}
+
+[data-md-color-scheme="default"] .tippy{
+    border: 1px solid whitesmoke;
+}
+
+[data-md-color-scheme="slate"] .tippy{
+    border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+[data-theme~='translucent'] {
+    background-color: var(--md-default-bg-color) !important;
+    opacity: 0.9 !important;
+}
+
+[data-md-color-scheme="default"] .tippy-box * {
+    color: black;
+}
