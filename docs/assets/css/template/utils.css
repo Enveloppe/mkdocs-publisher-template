@@ -66,16 +66,9 @@
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-[data-md-color-scheme="slate"] .citation:hover {
-    border: 1px solid rgba(255, 255, 255, 0.11);
-}
 
 [data-md-color-scheme="slate"] .citation {
     background-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-[data-md-color-scheme="default"] .citation:hover {
-    border: 1px solid rgba(0, 0, 0, 0.11);
 }
 
 .citation {
@@ -85,13 +78,6 @@
 
 .citation>* {
     margin: 0 !important;
-}
-
-.link_citation {
-    display: inline-block;
-    width: 90%;
-    text-align: right;
-    font-weight: normal;
 }
 
 code {
