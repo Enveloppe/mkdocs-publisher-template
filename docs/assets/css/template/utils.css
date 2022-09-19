@@ -76,6 +76,12 @@
     border-radius: 5px;
 }
 
+.link_citation {
+    font-size: 12px;
+    display: flex;
+    float: left;
+}
+
 .citation>* {
     margin: 0 !important;
 }
