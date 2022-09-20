@@ -83,11 +83,6 @@ plugins:
         wikilinks: true
   - mermaid2
   - awesome-pages
-  - tooltipster-links:
-      callouts: true
-      custom-attributes: 'assets/css/custom_attributes.css'
-      max-characters: 500
-      truncate-character: '...'
   - embed_file:
       callouts: true
       custom-attributes: 'assets/css/custom_attributes.css'
