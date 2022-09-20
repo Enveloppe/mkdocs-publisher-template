@@ -9,11 +9,24 @@ function UrlExists(url, type_url) {
         ref = url.src
         title = url.alt
     }
+    if (ref.match(/index$/)) {
+        ref = ref.replace(/index$/, '')
+    }
+    if (ref.includes('%5C')) {
+        ref = ref.replace(/%5C/g, '/')
+    }
+    if (type_url === 0) {
+        url.href = ref
+        url.title = title
+    }
+    else if (type_url === 1) {
+        url.src = ref
+        url.alt = title
+    }
     var http = new XMLHttpRequest();
     http.open('GET', ref, true);
     http.onload=function(e) {
         if (http.status == '404') {
-            console.log(title, ref)
             const newItem = document.createElement('div');
             newItem.innerHTML = title;
             newItem.classList.add('not_found');
@@ -28,7 +41,7 @@ function UrlExists(url, type_url) {
 
 
 var p_search = /\.{2}\//gi
-not_found = []
+const not_found = []
 var ht = document.querySelectorAll('a');
 for (var i = 0; i < ht.length; i++) {
     var link = UrlExists(ht[i],0);
