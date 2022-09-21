@@ -17,7 +17,9 @@ const tip = tippy(`.md-content a[href^="${blogURL}"]`, {
                 const doc = parser.parseFromString(html, 'text/html');
                 let firstPara = doc.querySelector('article');
                 const element1 = document.querySelector(`[id^="tippy"]`);
-                element1.classList.add('tippy')
+                if (element1) {
+                    element1.classList.add('tippy')
+                }
                 const partOfText = instance.reference.href.replace(/.*#/, '#');
                 if (partOfText.startsWith('#')) {
                     firstPara = doc.querySelector(`[id="${partOfText.replace('#', '')}"]`);
@@ -31,12 +33,9 @@ const tip = tippy(`.md-content a[href^="${blogURL}"]`, {
                     instance.popper.style.height = 'auto';
                 }
                 else {
-                    if (firstPara.innerHTML.split(' ').length < 1000) {
-                        instance.popper.style.height = '35%';
-                    } else {
-                        instance.popper.style.height= '5%';
-                    }
+                    instance.popper.style.height = `${Math.floor(firstPara.innerText.split(' ').length / 100) - 5}%`;
                 }
+                instance.popper.placement = position[Math.floor(Math.random() * position.length)];
                 instance.setContent(firstPara);
                 
             })
