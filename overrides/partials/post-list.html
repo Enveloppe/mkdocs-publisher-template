@@ -25,7 +25,7 @@
         {% set date = page.meta.git_creation_date_localized_raw_iso_date | iso_time %}
         {% set _ = pg.__setattr__('date', page.meta.git_creation_date_localized_raw_iso_date) %}
     {% endif %}
-    {% set page_category = pg.url | replace('/' ~ pg.title ~ '/', '') | lower | url_decode %}
+    {% set page_category = pg.url | url_decode | replace('/' ~ pg.title ~ '/', '') | lower %}
     {% set main_category = page.meta.category | lower %}
     {% if main_category in page_category %}
         {{ valid_pages.append(pg) or "" }}
