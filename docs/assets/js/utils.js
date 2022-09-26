@@ -23,6 +23,10 @@ function UrlExists(url, type_url) {
         url.src = ref
         url.alt = title
     }
+    if (title.length === 0) {
+        title = url.innerText;
+        url.title = title;
+    }
     var http = new XMLHttpRequest();
     http.open('GET', ref, true);
     http.onload=function(e) {
