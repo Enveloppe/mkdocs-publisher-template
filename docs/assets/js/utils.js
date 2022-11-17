@@ -88,3 +88,7 @@ if (cite) {
         }
     }
 }
+
+
+//Add background color css for chirpy theme
+
