@@ -104,3 +104,7 @@ code {
 [data-md-color-scheme="default"] .tippy-box * {
     color: black;
 }
+
+.dark {
+    background-color: var(--md-default-bg-color);
+}
