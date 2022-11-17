@@ -23,7 +23,6 @@
 {% block content %}
     {{ super() }}
     <script>
-        console.log(location.pathname)
         if (location.pathname==='/') {
             //disable comments
             document.querySelector('[data-chirpy-theme]').style.display = 'none'
