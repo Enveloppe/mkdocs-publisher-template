@@ -8,7 +8,7 @@ mkdocs-preview-links-plugin==0.6.2
 mkdocs-embed-file-plugins==2.0.0
 mkdocs_custom_fences==0.1.2
 mkdocs-git-revision-date-localized-plugin==1.1.0
-mkdocs-encryptcontent-plugin==2.3.1
+mkdocs-encryptcontent-plugin==2.4.0
 mkdocs-simple-hooks==0.1.5
 mkdocs-callouts==1.8.1
 mkdocs-custom-tags-attributes==0.2.1
