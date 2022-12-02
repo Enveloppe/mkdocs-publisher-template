@@ -91,10 +91,9 @@ plugins:
         type: date
         fallback_to_build_date: true
         locale: en
-  - mkdocs-simple-hooks:
-      hooks:
-        on_env: "overrides.hooks.on_env:on_env"
-        on_page_markdown: "overrides.hooks.on_page_markdown:on_page_markdown"
+  - hooks:
+      - overrides/hooks/on_page_markdown.py
+      - overrides/hooks/on_env.py
   - encryptcontent:
       title_prefix: '🔐'
       password_button: True
