@@ -92,32 +92,6 @@ if (cite) {
 
 //get iframe from graph.md
 // check if page is graph.md
-
-if (window.location.href.includes('graph')) {
-    var iframe = document.querySelector('iframe');
-    //get mkdocs theme
-    theme=document.querySelector('[data-md-color-scheme]');
-    //if mkdocs theme is dark, change iframe theme to dark
-    if (theme.getAttribute('data-md-color-scheme') === 'default') {
-        iframe.setAttribute('class', 'light')
-    } else {
-        iframe.setAttribute('class', 'dark')
-    }
-    //create mutation observer to change iframe theme when mkdocs theme changes
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes') {
-                iframe.setAttribute('class', mkDocsChirpyTranslator[theme.dataset.mdColorScheme])
-                }
-            })
-        })
-    //observe mkdocs theme
-    observer.observe(theme, {
-        attributes: true,
-        attributeFilter: ['data-md-color-scheme'],
-    })
-}
-
 window.onload = function () {
     let frameElement = document.querySelector('iframe');
     let doc = frameElement.contentDocument || frameElement.contentWindow.document;
@@ -126,7 +100,7 @@ window.onload = function () {
     css.href = 'css/template/utils.css';
     css.type = 'text/css';
     doc.head.appendChild(css);
-    theme = document.querySelector('[data-md-color-scheme]');
+    const theme = document.querySelector('[data-md-color-scheme]');
     if (theme.getAttribute('data-md-color-scheme') === 'default') {
         doc.body.setAttribute('class', 'light')
     }
