@@ -108,3 +108,19 @@ code {
 .dark {
     background-color: var(--md-default-bg-color);
 }
+
+#mynetwork {
+    border: none !important;
+}
+.card {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.dark#text {
+    color: white;
+}
+
+.light#text {
+    color: black;
+}
