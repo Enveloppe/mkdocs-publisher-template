@@ -1,9 +1,32 @@
 from datetime import datetime
-from re import T
 from dateutil import parser
 from pathlib import Path
 import urllib.parse
 from babel.dates import format_date
+import obsidiantools.api as otools
+import os
+import shutil
+from pyvis.network import Network
+
+print('COUCOU')
+print(os.getcwd())
+print(os.path.exists(Path(os.getcwd(), 'lib')))
+
+def obsidian_graph():
+    print('generate obsidian graph')
+    vault = otools.Vault(os.getcwd()).connect().gather()
+    graph = vault.graph
+    net = Network(height="750px", width="750px", font_color="#7c7c7c", bgcolor="transparent")
+    net.from_nx(graph)
+    try:
+        net.save_graph(str(Path(os.getcwd(), 'docs', 'assets', 'graph.html')))
+    except OSError:
+        pass
+    shutil.rmtree(Path(os.getcwd(), 'lib'))
+    print('done')
+    return ''
+
+obsidian_graph()
 
 def logging(text):
     print(text)
