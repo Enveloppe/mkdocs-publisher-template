@@ -91,9 +91,6 @@ plugins:
         type: date
         fallback_to_build_date: true
         locale: en
-  - hooks:
-      - overrides/hooks/on_page_markdown.py
-      - overrides/hooks/on_env.py
   - encryptcontent:
       title_prefix: '🔐'
       password_button: True
@@ -101,6 +98,9 @@ plugins:
   - custom-attributes:
       file: 'assets/css/custom_attributes.css'
   - meta-descriptions
+hooks:
+  - overrides/hooks/on_page_markdown.py
+  - overrides/hooks/on_env.py
 extra_javascript:
   - assets/js/mathjax.js
   - assets/js/utils.js
