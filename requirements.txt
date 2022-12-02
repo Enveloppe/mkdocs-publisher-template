@@ -12,3 +12,5 @@ mkdocs-encryptcontent-plugin==2.3.1
 mkdocs-callouts==1.8.1
 mkdocs-custom-tags-attributes==0.2.1
 mkdocs-meta-descriptions-plugin==2.1.0
+obsidiantools
+pyvis
