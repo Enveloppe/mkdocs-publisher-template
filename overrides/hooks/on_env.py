@@ -8,10 +8,6 @@ import os
 import shutil
 from pyvis.network import Network
 
-print('COUCOU')
-print(os.getcwd())
-print(os.path.exists(Path(os.getcwd(), 'lib')))
-
 def obsidian_graph():
     print('generate obsidian graph')
     vault = otools.Vault(os.getcwd()).connect().gather()
