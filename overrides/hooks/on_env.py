@@ -8,11 +8,16 @@ import os
 import shutil
 from pyvis.network import Network
 
+
 def obsidian_graph():
     print('generate obsidian graph')
     vault = otools.Vault(os.getcwd()).connect().gather()
     graph = vault.graph
-    net = Network(height="750px", width="750px", font_color="#7c7c7c", bgcolor="transparent")
+    net = Network(
+        height='750px',
+        width='750px',
+        font_color='#7c7c7c',
+        bgcolor='transparent')
     net.from_nx(graph)
     try:
         net.save_graph(str(Path(os.getcwd(), 'docs', 'assets', 'graph.html')))
@@ -22,23 +27,27 @@ def obsidian_graph():
     print('done')
     return ''
 
+
 obsidian_graph()
+
 
 def logging(text):
     print(text)
     return ''
 
+
 def time_time(time):
-    time=time.replace('-', '/')
+    time = time.replace('-', '/')
     time = parser.parse(time).isoformat()
     try:
         time = datetime.fromisoformat(time)
-        return datetime.strftime(time,'%d %B %Y')
+        return datetime.strftime(time, '%d %B %Y')
     except AttributeError:
-        return datetime.strftime(str(time),'%d %B %Y')
+        return datetime.strftime(str(time), '%d %B %Y')
     except ValueError:
         print('value error!')
         return time
+
 
 def to_local_time(time, locale):
     date = time.replace('-', '/')
@@ -49,19 +58,23 @@ def to_local_time(time, locale):
 def time_todatetime(time):
     return parser.parse(time)
 
+
 def time_to_iso(time):
-    time=time.replace('-', '/')
-    
+    time = time.replace('-', '/')
+
     try:
         return parser.parse(time).isoformat()
     except AttributeError:
         return time
 
+
 def page_exists(page):
     return Path(page).exists()
 
+
 def url_decode(url):
     return urllib.parse.unquote(url)
+
 
 def on_env(env, config, files, **kwargs):
     env.filters['convert_time'] = time_time
