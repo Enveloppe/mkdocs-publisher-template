@@ -3,3 +3,7 @@
   publish = "site"
 [template]
   incoming-hooks = ["Contentful"]
+[[plugins]]
+  package = "netlify-plugin-cache"
+  [plugins.inputs]
+  paths = [".cache"]
