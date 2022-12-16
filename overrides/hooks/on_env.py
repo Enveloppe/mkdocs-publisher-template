@@ -1,72 +1,66 @@
-from datetime import datetime
-from dateutil import parser
-from pathlib import Path
-import urllib.parse
-from babel.dates import format_date
-import obsidiantools.api as otools
+import logging
 import os
 import shutil
-from pyvis.network import Network
-import logging
+import urllib.parse
+from datetime import datetime
+from pathlib import Path
 
+import obsidiantools.api as otools
+from babel.dates import format_date
+from dateutil import parser
+from pyvis.network import Network
 
 
 def obsidian_graph():
-    '''
-    Generates a graph of the Obsidian vault.
-    '''
-    log = logging.getLogger('mkdocs.plugins.' + __name__)
+    """Generates a graph of the Obsidian vault."""
+    log = logging.getLogger("mkdocs.plugins." + __name__)
     log.info("[OBSIDIAN GRAPH] Generating graph...")
     vault = otools.Vault(os.getcwd()).connect().gather()
     graph = vault.graph
-    net = Network(
-        height='750px',
-        width='750px',
-        font_color='#7c7c7c',
-        bgcolor='transparent')
+    net = Network(height="750px", width="750px", font_color="#7c7c7c", bgcolor="transparent")
     net.from_nx(graph)
     try:
-        net.save_graph(str(Path(os.getcwd(), 'docs', 'assets', 'graph.html')))
+        net.save_graph(str(Path.cwd() / "docs" / "assets" / "graph.html"))
     except OSError:
         pass
-    shutil.rmtree(Path(os.getcwd(), 'lib'))
+    shutil.rmtree(Path.cwd() / "lib")
     log.info("[OBSIDIAN GRAPH] Graph generated!")
-    return ''
+    return ""
 
 
 obsidian_graph()
 
 
 def log(text):
-    '''
-    Prints text to the console, in case you need to debug something.
+    """Prints text to the console, in case you need to debug something.
+
     Using mainly in the template files.
     Parameters:
         text (str): The text to print.
     Returns:
         str: An empty string.
-    '''
+    """
     print(text)
-    return ''
+    return ""
 
 
 def time_time(time):
-    '''
-    Converts a time string to a human-readable format.
+    """Converts a time string to a human-readable format.
+
     Parameters:
         time (any): The time string to convert.
     Returns:
         str|datetime:  The converted time.
-    '''
-    time = time.replace('-', '/')
+    """
+    time = time.replace("-", "/")
     time = parser.parse(time).isoformat()
     try:
         time = datetime.fromisoformat(time)
-        return datetime.strftime(time, '%d %B %Y')
+        return datetime.strftime(time, "%d %B %Y")
     except AttributeError:
-        return datetime.strftime(str(time), '%d %B %Y')
+        return datetime.strftime(str(time), "%d %B %Y")
     except ValueError:
-        print('value error!')
+        print("value error!")
         return time
 
 
@@ -80,13 +74,13 @@ def to_local_time(time, locale):
     Returns:
         str: the converted time
     """
-    date = time.replace('-', '/')
+    date = time.replace("-", "/")
     date = parser.parse(date)
     return format_date(date, locale=locale)
 
 
 def time_todatetime(time):
-    """convert time to datetime
+    """convert time to datetime.
 
     Args:
         time (any): time to convert
@@ -106,7 +100,7 @@ def time_to_iso(time):
     Returns:
         any|str: convert time or the original time if error
     """
-    time = time.replace('-', '/')
+    time = time.replace("-", "/")
 
     try:
         return parser.parse(time).isoformat()
@@ -127,10 +121,10 @@ def page_exists(page):
 
 
 def url_decode(url):
-    """decode an url in a template
+    """decode an url in a template.
 
     Args:
-        url (any): THE URL 
+        url (any): THE URL
 
     Returns:
         str : the decoded url
@@ -139,11 +133,11 @@ def url_decode(url):
 
 
 def on_env(env, config, files, **kwargs):
-    env.filters['convert_time'] = time_time
-    env.filters['iso_time'] = time_to_iso
-    env.filters['time_todatetime'] = time_todatetime
-    env.filters['page_exists'] = page_exists
-    env.filters['url_decode'] = url_decode
-    env.filters['log'] = log
-    env.filters['to_local_time'] = to_local_time
+    env.filters["convert_time"] = time_time
+    env.filters["iso_time"] = time_to_iso
+    env.filters["time_todatetime"] = time_todatetime
+    env.filters["page_exists"] = page_exists
+    env.filters["url_decode"] = url_decode
+    env.filters["log"] = log
+    env.filters["to_local_time"] = to_local_time
     return env
