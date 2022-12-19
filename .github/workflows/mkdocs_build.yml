@@ -36,8 +36,8 @@ jobs:
             yarn run build
       - name: Run Note Link Janitor
         run: ${{ github.workspace }}/note-link-janitor/dist/index.js ${{ github.workspace }}/docs
-#       - name: Remove Janitor folder
-#         run: rm --force -r note-link-janitor
+      - name: Remove Janitor folder
+        run: rm --force -r note-link-janitor
             
       - uses: actions/setup-python@v4
         with:
