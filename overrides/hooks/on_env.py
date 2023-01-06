@@ -8,26 +8,6 @@ import obsidiantools.api as otools
 from babel.dates import format_date
 from dateutil import parser
 from pyvis.network import Network
-from PIL import Image
-
-
-def compress_image():
-    """Compresses an image.
-
-    Parameters:
-        image (str): The image to compress.
-    Returns:
-        str: The compressed image.
-    """
-    log = logging.getLogger("mkdocs.plugins." + __name__)
-    log.info("[IMAGE COMPRESSOR] Compressing image...")
-    assets_path = Path(Path.cwd(), "docs", "assets")
-    for file in assets_path.glob("**/*"):
-        if file.suffix in [".png", ".jpg", ".jpeg"]:
-            image = Image.open(file)
-            image.save(file, optimize=True, quality=75)
-    log.info("[IMAGE COMPRESSOR] Image compressed!")
-    return ""
 
 def obsidian_graph():
     """Generates a graph of the Obsidian vault."""
@@ -48,7 +28,6 @@ def obsidian_graph():
 
 
 obsidian_graph()
-compress_image()
 
 
 def log(text):
