@@ -1,5 +1,4 @@
 import logging
-import os
 import shutil
 import urllib.parse
 from datetime import datetime
@@ -15,10 +14,7 @@ def obsidian_graph():
     """Generates a graph of the Obsidian vault."""
     log = logging.getLogger("mkdocs.plugins." + __name__)
     log.info("[OBSIDIAN GRAPH] Generating graph...")
-    vault_path = os.getcwd()
-    if 'home/runner/work' in str(Path.cwd()):
-        log.info(f'[OBSIDIAN GRAPH] Running in GitHub Actions, using {os.getcwd()}/site as vault path.')
-        vault_path = os.path.join(os.getcwd(), 'site')
+    vault_path = Path(Path.cwd(), 'docs')
     vault = otools.Vault(vault_path).connect().gather()
     graph = vault.graph
     net = Network(height="750px", width="750px", font_color="#7c7c7c", bgcolor="transparent")
