@@ -15,8 +15,11 @@ def obsidian_graph():
     """Generates a graph of the Obsidian vault."""
     log = logging.getLogger("mkdocs.plugins." + __name__)
     log.info("[OBSIDIAN GRAPH] Generating graph...")
-    print(os.getcwd()) #For debugging in github action
-    vault = otools.Vault(os.getcwd()).connect().gather()
+    vault_path = os.getcwd()
+    if 'home/runner/work' in str(Path.cwd()):
+        log.info(f'[OBSIDIAN GRAPH] Running in GitHub Actions, using {os.getcwd()}/site as vault path.')
+        vault_path = os.path.join(os.getcwd(), 'site')
+    vault = otools.Vault(vault_path).connect().gather()
     graph = vault.graph
     net = Network(height="750px", width="750px", font_color="#7c7c7c", bgcolor="transparent")
     net.from_nx(graph)
