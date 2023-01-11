@@ -2,6 +2,12 @@ name: update requirements
 
 on:
   workflow_dispatch:
+    inputs:
+      clean:
+        type: boolean
+        required: false
+        description: "Clean unused media"
+        default: true # Set this to false if you want to disable clean unused medias !!!
   schedule:
     - cron: '0 0 * * *'
 
@@ -17,13 +23,27 @@ jobs:
       - name: install pur
         run: pip install pur
       - name: Update requirements.txt
-        run: pur -r requirements.txt --skip mkdocs-encryptcontent-plugin,obsidiantools
-      - name: install requirements
-        run: pip install -r requirements.txt
+        run: pur -r requirements.txt
+      - name: check python cache
+        id: python_cache
+        uses: actions/cache@v3
+        with:
+          path: venv
+          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
+      - if: steps.python_cache.outputs.cache-hit != 'true'
+        name: Recreate python cache
+        run: |
+          if [ -d "venv" ]; then rm -rf venv; fi
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+      - name: Remove unused media
+        if: ${{ github.event.inputs.clean == 'true' }}
+        run: python find_unused_media.py
       - name: commit the new change (if found)
         continue-on-error: true
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "Update requirements"
+          git commit -am "Update requirements & remove unused media"
           git push
