@@ -5,7 +5,7 @@ mkdocs-ezlinked-plugin==0.3.3
 mkdocs-awesome-pages-plugin==2.8.0
 mdx_breakless_lists==1.0.1
 mkdocs-preview-links-plugin==0.6.2
-mkdocs-embed-file-plugins==2.0.2
+mkdocs-embed-file-plugins==2.0.3
 mkdocs_custom_fences==0.1.2
 mkdocs-git-revision-date-localized-plugin==1.1.0
 mkdocs-encryptcontent-plugin==2.4.3
