@@ -1,4 +1,7 @@
 <!-- Giscus -->
+{% set local_comments = "comments" | value_in_frontmatter(page.meta) %}
+{% set comments = config.extra["comments"] if local_comments is none else local_comments %}
+{% if comments %}
 <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
 
 <script
@@ -47,3 +50,4 @@
         })
     })
 </script>
+{% endif %}
