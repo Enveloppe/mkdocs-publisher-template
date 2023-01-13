@@ -33,6 +33,7 @@ def index_contents(name, description_yaml, hider, description):
         hidden: true
         category: {name}
         template: blog.html
+        comments: false
         title: {name}{hider}
         ---
         {description}

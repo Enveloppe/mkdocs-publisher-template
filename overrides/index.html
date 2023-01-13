@@ -22,11 +22,4 @@
 {% endblock %}
 {% block content %}
     {{ super() }}
-    <script>
-        if (location.pathname==='/') {
-            //disable comments
-            document.querySelector('[data-chirpy-theme]').style.display = 'none'
-        }
-    </script>
-
 {% endblock %}

@@ -27,9 +27,6 @@ def obsidian_graph():
     return ""
 
 
-obsidian_graph()
-
-
 def log(text):
     """Prints text to the console, in case you need to debug something.
 
@@ -131,7 +128,24 @@ def url_decode(url):
     return urllib.parse.unquote(url)
 
 
+def value_in_frontmatter(key, metadata):
+    """Check if a key exists in the frontmatter.
+
+    Args:
+        key (any): the key to check
+        metadata (any): the frontmatter
+
+    Returns:
+        bool: true if exists
+    """
+    if key in metadata:
+        return metadata[key]
+    else:
+        return None
+
 def on_env(env, config, files, **kwargs):
+    if config['extra'].get('generate_graph', True):
+        obsidian_graph()
     env.filters["convert_time"] = time_time
     env.filters["iso_time"] = time_to_iso
     env.filters["time_todatetime"] = time_todatetime
@@ -139,4 +153,5 @@ def on_env(env, config, files, **kwargs):
     env.filters["url_decode"] = url_decode
     env.filters["log"] = log
     env.filters["to_local_time"] = to_local_time
+    env.filters["value_in_frontmatter"] = value_in_frontmatter
     return env
