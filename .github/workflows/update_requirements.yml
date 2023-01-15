@@ -8,6 +8,11 @@ on:
         required: false
         description: "Clean unused media"
         default: true # Set this to false if you want to disable clean unused medias !!!
+      img_dir:
+        type: string
+        required: false
+        description: "Assets directory"
+        default: "assets/img"
   schedule:
     - cron: '0 0 * * *'
 
@@ -39,7 +44,7 @@ jobs:
           pip install -r requirements.txt
       - name: Remove unused media
         if: ${{ github.event.inputs.clean == 'true' }}
-        run: python find_unused_media.py
+        run: python find_unused_media.py "${{ github.event.inputs.img_dir }}"
       - name: commit the new change (if found)
         continue-on-error: true
         run: |
