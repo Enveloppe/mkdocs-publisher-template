@@ -1,33 +1,7 @@
+/* UNCOMMENT THIS LINE TO ADD ANY BACKGROUND IN THE HEADER
+DONT FORGET TO EDIT THE URL
 .md-header,
 .md-nav--primary .md-nav__title[for="__drawer"] {
-    background: var(--md-primary-fg-color) url(https://images.unsplash.com/photo-1520157646479-22f25713523d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80) left center/cover no-repeat;
+ background: var(--md-primary-fg-color) url(background_image_link_here&auto=format&fit=crop&w=1074&q=80) left center/cover no-repeat;
 }
-
-.md-tabs {
-    background-color: #00000094;
-}
-
-.md-nav__link[href*="tags"],
-.md-sidebar__inner > .md-nav.md-nav--primary.md-nav--lifted > .md-nav__title > .md-nav__button.md-logo > img,
-.dataview,
-.folderv,
-.md-tabs__item:nth-child(3)
-{
-    display: none;
-}
-
-
-
-.md-nav--primary .md-nav__title[for="__drawer"] {
-    font-size: xxx-large;
-}
-
-.md-typeset :is(.admonition, details) {
-    font-size: 1em;
-}
-
-[data-md-color-scheme="default"],
-[data-md-color-scheme="slate"] {
-    --md-primary-fg-color: #6096db;
-    --md-accent-fg-color: #2a7bc2
-}
+*/
