@@ -33,8 +33,10 @@ function UrlExists(url, type_url) {
     http.onload = function (e) {
         if (http.status == '404') {
             const newItem = document.createElement('div');
+            console.log(ref, url)
             newItem.innerHTML = title;
             newItem.classList.add('not_found');
+            newItem.setAttribute('url', ref);
             url.parentNode.replaceChild(newItem, url);
         }
         else {
@@ -47,15 +49,16 @@ function UrlExists(url, type_url) {
 
 var p_search = /\.{2}\//gi
 const not_found = []
-var ht = document.querySelectorAll('a');
+var ht = document.querySelectorAll('a:not(img)');
 for (var i = 0; i < ht.length; i++) {
-    var link = UrlExists(ht[i], 0);
+    if (!ht[i].getElementsByTagName('img').length > 0 && !ht[i].getElementsByTagName('svg').length > 0) {
+        var link = UrlExists(ht[i], 0);
+    }
 }
 
 var p_img = /\.+\\/gi
 var img = document.querySelectorAll('img');
 for (var i = 0; i < img.length; i++) {
-    (img[i].attributes.src.nodeValue)
     if (img[i].alt.match(/\|\d+$/)) {
         img[i].width = img[i].alt.match(/\|\d+$/)[0].replace('|', '')
     }
