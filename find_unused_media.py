@@ -2,7 +2,7 @@ from pathlib import Path
 import os 
 import argparse
 
-def find_unused_media(img_path: Path):
+def find_unused_media(img_path: Path, dry_run: bool = False):
     docs_dir = Path(Path.cwd(), 'docs')
 
     #list images of assets
@@ -30,7 +30,10 @@ def find_unused_media(img_path: Path):
         print(f'Found {len(unused_images)} unused images in {assets_dir}. Deleting...')
         for image in unused_images:
             print(image)
-            os.remove(image)
+            if not dry_run:
+                os.remove(image)
+            else:
+                print(f'Dry run: would have deleted {image}.')
     else:
         print(f'Found no unused images in {assets_dir}.')
 
@@ -38,5 +41,6 @@ if __name__ == '__main__':
     # use argparse to get the path to the assets folder
     parser = argparse.ArgumentParser()
     parser.add_argument('img_path', type=str, help='Path to the assets folder')
+    parser.add_argument('--dry-run', action='store_true', help='Do not delete unused images')
     args = parser.parse_args()
-    find_unused_media(Path(args.img_path))
+    find_unused_media(Path(args.img_path), args.dry_run)
