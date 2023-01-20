@@ -4,52 +4,52 @@
 {% set config_comments = False if config_comments is none else config.extra["comments"] %}
 {% set comments = config_comments if local_comments is none else page.meta['comments'] %}
 {% if comments %}
-<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+    <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
 
-<script
-    src="https://giscus.app/client.js"
-    data-repo="<username>/<repository>"
-    data-repo-id="..."
-    data-category="..."
-    data-category-id="..."
-    data-mapping="pathname"
-    data-reactions-enabled="1"
-    data-emit-metadata="1"
-    data-theme="light"
-    data-lang="en"
-    crossorigin="anonymous"
-    async
->
-</script>
+    <script
+        src="https://giscus.app/client.js"
+        data-repo="<username>/<repository>"
+        data-repo-id="..."
+        data-category="..."
+        data-category-id="..."
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async
+    >
+    </script>
 
-<!--- generate the script using https://giscus.app/ and replace the text above ! --->
+    <!--- generate the script using https://giscus.app/ and replace the text above ! --->
 
-<script>
-    var giscus = document.querySelector("script[src*=giscus]")
+    <script>
+        var giscus = document.querySelector("script[src*=giscus]")
 
-    /* Set palette on initial load */
-    var palette = __md_get("__palette")
-    if (palette && typeof palette.color === "object") {
-        var theme = palette.color.scheme === "slate" ? "dark_dimmed" : "light"
-        giscus.setAttribute("data-theme", theme)
-    }
+        /* Set palette on initial load */
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate" ? "dark_dimmed" : "light"
+            giscus.setAttribute("data-theme", theme)
+        }
 
-    /* Register event handlers after documented loaded */
-    document.addEventListener("DOMContentLoaded", function () {
-        var ref = document.querySelector("[data-md-component=palette]")
-        ref.addEventListener("change", function () {
-            var palette = __md_get("__palette")
-            if (palette && typeof palette.color === "object") {
-                var theme = palette.color.scheme === "slate" ? "dark_dimmed" : "light"
+        /* Register event handlers after documented loaded */
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate" ? "dark_dimmed" : "light"
 
-                /* Instruct Giscus to change theme */
-                var frame = document.querySelector(".giscus-frame")
-                frame.contentWindow.postMessage(
-                    { giscus: { setConfig: { theme } } },
-                    "https://giscus.app"
-                )
-            }
+                    /* Instruct Giscus to change theme */
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
         })
-    })
-</script>
+    </script>
 {% endif %}
