@@ -1,0 +1,49 @@
+name: Get lastest release from template
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+env:
+  AUTO_MERGE: false # set to true to enable auto merging
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get release from template
+        uses: robinraju/release-downloader@main
+        with:
+          latest: true
+          fileName: "changed_files.zip"
+          repository: "ObsidianPublisher/follow_template"
+      - name: Unzip changed files
+        run: |
+          unzip -o changed_files.zip
+          rm changed_files.zip
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update from template
+          title: "[BUMP] Update from template"
+          body: |
+            files changed:
+            ```
+            $(git diff --name-only HEAD^ HEAD)
+            ```
+          labels: |
+            update
+          branch: update_repo
+          delete-branch: true
+      - name: AutoMerging 
+        if: steps.cpr.outputs.pull-request-operation == 'created' && env.AUTO_MERGE == 'true'
+        uses: peter-evans/enable-pull-request-automerge@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+          
