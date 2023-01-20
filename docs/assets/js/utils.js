@@ -81,6 +81,7 @@ var p_img = /\.+\\/gi
 var img = document.querySelectorAll('img');
 for (var i = 0; i < img.length; i++) {
     var regAlt = new RegExp('\\|');
+    // image can only be rized with the `|*x*` syntax
     if (img[i].alt.match(regAlt)) {
         const alt = img[i].alt.split('|')
         for (var part of alt) {
@@ -92,11 +93,6 @@ for (var i = 0; i < img.length; i++) {
                 img[i].alt = img[i].alt.replace(partReg, '')
             }
         }
-    } else if (img[i].alt.match(new RegExp('\\d+', 'g'))) {
-        var size = getHeightWidth(img[i].alt)
-        img[i].width = size[0] > 0 ? size[0] : img[i].width
-        img[i].height = size[1] > 0 ? size[1] : img[i].height
-        img[i].alt = "";
     }
     var link = UrlExists(img[i], 1);
 }
@@ -166,10 +162,13 @@ window.onload = function () {
 var paletteSwitcher1 = document.getElementById("__palette_1");
 var paletteSwitcher2 = document.getElementById("__palette_2");
 
-paletteSwitcher1.addEventListener("change", function () {
-    location.reload();
-});
+const isMermaidPage = document.querySelector('.mermaid')
+if (isMermaidPage) {
+    paletteSwitcher1.addEventListener("change", function () {
+        location.reload();
+    });
 
-paletteSwitcher2.addEventListener("change", function () {
-    location.reload();
-});
+    paletteSwitcher2.addEventListener("change", function () {
+        location.reload();
+    });
+}
