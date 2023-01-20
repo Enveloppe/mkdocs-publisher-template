@@ -136,7 +136,7 @@ extra:
     pagination: true
     pagination_message: true
     pagination_translation: 'posts in'
-    no_page_found: "No pages found!"
+    no_page_found: "No pages found!" #message to display when no pages are found ; Add your own translation!
   hooks:
     strip_comments: true
     fix_heading: true
