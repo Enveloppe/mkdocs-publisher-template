@@ -15,6 +15,7 @@ function UrlExists(url, type_url) {
     if (ref.includes('%5C')) {
         ref = ref.replace(/%5C/g, '/')
     }
+    ref = decodeURI(ref)
     if (type_url === 0) {
         url.href = ref
         url.title = title
@@ -33,11 +34,14 @@ function UrlExists(url, type_url) {
     http.onload = function (e) {
         if (http.status == '404') {
             const newItem = document.createElement('div');
-            console.log(ref, url)
             newItem.innerHTML = title;
             newItem.classList.add('not_found');
-            newItem.setAttribute('url', ref);
-            url.parentNode.replaceChild(newItem, url);
+            newItem.setAttribute('href', ref);
+            try {
+                url.parentNode.replaceChild(newItem, url);
+            } catch (error) {
+                // console.log(error)
+            }
         }
         else {
             return true;
@@ -93,7 +97,7 @@ for (var i = 0; i < img.length; i++) {
         img[i].width = size[0] > 0 ? size[0] : img[i].width
         img[i].height = size[1] > 0 ? size[1] : img[i].height
         img[i].alt = "";
-    } 
+    }
     var link = UrlExists(img[i], 1);
 }
 
@@ -158,3 +162,14 @@ window.onload = function () {
         attributeFilter: ['data-md-color-scheme'],
     })
 }
+
+var paletteSwitcher1 = document.getElementById("__palette_1");
+var paletteSwitcher2 = document.getElementById("__palette_2");
+
+paletteSwitcher1.addEventListener("change", function () {
+    location.reload();
+});
+
+paletteSwitcher2.addEventListener("change", function () {
+    location.reload();
+});
