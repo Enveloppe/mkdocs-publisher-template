@@ -41,6 +41,6 @@ if __name__ == '__main__':
     # use argparse to get the path to the assets folder
     parser = argparse.ArgumentParser()
     parser.add_argument('img_path', type=str, help='Path to the assets folder')
-    parser.add_argument('--dry-run', action='store_true', help='Do not delete unused images') # allow to see the changes without remove files
+    parser.add_argument('--dry-run', action='store_true', help='Do not delete unused images')
     args = parser.parse_args()
     find_unused_media(Path(args.img_path), args.dry_run)
