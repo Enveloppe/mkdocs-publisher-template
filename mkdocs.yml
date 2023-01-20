@@ -133,7 +133,7 @@ extra:
   generate_graph: true #generate the graph of the site
   attachments: 'assets/img' #path to the folder where the attachments are stored
   blog_list:
-    pagination: true
+    pagination: true #enable pagination
     pagination_message: true #display the message "Showing x posts out of y"
     pagination_translation: 'posts in' #message to display before the number of posts ; Add your own translation!
     no_page_found: "No pages found!" #message to display when no pages are found ; Add your own translation!
