@@ -21,8 +21,11 @@ jobs:
           repository: "ObsidianPublisher/follow_template"
       - name: Unzip changed files
         run: |
+          mv mkdocs.yml mkdocs.bak.yml
           unzip -o changed_files.zip
           rm changed_files.zip
+          rm -f mkdocs.yml
+          mv mkdocs.bak.yml mkdocs.yml
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
