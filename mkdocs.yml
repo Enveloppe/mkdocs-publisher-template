@@ -1,6 +1,6 @@
-site_name: your_site_name
-site_description: A cool description
-site_url: https://change_me.io/
+site_name: your_site_name # Change this to your site name
+site_description: A cool description of your site
+site_url: https://change_me.io/ # Change this to your site URL
 
 theme:
     name: 'material'
