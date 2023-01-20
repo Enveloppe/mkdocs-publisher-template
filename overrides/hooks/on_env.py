@@ -1,5 +1,6 @@
 import logging
 import shutil
+import re
 import urllib.parse
 from datetime import datetime
 from pathlib import Path
@@ -26,6 +27,9 @@ def obsidian_graph():
     log.info("[OBSIDIAN GRAPH] Graph generated!")
     return ""
 
+def regex_replace(s, find, replace):
+    """A non-optimal implementation of a regex filter"""
+    return re.sub(find, replace, s)
 
 def log(text):
     """Prints text to the console, in case you need to debug something.
@@ -129,11 +133,11 @@ def url_decode(url):
 
 
 def value_in_frontmatter(key, metadata):
-    """Check if a key exists in the frontmatter.
+    """Check if a key exists in a dictionnary.
 
     Args:
         key (any): the key to check
-        metadata (any): the frontmatter
+        metadata (any): the dictionnary to check
 
     Returns:
         bool: true if exists
@@ -154,4 +158,5 @@ def on_env(env, config, files, **kwargs):
     env.filters["log"] = log
     env.filters["to_local_time"] = to_local_time
     env.filters["value_in_frontmatter"] = value_in_frontmatter
+    env.filters['regex_replace'] = regex_replace
     return env

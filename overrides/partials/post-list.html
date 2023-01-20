@@ -96,6 +96,8 @@
                     {% if pg.meta.banner %}
                         {% set pg_image = pg.meta.banner %}
                     {% elif pg.meta.image %}
+                        {% set attachmentsFolder = 'attachments' | value_in_frontmatter(config.extra) %}
+                        {% set attachmentsFolder = 'assets/img/' if attachmentsFolder is none else config.extra['attachments'] | regex_replace('/$', '') %}
                         {% set pg_image = config.site_url ~ 'assets/img/' ~ pg.meta.image %}
                     {% endif %}
                     {% if pg.meta.category %}
@@ -238,6 +240,8 @@
         }
     </style>
     <p class="center">
-        No page found!
+        {% set no_page_found = 'no_page_found' | value_in_frontmatter(config.extra['blog_list']) %}
+        {% set no_page_found = 'No pages found!' if no_page_found is none else config.extra['blog_list']['no_page_found'] %}
+        {{ no_page_found }}
     </p>
 {% endif %}
