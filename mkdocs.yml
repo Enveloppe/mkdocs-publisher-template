@@ -88,7 +88,10 @@ plugins:
       enable_creation_date: true
   - ezlinks:
         wikilinks: true
-  - mermaid2
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
   - awesome-pages
   - embed_file:
       callouts: true
@@ -124,6 +127,7 @@ extra_css:
     - assets/css/template/grid.css
     - assets/css/template/img-grids-float.css
     - assets/css/template/utils.css
+    - assets/css/template/snippets.css
     - assets/css/admonition.css
     - assets/css/custom_attributes.css
     - assets/css/customization.css
