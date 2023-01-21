@@ -29,11 +29,11 @@ def find_unused_media(img_path: Path, dry_run: bool = False):
     if unused_images:
         print(f'Found {len(unused_images)} unused images in {assets_dir}. Deleting...')
         for image in unused_images:
+            print(image)
             if not dry_run:
-                print(image)
                 os.remove(image)
             else:
-                print(f'Would delete {image}')
+                print(f'Dry run: would have deleted {image}.')
     else:
         print(f'Found no unused images in {assets_dir}.')
 
