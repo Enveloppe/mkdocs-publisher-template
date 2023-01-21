@@ -9,7 +9,6 @@ def find_unused_media(img_path: Path, dry_run: bool = False):
     assets_dir = Path(docs_dir, img_path)
     images = [file for file in assets_dir.rglob('*') if file.is_file() and file.suffix in ['.png', '.jpg', '.jpeg', '.gif', '.svg']]
     md_files = [file for file in docs_dir.rglob('*.md') if file.is_file()]
-    print(Path('K:\\Github\\Seed_publish\\docs\\Compendium\\Mnémosyne\\Illustration_Némo.md') in md_files)
 
     # Search for images in markdown files
 
@@ -36,6 +35,7 @@ def find_unused_media(img_path: Path, dry_run: bool = False):
                 print(f'Would delete {image}')
     else:
         print(f'Found no unused images in {assets_dir}.')
+
 
 if __name__ == '__main__':
     # use argparse to get the path to the assets folder
