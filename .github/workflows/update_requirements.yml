@@ -57,7 +57,7 @@ jobs:
         run: python find_unused_media.py "$img_dir"
         env:
           img_dir: ${{ inputs.img_dir }}
-      - if: inputs.clean == 'true' && inputs.dry_run == 'true' 
+      - if: ${{ inputs.clean == 'true'}} && ${{ inputs.dry_run == 'true' }}
         name: Dry run
         run: python find_unused_media.py "$img_dir" --dry-run
         env:
