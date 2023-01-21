@@ -1,4 +1,4 @@
-name: update requirements
+name: update requirements and clean unused images
 
 on:
   workflow_dispatch:
@@ -47,12 +47,12 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-      - if: ${{ github.event.inputs.clean == 'true' }} && ${{ github.event.inputs.dry_run == 'false' }}
+      - if: ${{ github.events.inputs.clean == 'true' }} && ${{ github.events.inputs.dry_run == 'false' }}
         name: Remove unused media
-        run: python find_unused_media.py "${{ github.event.inputs.img_dir }}"
-      - if: ${{ github.event.inputs.clean == 'true' }} && ${{ github.event.inputs.dry_run == 'true' }}
+        run: python find_unused_media.py "${{ github.events.inputs.img_dir }}"
+      - if: ${{ github.events.inputs.clean == 'true' }} && ${{ github.events.inputs.dry_run == 'true' }}
         name: Dry run
-        run: python find_unused_media.py "${{ github.event.inputs.img_dir }}" --dry-run
+        run: python find_unused_media.py "${{ github.events.inputs.img_dir }}" --dry-run
       - name: commit the new change (if found)
         continue-on-error: true
         run: |
