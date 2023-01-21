@@ -52,7 +52,7 @@ jobs:
           echo "clean: ${{ inputs.clean }}"
           echo "img_dir: ${{ inputs.img_dir }}"
           echo "dry_run: ${{ inputs.dry_run }}"
-      - if: inputs.clean == 'true' && inputs.dry_run == 'false' 
+      - if: ${{ inputs.clean == 'true' }} && ${{ inputs.dry_run == 'false' }} 
         name: Remove unused media
         run: python find_unused_media.py "$img_dir"
         env:
