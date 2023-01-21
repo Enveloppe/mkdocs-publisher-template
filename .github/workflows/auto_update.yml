@@ -4,7 +4,8 @@ on:
   schedule:
     - cron: '0 0 * * *'
 env:
-  AUTO_MERGE: false # set to true to enable auto merging
+  AUTO_MERGE: false #set to true to enable auto merging
+  OVERWRITE: true #set to false to keep an old version of this workflow
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -19,8 +20,18 @@ jobs:
           repository: "ObsidianPublisher/follow_template"
       - name: Unzip changed files
         run: |
+          mv .github/workflows/auto_update.yml .github/workflows/auto_update.bak.yml
           unzip -o release.zip
           rm release.zip
+      - name: Delete old auto_update.yml
+        if: env.OWERWRITE == 'true'
+        run: |
+          rm .github/workflows/auto_update.bak.yml
+      - name: Restaure old auto_update.yml
+        if: env.OVERWRITE == 'false'
+        run: |
+          rm .github/workflows/auto_update.yml
+          mv .github/workflows/auto_update.bak.yml .github/workflows/auto_update.yml
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
