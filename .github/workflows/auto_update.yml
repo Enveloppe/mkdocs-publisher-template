@@ -10,22 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
       - name: Get release from template
         uses: robinraju/release-downloader@main
         with:
           latest: true
-          fileName: "changed_files.zip"
+          fileName: "release.zip"
           repository: "ObsidianPublisher/follow_template"
       - name: Unzip changed files
         run: |
-          mv mkdocs.yml mkdocs.bak.yml
-          unzip -o changed_files.zip
-          rm changed_files.zip
-          rm -f mkdocs.yml
-          mv mkdocs.bak.yml mkdocs.yml
+          unzip -o release.zip
+          rm release.zip
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
