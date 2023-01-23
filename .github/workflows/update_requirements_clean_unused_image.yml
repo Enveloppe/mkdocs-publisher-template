@@ -2,25 +2,12 @@ name: update requirements and clean unused images
 
 on:
   workflow_dispatch:
-    inputs:
-      clean:
-        type: boolean
-        required: false
-        description: "Clean unused media"
-        default: true # Set this to false if you want to disable clean unused medias !!!
-      img_dir:
-        type: string
-        required: false
-        description: "Assets directory"
-        default: "assets/img"
-      dry_run:
-        type: boolean
-        required: false
-        description: "Dry run"
-        default: false # Set this to true if you want to test the workflow without commiting the changes !!!
   schedule:
     - cron: '0 0 * * *'
-
+env:
+  CLEAN: true #set to false to remove cleaning
+  IMG_DIR: 'assets/img' #change this if you use another assets image folder
+  DRY_RUN: false #to just check if everything is well configured
 jobs:
   update-requirements:
     runs-on: ubuntu-latest
@@ -47,21 +34,12 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-      - name: Echo inputs
-        run: |
-          echo "clean: ${{ inputs.clean }}"
-          echo "img_dir: ${{ inputs.img_dir }}"
-          echo "dry_run: ${{ inputs.dry_run }}"
-      - if: ${{ inputs.clean == 'true' }} && ${{ inputs.dry_run == 'false' }} 
+      - if: ${{ env.CLEAN == 'true' }} && ${{ env.DRY_RUN == 'false' }} 
         name: Remove unused media
-        run: python find_unused_media.py "$img_dir"
-        env:
-          img_dir: ${{ inputs.img_dir }}
-      - if: ${{ inputs.clean == 'true'}} && ${{ inputs.dry_run == 'true' }}
+        run: python find_unused_media.py "$IMG_DIR"
+      - if: ${{ env.CLEAN == 'true'}} && ${{ env.DRY_RUN == 'true' }}
         name: Dry run
-        run: python find_unused_media.py "$img_dir" --dry-run
-        env:
-          img_dir: ${{ inputs.img_dir }}
+        run: python find_unused_media.py "$IMG_DIR" --dry-run
       - name: commit the new change (if found)
         continue-on-error: true
         run: |
