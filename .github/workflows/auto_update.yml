@@ -10,9 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Get .env file
-        uses: xom9ikk/dotenv@master
+        uses: xom9ikk/dotenv@v2
         with:
-          path: .github/.env
+          path: .github/
           load_mode: skip
       
       - name: Get release from template
