@@ -16,7 +16,7 @@ jobs:
       - name: Get .env file
         uses: xom9ikk/dotenv@master
         with:
-          path: .github/.env
+          path: .github
           load_mode: strict
       - name: install pur
         run: pip install pur
