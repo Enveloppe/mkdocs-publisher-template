@@ -39,11 +39,11 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-      - if: ${{ env.CLEAN == 'true' }} && ${{ env.DRY_RUN == 'false' }} 
+      - if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'false' }} 
         name: Remove unused media
         run: python find_unused_media.py "$IMG_DIR"
-      - if: ${{ env.CLEAN == 'true'}} && ${{ env.DRY_RUN == 'true' }}
-        name: Dry run
+      - if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'true' }}
+        name: Find unused media (dry run)
         run: python find_unused_media.py "$IMG_DIR" --dry-run
       - name: commit the new change (if found)
         continue-on-error: true
