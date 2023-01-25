@@ -3,15 +3,18 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
-env:
-  AUTO_MERGE: false #set to true to enable auto merging
-  OVERWRITE: true #set to false to keep an old version of this workflow
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Get .env file
+        uses: xom9ikk/dotenv@master
+        with:
+          path: .github/.env
+          load_mode: skip
+      
       - name: Get release from template
         uses: robinraju/release-downloader@main
         with:
@@ -20,23 +23,13 @@ jobs:
           repository: "ObsidianPublisher/follow_template"
       - name: Unzip changed files
         run: |
-          mv .github/workflows/auto_update.yml .github/workflows/auto_update.bak.yml
           unzip -o release.zip
           rm release.zip
-      - name: Delete old auto_update.yml
-        if: env.OWERWRITE == 'true'
-        run: |
-          rm .github/workflows/auto_update.bak.yml
-      - name: Restaure old auto_update.yml
-        if: env.OVERWRITE == 'false'
-        run: |
-          rm .github/workflows/auto_update.yml
-          mv .github/workflows/auto_update.bak.yml .github/workflows/auto_update.yml
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           commit-message: Update from template
           title: "[BUMP] Update from template"
           body: |
@@ -52,7 +45,7 @@ jobs:
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }} && ${{ env.AUTO_MERGE == 'true' }}
         uses: peter-evans/enable-pull-request-automerge@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
           merge-method: squash
           
