@@ -42,7 +42,7 @@ jobs:
           branch: update_repo
           delete-branch: true
       - name: AutoMerging 
-        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }} && ${{ env.AUTO_MERGE == 'true' }}
+        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && env.AUTO_MERGE == 'true' }}
         uses: peter-evans/enable-pull-request-automerge@main
         with:
           token: ${{ secrets.GH_TOKEN }}
