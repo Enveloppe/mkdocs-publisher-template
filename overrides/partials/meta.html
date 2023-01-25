@@ -6,10 +6,13 @@
     {% set title = page.title %}
 {% endif %}
 <meta
+    name="site_url"
+    content="{{ config.site_url }}"
+>
+<meta
     property="og:title"
     content="{{ title }}"
 >
-<meta property="site_url" content="{{ config.site_url }}">
 <meta
     name="twitter:title"
     content="{{ title }}"
