@@ -22,8 +22,8 @@ try {
                         for (let i = 0; i < brokenImage.length; i++) {
                             const encodedImage = brokenImage[i];
                             encodedImage.src = decodeURI(decodeURI(encodedImage.src));
-                            encodedImage.src = encodedImage.src.replace(location.origin, blogURL);
                             //replace broken image with encoded image in first para
+                            encodedImage.src = encodedImage.src.replace(location.origin, blogURL);
                         }
                     }
                     const element1 = document.querySelector(`[id^="tippy"]`);
@@ -62,7 +62,7 @@ try {
                         instance.setContent(firstPara);
                     } else {
                         firstPara = doc.querySelector('article');
-                        instance.reference.href.replace(/.*#/, '#');
+                        const header = instance.reference.href.replace(/.*#/, '#');
                     }
 
                 })
