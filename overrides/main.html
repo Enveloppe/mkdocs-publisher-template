@@ -23,4 +23,13 @@
 {% block content %}
   {{ super() }}
   {% include "partials/comments.html" %}
+  {% set pg_title = 'title' | value_in_frontmatter(page.meta) %}
+  {% set pg_title = page.meta.title if pg_title is not none else page.title %}
+  {% set pg_title = page.parent.title if pg_title == 'Index' else pg_title %}
+  <script> 
+    const index = document.querySelector('h1').innerHTML;
+    if (index === "Index") {
+      document.querySelector('h1').innerHTML = "{{ pg_title }}";
+    }
+  </script>
 {% endblock %}

@@ -91,14 +91,21 @@
                 {% set pg_category = "" %}
                 {% set pg_description = "" %}
                 {% set category_link = "" %}
+                {% set pg_title = pg.title %}
+                {% if pg_title == "Index" %}
+                    {% set pg_title = pg.parent.title %}
+                {% endif %}
                 {% set main_category = page.meta.category | lower %}
                 {% if pg.meta %}
+                    {% if pg.meta.title %}
+                        {% set pg_title = pg.meta.title %}
+                    {% endif %}
                     {% if pg.meta.banner %}
                         {% set pg_image = pg.meta.banner %}
                     {% elif pg.meta.image %}
                         {% set attachmentsFolder = 'attachments' | value_in_frontmatter(config.extra) %}
                         {% set attachmentsFolder = 'assets/img/' if attachmentsFolder is none else config.extra['attachments'] | regex_replace('/$', '') %}
-                        {% set pg_image = config.site_url ~ attachmentsFolder ~ pg.meta.image %}
+                        {% set pg_image = config.site_url ~ attachmentsFolder ~ '/' ~ pg.meta.image %}
                     {% endif %}
                     {% if pg.meta.category %}
                         {% set pg_category = pg.meta.category | lower | replace(main_category, '') | replace('/', '') | title %}
@@ -118,7 +125,7 @@
                 {% endif %}
                 <div class="post">
                     <h4 class="post-title">
-                        <a href="{{ pg.canonical_url }}">{{ pg.title }}</a>
+                        <a href="{{ pg.canonical_url }}">{{ pg_title }}</a>
                     </h4>
                     <div class="post-info-wrap">
                         <div class="post-info">

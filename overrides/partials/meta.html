@@ -40,8 +40,8 @@
 {% if page and page.meta %}
     {% if page.meta.image %}
         {% set attachmentsFolder = 'attachments' | value_in_frontmatter(config.extra) %}
-        {% set attachments = 'assets/img/' if attachmentsFolder is none else config.extra['attachments'] | regex_replace("/$", "/") %}
-        {% set image = config.site_url ~ attachments ~ page.meta.image %}
+        {% set attachments = 'assets/img/' if attachmentsFolder is none else config.extra['attachments'] | regex_replace('/$', '') %}
+        {% set image = config.site_url ~ attachments ~ "/" ~ page.meta.image %}
     {% elif page.meta.banner %}
         {% set image = page.meta.banner %}
     {% endif %}
