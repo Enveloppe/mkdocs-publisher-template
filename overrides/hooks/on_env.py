@@ -5,13 +5,14 @@ import urllib.parse
 from datetime import datetime
 from pathlib import Path
 
-import obsidiantools.api as otools
 from babel.dates import format_date
 from dateutil import parser
-from pyvis.network import Network
+
 
 
 def obsidian_graph():
+    import obsidiantools.api as otools
+    from pyvis.network import Network
     """Generates a graph of the Obsidian vault."""
     log = logging.getLogger("mkdocs.plugins." + __name__)
     log.info("[OBSIDIAN GRAPH] Generating graph...")
