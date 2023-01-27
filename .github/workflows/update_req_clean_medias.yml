@@ -5,8 +5,10 @@ on:
   schedule:
     - cron: '0 0 * * *'
 jobs:
-  update-requirements:
+  unused-images:
     runs-on: ubuntu-latest
+    outputs:
+      workflow-type: ${{ steps.check-env.outputs.WORKFLOW_TYPE }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -18,45 +20,84 @@ jobs:
         with:
           path: .github
           load_mode: strict
-      - name: install pur
-        run: pip install pur
-      - name: Update requirements.txt
-        if: ${{ env.WORKFLOW_TYPE == 'netlify'}}
+      - name: Outputs environment
+        id: check-env
         run: |
-          pur -r requirements.txt --skip obsidiantools
-          FILE=requirements-actions.txt
-          if [ -f "$FILE" ]; then
-            pur -r requirements-actions.txt
+          echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
+      - name: Echo output
+        run: |
+          echo ${{ env.WORKFLOW_TYPE }}
+          echo ${{ steps.check-env.outputs.WORKFLOW_TYPE }}
+      - name: Clean unused images
+        if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'false' }}
+        continue-on-error: true
+        run: |
+          python find_unused_media.py "$IMG_DIR"
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+          git commit -am "[skip ci] Remove unused media"
+          git push
+      - name: Clean unused images (dry run)
+        if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'true' }}
+        run: |
+          python find_unused_media.py "$IMG_DIR" --dry-run
+  netlify:
+    needs: unused-images
+    runs-on: ubuntu-latest
+    if: needs.unused-images.outputs.workflow-type == 'netlify'
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Update requirements
+        run: |
+          pip install pur
+          isExist=false
+          if [ -f "requirements_actions.txt" ]; then
+            pur -r requirements_actions.txt
+            isExist=true
           fi
-      - name: Update requirements.txt
-        if: ${{ env.WORKFLOW_TYPE != 'netlify'}}
-        run: pur -r requirements.txt
-      - name: check python cache
-        id: python_cache
+          pur -r requirements.txt
+          echo "REQUIREMENTSACTIONS=$isExist" >> $GITHUB_ENV
+      - name: Check cache
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: venv
+          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements_actions.txt') }}
+      - if: steps.cache.outputs.cache-hit != 'true' && env.REQUIREMENTSACTIONS == 'true'
+        name: Recreate cache
+        run: |
+          if [ -d "venv" ]; then rm -rf venv; fi
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements_actions.txt
+  others:
+    needs: unused-images
+    runs-on: ubuntu-latest
+    if: needs.unused-images.outputs.workflow-type != 'netlify'
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Update requirements
+        run: |
+          pip install pur
+          pur -r requirements.txt
+      - name: Check cache
+        id: cache
         uses: actions/cache@v3
         with:
           path: venv
           key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
-      - if: steps.python_cache.outputs.cache-hit != 'true'
-        name: Recreate python cache
+      - if: steps.cache.outputs.cache-hit != 'true'
+        name: Recreate cache
         run: |
           if [ -d "venv" ]; then rm -rf venv; fi
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-          if [ -f "requirements-actions.txt" ]; then
-            pip install -r requirements-actions.txt
-          fi
-      - if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'false' }} 
-        name: Remove unused media
-        run: python find_unused_media.py "$IMG_DIR"
-      - if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'true' }}
-        name: Find unused media (dry run)
-        run: python find_unused_media.py "$IMG_DIR" --dry-run
-      - name: commit the new change (if found)
-        continue-on-error: true
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "Update requirements & remove unused media"
-          git push
