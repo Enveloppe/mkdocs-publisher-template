@@ -55,8 +55,8 @@ jobs:
         run: |
           pip install pur
           isExist=false
-          if [ -f "requirements_actions.txt" ]; then
-            pur -r requirements_actions.txt
+          if [ -f "requirements-actions.txt" ]; then
+            pur -r requirements-actions.txt
             isExist=true
           fi
           pur -r requirements.txt
@@ -66,14 +66,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv
-          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements_actions.txt') }}
+          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements-actions.txt') }}
       - if: steps.cache.outputs.cache-hit != 'true' && env.REQUIREMENTSACTIONS == 'true'
         name: Recreate cache
         run: |
           if [ -d "venv" ]; then rm -rf venv; fi
           python3 -m venv venv
           source venv/bin/activate
-          pip install -r requirements_actions.txt
+          pip install -r requirements-actions.txt
   others:
     needs: unused-images
     runs-on: ubuntu-latest
