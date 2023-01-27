@@ -11,9 +11,9 @@ from dateutil import parser
 
 
 def obsidian_graph():
+    """Generates a graph of the Obsidian vault."""
     import obsidiantools.api as otools
     from pyvis.network import Network
-    """Generates a graph of the Obsidian vault."""
     log = logging.getLogger("mkdocs.plugins." + __name__)
     log.info("[OBSIDIAN GRAPH] Generating graph...")
     vault_path = Path(Path.cwd(), "docs")
