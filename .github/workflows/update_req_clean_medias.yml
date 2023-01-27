@@ -22,7 +22,12 @@ jobs:
         run: pip install pur
       - name: Update requirements.txt
         if: ${{ env.WORKFLOW_TYPE == 'netlify'}}
-        run: pur -r requirements.txt --skip obsidiantools
+        run: |
+          pur -r requirements.txt --skip obsidiantools
+          FILE=requirements-actions.txt
+          if [ -f "$FILE" ]; then
+            pur -r requirements-actions.txt
+          fi
       - name: Update requirements.txt
         if: ${{ env.WORKFLOW_TYPE != 'netlify'}}
         run: pur -r requirements.txt
@@ -39,6 +44,9 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+          if [ -f "requirements-actions.txt" ]; then
+            pip install -r requirements-actions.txt
+          fi
       - if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'false' }} 
         name: Remove unused media
         run: python find_unused_media.py "$IMG_DIR"
