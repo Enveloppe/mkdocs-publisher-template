@@ -74,6 +74,13 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements-actions.txt
+      - name: Update repository
+        continue-on-error: true
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+          git commit -am "Update requirements"
+          git push
   others:
     needs: unused-images
     runs-on: ubuntu-latest
@@ -101,3 +108,10 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+      - name: Update repository
+        continue-on-error: true
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+          git commit -am "[skip ci] Update requirements"
+          git push
