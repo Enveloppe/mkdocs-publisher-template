@@ -113,5 +113,5 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "[skip ci] Update requirements"
+          git commit -am "[skip netlify] Update requirements"
           git push
