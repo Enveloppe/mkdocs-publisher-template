@@ -16,6 +16,11 @@ try {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
                     let firstPara = doc.querySelector('article');
+                    const firstHeader = doc.querySelector('h1');
+                    if (firstHeader && firstHeader.innerText === 'Index') {
+                        const realFileName = decodeURI(doc.querySelector('link[rel="canonical"]').href).split('/').filter(e => e).pop();
+                        firstHeader.innerText = realFileName;
+                    }
                     //broken link in first para
                     const brokenImage = firstPara.querySelectorAll('img');
                     if (brokenImage) {
