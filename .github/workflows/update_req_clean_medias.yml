@@ -59,7 +59,7 @@ jobs:
             pur -r requirements-actions.txt
             isExist=true
           fi
-          pur -r requirements.txt
+          pur -r requirements.txt --skip obsidiantools
           echo "REQUIREMENTSACTIONS=$isExist" >> $GITHUB_ENV
       - name: Check cache
         id: cache
