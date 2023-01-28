@@ -27,9 +27,13 @@
   {% set pg_title = page.meta.title if pg_title is not none else page.title %}
   {% set pg_title = page.parent.title if pg_title == 'Index' else pg_title %}
   <script> 
-    const index = document.querySelector('h1').innerHTML;
-    if (index === "Index") {
-      document.querySelector('h1').innerHTML = "{{ pg_title }}";
+    try {
+      const index = document.querySelector('h1').innerHTML;
+      if (index === "Index") {
+        document.querySelector('h1').innerHTML = "{{ pg_title }}";
+      }
+    } catch (error) {
+      // console.log(error);
     }
   </script>
 {% endblock %}
