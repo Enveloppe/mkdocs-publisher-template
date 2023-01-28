@@ -41,10 +41,10 @@ jobs:
         if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'true' }}
         run: |
           python find_unused_media.py "$IMG_DIR" --dry-run
-  netlify:
+  other:
     needs: unused-images
     runs-on: ubuntu-latest
-    if: needs.unused-images.outputs.workflow-type == 'netlify'
+    if: needs.unused-images.outputs.workflow-type != 'gh-pages'
     steps: 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -55,36 +55,37 @@ jobs:
         run: |
           pip install pur
           isExist=false
-          if [ -f "requirements-actions.txt" ]; then
-            pur -r requirements-actions.txt
+          if [ -f "requirements_actions.txt" ]; then
+            pur -r requirements_actions.txt
             isExist=true
           fi
           pur -r requirements.txt --skip obsidiantools
           echo "REQUIREMENTSACTIONS=$isExist" >> $GITHUB_ENV
-      - name: Check cache
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: venv
-          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements-actions.txt') }}
-      - if: steps.cache.outputs.cache-hit != 'true' && env.REQUIREMENTSACTIONS == 'true'
-        name: Recreate cache
-        run: |
-          if [ -d "venv" ]; then rm -rf venv; fi
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install -r requirements-actions.txt
-      - name: Update repository
+      - name: Push updated requirements
         continue-on-error: true
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "Update requirements"
+          git commit -am "[AUTO] Update requirements"
           git push
-  others:
+      - name: Check cache
+        if: env.REQUIREMENTSACTIONS == 'true'
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: venv-other
+          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements_actions.txt') }}
+      - if: steps.cache.outputs.cache-hit != 'true' && env.REQUIREMENTSACTIONS == 'true'
+        name: Recreate cache
+        run: |
+          if [ -d "venv-other" ]; then rm -rf venv-other; fi
+          python3 -m venv venv-other
+          source venv-other/bin/activate
+          pip install -r requirements_actions.txt
+  gh-pages:
     needs: unused-images
     runs-on: ubuntu-latest
-    if: needs.unused-images.outputs.workflow-type != 'netlify'
+    if: needs.unused-images.outputs.workflow-type == 'gh-pages'
     steps: 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -108,10 +109,10 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-      - name: Update repository
+      - name: Push updated requirements
         continue-on-error: true
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "[skip netlify] Update requirements"
+          git commit -am "[AUTO] Update requirements"
           git push
