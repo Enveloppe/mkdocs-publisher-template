@@ -24,10 +24,6 @@ jobs:
         id: check-env
         run: |
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
-      - name: Echo output
-        run: |
-          echo ${{ env.WORKFLOW_TYPE }}
-          echo ${{ steps.check-env.outputs.WORKFLOW_TYPE }}
       - name: Clean unused images
         if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'false' }}
         continue-on-error: true
