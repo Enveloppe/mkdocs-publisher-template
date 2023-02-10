@@ -1,14 +1,15 @@
 //patch a href attributes 
-header_links = document.querySelectorAll('a[href*="#"]');
-for (var i = 0; i < header_links.length; i++) {
-    const header = header_links[i].getAttribute('href').replace('^.*#', '');
-    //replace " " with "-"
-    let header_fix = header.replace(/\s/g, '-');
-    //replace any accent with the corresponding letter
-    header_fix = header.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-    header_links[i].setAttribute('href', header_links[i].getAttribute('href').replace(header, header_fix));
+const header_links = document.querySelectorAll('a[href*="#"]');
+if (header_links) {
+    for (var i = 0; i < header_links.length; i++) {
+        const header = header_links[i].getAttribute('href').replace('^.*#', '');
+        //replace " " with "-"
+        let header_fix = header.replace(/\s/g, '-');
+        //replace any accent with the corresponding letter
+        header_fix = header.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+        header_links[i].setAttribute('href', header_links[i].getAttribute('href').replace(header, header_fix));
+    }
 }
-
 function UrlExists(url, type_url) {
     let ref = "";
     let title = "";
