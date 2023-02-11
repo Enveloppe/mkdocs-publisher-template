@@ -5,27 +5,34 @@ https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-fil
 
 <hr />
 <div class="md-source-file">
-  <small>
-    <!-- mkdocs-git-revision-date-localized-plugin -->
-    {% set locale = page.meta.locale or config.locale or config.theme.language
-    or 'en' %} {% if page.meta.git_revision_date_localized %}
-    <u>{{ lang.t("source.file.date.updated") }}</u> : {{
-    page.meta.git_revision_date_localized }}
-    <!-- mkdocs-git-revision-date-plugin -->
-    {% elif page.meta.revision_date %}
-    <u>{{ lang.t("source.file.date.updated") }}</u> : {{ page.meta.revision_date
-    }} {% endif %} {% if page.meta.date %}
-    <br />
-    <u>{{ lang.t("source.file.date.created") }}</u> : {{ page.meta.date |
-    to_local_time(locale) }} {% elif page.meta.git_creation_date_localized %}
-    <br />
-    <u>{{ lang.t("source.file.date.created") }}</u> : {{
-    page.meta.git_creation_date_localized }} {% endif %} {% if page.meta.author
-    %}
-    <br />
-    <u>Auteur</u> : {{ page.meta.author }} {% endif %} {% if
-    page.meta.illustration %}
-    <br />
-    <u>Illustration</u> : {{ page.meta.illustration }} {% endif %}
-  </small>
+    <small>
+
+        <!-- mkdocs-git-revision-date-localized-plugin -->
+        {% set locale = page.meta.locale or config.locale or config.theme.language or 'en' %}
+        {% if page.meta.git_revision_date_localized %}
+        <u>{{ lang.t("source.file.date.updated") }}</u> :
+        {{ page.meta.git_revision_date_localized }}
+        <!-- mkdocs-git-revision-date-plugin -->
+        {% elif page.meta.revision_date %}
+        <u>{{ lang.t("source.file.date.updated") }}</u> :
+        {{ page.meta.revision_date }}
+        {% endif %}
+        {% if page.meta.date %}
+        <br />
+        <u>{{ lang.t("source.file.date.created") }}</u> :
+        {{ page.meta.date | to_local_time(locale) }}
+        {% elif page.meta.git_creation_date_localized %}
+        <br />
+        <u>{{ lang.t("source.file.date.created") }}</u> :
+        {{ page.meta.git_creation_date_localized }}
+        {% endif %}
+        {% if page.meta.author %}
+        <br />
+        <u>Auteur</u> : {{ page.meta.author }}
+        {% endif %}
+        {% if page.meta.illustration %}
+        <br />
+        <u>Illustration</u> : {{ page.meta.illustration }}
+        {% endif %}
+    </small>
 </div>
