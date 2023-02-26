@@ -83,12 +83,13 @@ try {
             instance.setContent(firstPara);
           } else {
             firstPara = doc.querySelector("article");
-            const header = instance.reference.href.replace(/.*#/, "#");
+            instance.reference.href.replace(/.*#/, "#");
           }
         })
         .catch((error) => {
           console.log(error);
-          instance.setContent("Error");
+          instance.hide();
+          instance.destroy();
         });
     },
   });
