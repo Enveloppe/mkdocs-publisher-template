@@ -2,17 +2,18 @@ import logging
 import shutil
 import re
 import urllib.parse
-from datetime import datetime
+import datetime
 from pathlib import Path
 
 from babel.dates import format_date
 from dateutil import parser
 
 
-
 def obsidian_graph():
     """Generates a graph of the Obsidian vault."""
+    # pylint: disable=import-outside-toplevel
     import obsidiantools.api as otools
+    # pylint: disable=import-outside-toplevel``
     from pyvis.network import Network
     log = logging.getLogger("mkdocs.plugins." + __name__)
     log.info("[OBSIDIAN GRAPH] Generating graph...")
@@ -61,10 +62,10 @@ def time_time(time):
     time = time.replace("-", "/")
     time = parser.parse(time).isoformat()
     try:
-        time = datetime.fromisoformat(time)
-        return datetime.strftime(time, "%d %B %Y")
+        time = datetime.datetime.fromisoformat(time)
+        return datetime.datetime.strftime(time, "%d %B %Y")
     except AttributeError:
-        return datetime.strftime(str(time), "%d %B %Y")
+        return datetime.datetime.strftime(str(time), "%d %B %Y")
     except ValueError:
         print("value error!")
         return time
@@ -80,6 +81,8 @@ def to_local_time(time, locale):
     Returns:
         str: the converted time
     """
+    if isinstance(time, datetime.time) or isinstance(time, datetime.date):
+        time = time.isoformat()
     date = time.replace("-", "/")
     date = parser.parse(date)
     return format_date(date, locale=locale)
@@ -106,8 +109,9 @@ def time_to_iso(time):
     Returns:
         any|str: convert time or the original time if error
     """
+    if isinstance(time, datetime.time) or isinstance(time, datetime.date):
+        time = time.isoformat()
     time = time.replace("-", "/")
-
     try:
         return parser.parse(time).isoformat()
     except AttributeError:
