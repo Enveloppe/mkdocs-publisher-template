@@ -7,7 +7,6 @@
 .md-typeset .grid {
   grid-gap: 0.4rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   margin: 1em 0;
 }
 
