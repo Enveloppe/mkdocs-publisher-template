@@ -12,9 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-          cache: 'pip'
       - name: Get .env file
         uses: xom9ikk/dotenv@v2.1.0
         with:
