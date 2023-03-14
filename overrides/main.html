@@ -21,6 +21,7 @@
   {% include "partials/meta.html" %}
 {% endblock %}
 {% block content %}
+  {% include "partials/import.html" %}
   {{ super() }}
   {% include "partials/comments.html" %}
   {% set pg_title = 'title' | value_in_frontmatter(page.meta) %}
@@ -36,5 +37,4 @@
       // console.log(error);
     }
   </script>
-  {% include "partials/import.html" %}
 {% endblock %}
