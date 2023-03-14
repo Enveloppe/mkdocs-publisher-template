@@ -4,15 +4,18 @@
 
 .md-typeset .admonition.dictionnary,
 .md-typeset details.dictionnary {
-  border-color: rgb(43, 155, 70);
+    border-color: rgb(43, 155, 70);
 }
-.md-typeset .dictionnary > .admonition-title,
-.md-typeset .dictionnary > .summary {
-  background-color: rgba(43, 155, 70, 0.1);
-  border-color: rgb(43, 155, 70);
+
+.md-typeset .dictionnary>.admonition-title,
+.md-typeset .dictionnary>.summary {
+    background-color: rgba(43, 155, 70, 0.1);
+    border-color: rgb(43, 155, 70);
 }
-.md-typeset .dictionnary > .admonition-title::before,
-.md-typeset .dictionnary > summary::before {
-  background-color: rgb(43, 155, 70);
-  -webkit-mask-image: var(--md-admonition-icon--dictionnary);
-          mask-image: var(--md-admonition-icon--dictionnary);
+
+.md-typeset .dictionnary>.admonition-title::before,
+.md-typeset .dictionnary>summary::before {
+    background-color: rgb(43, 155, 70);
+    -webkit-mask-image: var(--md-admonition-icon--dictionnary);
+    mask-image: var(--md-admonition-icon--dictionnary);
+}
