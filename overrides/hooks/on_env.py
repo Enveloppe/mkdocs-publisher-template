@@ -1,5 +1,6 @@
 import logging
 import shutil
+import os
 import re
 import urllib.parse
 import datetime
@@ -32,6 +33,19 @@ def obsidian_graph():
     log.info("[OBSIDIAN GRAPH] Graph generated!")
     return ""
 
+def get_last_part_URL(url):
+    """Get the last part of an URL.
+
+    Args:
+        url (str): the URL
+
+    Returns:
+        str: the last part of the URL
+    """
+    if not url.endswith("/"):
+        url = url + "/"
+    head, tail = os.path.split(url)
+    return "/" + tail if tail != "" else ""
 
 def regex_replace(s, find, replace):
     """A non-optimal implementation of a regex filter"""
@@ -170,4 +184,5 @@ def on_env(env, config, files, **kwargs):
     env.filters["to_local_time"] = to_local_time
     env.filters["value_in_frontmatter"] = value_in_frontmatter
     env.filters["regex_replace"] = regex_replace
+    env.filters["get_last_part_URL"] = get_last_part_URL
     return env
