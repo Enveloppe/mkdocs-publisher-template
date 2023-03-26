@@ -76,7 +76,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
   - search
   - meta-descriptions
@@ -88,10 +88,6 @@ plugins:
       enable_creation_date: true
   - ezlinks:
         wikilinks: true
-  - mermaid2:
-      arguments:
-        theme: |
-          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
   - awesome-pages
   - embed_file:
       callouts: true
