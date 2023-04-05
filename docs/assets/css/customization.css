@@ -5,3 +5,45 @@ DONT FORGET TO EDIT THE URL
  background: var(--md-primary-fg-color) url(background_image_link_here&auto=format&fit=crop&w=1074&q=80) left center/cover no-repeat;
 }
 */
+
+.md-typeset details.wiki,
+.md-typeset .admonition.wiki {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.md-typeset .wiki>.admonition-title,
+.md-typeset .wiki>.summary {
+    display: none;
+}
+
+.md-typeset .wiki>.admonition-title::before {
+    background-color: transparent;
+    -webkit-mask-image: var(--md-admonition-icon--grid);
+    mask-image: var(--md-admonition-icon--grid);
+}
+
+.admonition.wiki {
+    float: left;
+    margin-right: 0.8rem;
+    margin-top: 0;
+    width: 11.7rem;
+}
+
+.admonition.wiki h1 {
+    text-align: center;
+    padding-top: 0.5em;
+    margin-bottom: 0;
+}
+
+.admonition.wiki thead {
+    display: none;
+}
+
+.admonition.wiki td:first-child {
+    font-weight: 600;
+}
+
+.admonition.wiki table {
+    border: 0;
+}
