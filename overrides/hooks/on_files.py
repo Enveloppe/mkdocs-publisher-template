@@ -17,7 +17,7 @@ def list_existing_pages(config: MkDocsConfig, files: Files):
 
 def on_files(files: Files, config: MkDocsConfig):
     if not (posixpath.exists(posixpath.join(config['site_dir'], 'search'))):
-        os.mkdir(posixpath.join(config['site_dir'], 'search'))
+        os.makedirs(posixpath.join(config['site_dir'], 'search'))
     list_existing_pages(config, files)
     return files
 
