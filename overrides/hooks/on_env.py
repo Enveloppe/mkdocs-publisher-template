@@ -5,6 +5,7 @@ import re
 import urllib.parse
 import datetime
 from pathlib import Path
+import json
 
 from babel.dates import format_date
 from dateutil import parser
@@ -169,10 +170,11 @@ def value_in_frontmatter(key, metadata):
     if key in metadata:
         return metadata[key]
     else:
-        return None
+        return None    
 
 
 def on_env(env, config, files, **kwargs):
+
     if config["extra"].get("generate_graph", True):
         obsidian_graph()
     env.filters["convert_time"] = time_time
