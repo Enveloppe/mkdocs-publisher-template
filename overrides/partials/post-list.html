@@ -21,9 +21,12 @@
     {% if pg.meta and pg.meta.date %}
         {% set date = pg.meta.date | iso_time %}
         {% set _ = pg.__setattr__("date", date) %}
-    {% else %}
+    {% elif page.meta.git_creation_date_localized_raw_iso_date %}
         {% set date = page.meta.git_creation_date_localized_raw_iso_date | iso_time %}
         {% set _ = pg.__setattr__('date', page.meta.git_creation_date_localized_raw_iso_date) %}
+    {% else %}
+        {% set date = build_date_utc | iso_time %}
+        {% set _ = pg.__setattr__('date', date) %}
     {% endif %}
     {% set page_category = pg.url | url_decode | replace('/' ~ pg.title ~ '/', '') | lower %}
     {% set main_category = page.meta.category | lower %}
