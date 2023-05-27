@@ -1,0 +1,43 @@
+name: Index Creation
+
+on: 
+  workflow_dispatch:
+    inputs:
+      category_name:
+        type: string
+        required: true
+        description: "The new folder name"
+      path:
+        type: string
+        required: false
+        description: "The path of the new folder. Ex: category/subcategory"
+      description: 
+        type: string
+        required: false
+        description: "The description of the category."
+      toc_hide:
+        type: boolean
+        required: false
+        description: "Hide the toc in the index file."
+      nav_hide:
+        type: boolean
+        required: false
+        description: "Hide the navigation menu in the index file."
+      dry_run:
+        type: boolean
+        required: false
+        description: "Do not create new category index, just log."
+
+jobs:
+  run:
+    uses: ObsidianPublisher/actions/.github/workflows/index.yml@main
+    with:
+      category_name: ${{ inputs.category_name}}
+      path: ${{ inputs.path}}
+      description: ${{ inputs.description}}
+      toc_hide: ${{ inputs.toc_hide}}
+      nav_hide: ${{ inputs.nav_hide}}
+      dry_run: ${{ inputs.dry_run}}
+    secrets:
+      GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+
