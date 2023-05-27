@@ -1,4 +1,4 @@
-name: Deploy to Pages
+name: Publish
 
 on:
   workflow_dispatch:
