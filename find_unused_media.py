@@ -1,12 +1,16 @@
 from pathlib import Path
 import os 
 import argparse
+from mkdocs.config import load_config
 
-def find_unused_media(img_path: Path, dry_run: bool = False):
-    docs_dir = Path(Path.cwd(), 'docs')
 
-    #list images of assets
-    assets_dir = Path(docs_dir, img_path)
+def find_unused_media(img_path: Path=None, dry_run: bool = False):
+    config = load_config(config_file='mkdocs.yml')
+    docs_dir = Path(config['docs_dir'])
+    assets_dir = Path(docs_dir, config["extra"]["attachments"])
+    if img_path:
+        assets_dir = img_path
+
     images = [file for file in assets_dir.rglob('*') if file.is_file() and file.suffix in ['.png', '.jpg', '.jpeg', '.gif', '.svg']]
     md_files = [file for file in docs_dir.rglob('*.md') if file.is_file()]
 
@@ -40,7 +44,8 @@ def find_unused_media(img_path: Path, dry_run: bool = False):
 if __name__ == '__main__':
     # use argparse to get the path to the assets folder
     parser = argparse.ArgumentParser()
-    parser.add_argument('img_path', type=str, help='Path to the assets folder')
+    parser.add_argument('--path', type=str, help='Path to the assets folder')
     parser.add_argument('--dry-run', action='store_true', help='Do not delete unused images')
     args = parser.parse_args()
-    find_unused_media(Path(args.img_path), args.dry_run)
+    path = Path(args.path) if args.path else None
+    find_unused_media(img_path=path, dry_run=args.dry_run)
