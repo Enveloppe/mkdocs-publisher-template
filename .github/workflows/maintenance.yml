@@ -18,4 +18,6 @@ jobs:
     uses: ObsidianPublisher/actions/.github/workflows/maintenance.yml@main
     secrets:
       GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+      author_name: "Github Actions [bot]"
+      author_email: "github-actions[bot]@users.noreply.github.com"
     
