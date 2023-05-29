@@ -22,5 +22,6 @@ jobs:
     uses: ObsidianPublisher/actions/.github/workflows/deploy.yml@main
     secrets:
       GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+    with:
       author_email: "github-actions[bot]@users.noreply.github.com"
       author_name: "github-actions[bot]"
