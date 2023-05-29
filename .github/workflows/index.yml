@@ -40,5 +40,4 @@ jobs:
       dry_run: ${{ inputs.dry_run}}
     secrets:
       GH_PAT: ${{ secrets.GITHUB_TOKEN }}
-      author_email: "github-actions[bot]@users.noreply.github.com"
-      author_name: "github-actions[bot]"
+
