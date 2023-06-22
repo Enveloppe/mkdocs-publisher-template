@@ -4,8 +4,15 @@
 {% if page and page.meta %}
     {% if not page.is_homepage %}
         {% set title = page.title %}
-    {% elif  page.meta.title %}
+    {% elif page.meta.title %}
         {% set title = page.meta.title %}
+    {% endif %}
+    {% if title == "Index" %}
+        {% if page.meta.name %}
+            {% set title = page.meta.name %}
+        {% else %}
+            {% set title = page.parent.title %}
+        {% endif %}
     {% endif %}
     {% if page.meta.description %}
         {% set description = page.meta.description %}

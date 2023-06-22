@@ -173,6 +173,8 @@ def value_in_frontmatter(key, metadata):
         return None    
 
 
+
+
 def on_env(env, config, files, **kwargs):
 
     if config["extra"].get("generate_graph", True):
