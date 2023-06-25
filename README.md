@@ -19,7 +19,7 @@ In the repository that you cloned, you will find a `mkdocs.yml` file. This file 
 
 1. `site_name`
 2. `site_description`
-3. `site_url` (critical): By default, it's `https://github_username.io/repo_name`[^1]
+3. `site_url` (critical): By default, it's `https://github_username.github.io/repo_name`[^1]
 
 To edit the logo and favicon, first put the chosen files in the `assets/logo` directory, and then change `logo` and `favicon`:
 
