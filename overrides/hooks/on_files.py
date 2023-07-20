@@ -11,7 +11,7 @@ def list_existing_pages(config: MkDocsConfig, files: Files):
         if file.is_documentation_page() or file.is_media_file():
             pages.append(file)
     
-    with open(posixpath.join(output_dir, 'search', 'all_files.json'), 'w') as f:
+    with open(posixpath.join(output_dir, 'search', 'all_files.json'), 'w', encoding="UTF-8") as f:
         json.dump(pages, f, default=lambda o: o.__dict__, indent=4)
 
 def on_files(files: Files, config: MkDocsConfig):
