@@ -9,10 +9,14 @@ def list_existing_pages(config: MkDocsConfig, files: Files):
     output_dir = config['site_dir']
     for file in files:
         if file.is_documentation_page() or file.is_media_file():
-            pages.append(file)
-    
+            pages.append({
+                'src_uri' : file.src_path,
+                'dest_uri' : file.url,
+                'name': file.name,
+                'url' : file.url,
+            })
     with open(posixpath.join(output_dir, 'search', 'all_files.json'), 'w', encoding="UTF-8") as f:
-        json.dump(pages, f, default=lambda o: o.__dict__, indent=4)
+        json.dump(pages, f,  indent=4)
 
 def on_files(files: Files, config: MkDocsConfig):
     if not (posixpath.exists(posixpath.join(config['site_dir'], 'search'))):
