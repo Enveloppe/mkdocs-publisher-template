@@ -16,7 +16,7 @@ def list_existing_pages(config: MkDocsConfig, files: Files):
                 'url' : file.url,
             })
     with open(posixpath.join(output_dir, 'search', 'all_files.json'), 'w', encoding="UTF-8") as f:
-        json.dump(pages, f,  indent=4)
+        json.dump(pages, f, indent=4)
 
 def on_files(files: Files, config: MkDocsConfig):
     if not (posixpath.exists(posixpath.join(config['site_dir'], 'search'))):
