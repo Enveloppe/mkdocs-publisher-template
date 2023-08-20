@@ -1,7 +1,7 @@
 mkdocs==1.5.2
 mkdocs-material==9.1.21
 mkdocs-ezlinked-plugin==0.3.3
-mkdocs-awesome-pages-plugin==2.9.1
+mkdocs-awesome-pages-plugin==2.9.2
 mdx_breakless_lists==1.0.1
 mkdocs-preview-links-plugin==0.6.2
 mkdocs-embed-file-plugins==2.0.6
