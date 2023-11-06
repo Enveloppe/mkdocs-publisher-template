@@ -1,13 +1,17 @@
 from pathlib import Path
 import os
 import argparse
+from typing import Optional
 import yaml
 
 
-def find_unused_media(img_path: Path = None, dry_run: bool = False):
+def find_unused_media(img_path: Optional[Path] = None, dry_run: bool = False):
     # load mkdocs.yml
     with open("mkdocs.yml", "r", encoding="utf-8") as f:
-        config = yaml.load(f, Loader=yaml.UnsafeLoader)
+        # remove all !! pairs from the yaml file
+        data = f.read()
+        data = data.replace("!!", "")
+        config = yaml.safe_load(data)
 
     docs_dir = Path.cwd() / Path(config.get("docs_dir", "docs"))
     assets_dir = Path(docs_dir, config["extra"]["attachments"])
