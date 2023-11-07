@@ -9,6 +9,18 @@ title: Configuration
 - [Documentation](https://obsidian-publisher.netlify.app/)
 - [Github Discussion](https://github.com/ObsidianPublisher/obsidian-github-publisher/discussions)
 
+## Repository configuration
+
+Some actions needs a  `GH_PAT` secret in your repository settings. This token should have the `repo` and `workflows` scope. You can create a token [here](https://github.com/settings/tokens/new?description=PUBLISHER%20TEMPLATE&scopes=repo,workflow).
+
+[See here to know how to register it as a secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
+
+You can get more information about workflows and tokens [here](https://obsidian-publisher.netlify.app/template/actions/).
+
+> [!NOTE]
+> If you want to use the Advanced Vercel/Netlify Workflow, you needs to configure more secrets keys.
+> You can get [more information here](https://obsidian-publisher.netlify.app/template/advanced_workflow/).
+
 ## Mkdocs configuration
 
 You need to configure the plugin and the `mkdocs` configuration for it to work properly.
@@ -19,7 +31,7 @@ In the repository that you cloned, you will find a `mkdocs.yml` file. This file 
 
 1. `site_name`
 2. `site_description`
-3. `site_url` (critical): By default, it's `https://github_username.github.io/repo_name`[^1]
+3. `site_url` (critical): By default, it's `https://github_username.io/repo_name`[^1]
 
 To edit the logo and favicon, first put the chosen files in the `assets/logo` directory, and then change `logo` and `favicon`:
 
