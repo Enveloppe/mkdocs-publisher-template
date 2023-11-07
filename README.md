@@ -15,7 +15,22 @@ Some actions needs a  `GH_PAT` secret in your repository settings. This token sh
 
 [See here to know how to register it as a secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
 
-You can get more information about workflows and tokens [here](https://obsidian-publisher.netlify.app/template/actions/).
+If you set security on your main branch, you need to add two more secrets:
+- `AUTHOR_NAME`
+- `AUTHOR_EMAIL`
+
+You need to update the workflow like this:
+```yaml
+# it is an example, please, replace the [...] with the following information.
+# Keeps everything as before, just add the two secrets at the end of the file, under `secrets`.
+[...]
+jobs:
+  [...]
+    secrets:
+      [...]
+      AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
+      AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
+```
 
 > [!NOTE]
 > If you want to use the Advanced Vercel/Netlify Workflow, you needs to configure more secrets keys.
