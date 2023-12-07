@@ -10,7 +10,7 @@ mkdocs-git-revision-date-localized-plugin==1.2.1
 mkdocs-encryptcontent-plugin==3.0.0
 mkdocs-callouts==1.10.0
 mkdocs-custom-tags-attributes==0.3.1
-mkdocs-meta-descriptions-plugin==2.3.0
+mkdocs-meta-descriptions-plugin==3.0.0
 obsidiantools==0.10.0
 pyvis==0.3.2
 cairosvg==2.7.1
