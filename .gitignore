@@ -2,3 +2,6 @@
 desktop.ini
 Pipfile
 Pipfile.lock
+test-env.yml
+payload.json
+requirements_actions.txt

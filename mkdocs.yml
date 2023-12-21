@@ -1,6 +1,7 @@
-site_name: your_site_name # Change this to your site name
-site_description: A cool description of your site
-site_url: https://change_me.io/ # Change this to your site URL
+site_name: $site_name # Change this to your site name
+site_description: $site_description
+site_url: $site_url # Change this to your site URL
+site_author: $site_author
 
 theme:
     name: 'material'
@@ -10,7 +11,7 @@ theme:
     font:
         text: Ubuntu
         code: Ubuntu Mono
-    language: en
+    language: $language
     palette:
 
     # Light mode
@@ -38,7 +39,7 @@ theme:
         - navigation.expand
         - search.suggest
         - search.highlight
-        
+
 # Extensions
 markdown_extensions:
   - footnotes
@@ -83,7 +84,7 @@ plugins:
   - git-revision-date-localized:
       type: date
       fallback_to_build_date: true
-      locale: en
+      locale: $language
       custom_format: "%A %d %B %Y"
       enable_creation_date: true
   - ezlinks:
@@ -123,10 +124,10 @@ extra_css:
     - assets/css/customization.css
 extra:
   SEO: assets/meta/SEO.png
-  comments: false #disable comments globally
-  generate_graph: true #generate the graph of the site
+  comments: $comments #disable comments globally
+  generate_graph: $generate_graph #generate the graph of the site
   attachments: 'assets/img' #path to the folder where the attachments are stored
-  no-auto-h1: false #disable the automatic generation of h1 if no h1 is found
+  no-auto-h1: $auto_h1 #disable the automatic generation of h1 if no h1 is found
   blog_list:
     pagination: true #enable pagination
     pagination_message: true #display the message "Showing x posts out of y"
