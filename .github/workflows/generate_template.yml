@@ -96,7 +96,7 @@ jobs:
           echo "📝 Generate files" >> $GITHUB_STEP_SUMMARY
           echo "---" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          python template.py "${{inputs.template_type}}" "${{inputs.site_name}}" "${{inputs.site_url}}" "${{inputs.site_description}}" "${{inputs.site_author}}" "${{inputs.language}}" ${{ steps.args.outputs.auto_h1 }} ${{ steps.args.outputs.comments }} >> $GITHUB_STEP_SUMMARY
+          python3 template.py "${{inputs.template_type}}" "${{inputs.site_name}}" "${{inputs.site_url}}" "${{inputs.site_description}}" "${{inputs.site_author}}" "${{inputs.language}}" ${{ steps.args.outputs.auto_h1 }} ${{ steps.args.outputs.comments }} >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
       - name: "Push"
         if: ${{ !env.ACT}}
