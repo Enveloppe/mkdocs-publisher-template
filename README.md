@@ -3,36 +3,16 @@ title: Configuration
 ---
 
 - [Obsidian Plugin](https://github.com/ObsidianPublisher/obsidian-github-publisher)
-- [Template](https://github.com/ObsidianPublisher/mkdocs-template)
+- [Template](https://github.com/ObsidianPublisher/mkdocs-publisher-template)
 - [Documentation](https://obsidian-publisher.netlify.app/)
 - [Github Discussion](https://github.com/ObsidianPublisher/obsidian-github-publisher/discussions)
 
 ## Repository configuration
 
-Some actions needs a  `GH_PAT` secret in your repository settings. This token should have the `repo` and `workflows` scope. You can create a token [here](https://github.com/settings/tokens/new?description=PUBLISHER%20TEMPLATE&scopes=repo,workflow).
+The repository and the template rely on [GitHub Actions](https://obsidian-publisher.netlify.app/template/actions/) to generate the website. You need to configure the repository to allow the actions to work properly.
 
-[See here to know how to register it as a secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
+[Carefully follow this links to understand which keys you need to create](https://obsidian-publisher.netlify.app/template/actions/#secrets)
 
-If you set security on your main branch, you need to add two more secrets:
-- `AUTHOR_NAME`
-- `AUTHOR_EMAIL`
-
-You need to update the workflow like this:
-```yaml
-# it is an example, please, replace the [...] with the following information.
-# Keeps everything as before, just add the two secrets at the end of the file, under `secrets`.
-[...]
-jobs:
-  [...]
-    secrets:
-      [...]
-      AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
-      AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
-```
-
-> [!NOTE]
-> If you want to use the Advanced Vercel/Netlify Workflow, you needs to configure more secrets keys.
-> You can get [more information here](https://obsidian-publisher.netlify.app/template/advanced_workflow/).
 
 ## Mkdocs configuration
 
@@ -40,11 +20,63 @@ You need to configure the plugin and the `mkdocs` configuration for it to work p
 
 You can find more information about creating the site using the [Material Mkdocs Documentation](https://squidfunk.github.io/mkdocs-material/creating-your-site/#advanced-configuration).
 
-In the repository that you cloned, you will find a `mkdocs.yml` file. This file allows you to customize your blog. The most important settings to edit are:
+> [!Warning]
+> Configuration is mandatory. Do not configure the template will lead to crash during build and errors.
 
-1. `site_name`
-2. `site_description`
-3. `site_url` (critical): By default, it's `https://github_username.io/repo_name`[^1]
+There is two way to edit the template for creating the website :
+- Manually, with editing `mkdocs.yml` and creating appropriate workflows files,
+- Automatically, through a Github Action.
+
+### Automatic configuration
+
+1. First go into SETTINGS
+  - In `Pages` : If you want to use the template with Github Pages, you need to activate the GitHub Pages in your repository settings, and use **action** to trigger the page build.
+  ![](https://i.imgur.com/VHPLooc.png)
+  - In `Actions` -> `General` : Allow Github Actions to read and write, and allow GitHub Actions to create and approve pull requests, as follows:
+  ![](https://i.imgur.com/w79NrA8.png)
+  Don't forget to save the changes!
+  - Create a [personal access token](https://github.com/settings/tokens/new?description=PUBLISHER%20TEMPLATE&scopes=repo,workflow), copy it and register it as a secrets :
+  ![](https://i.imgur.com/CW7YTms.png)
+  ![](https://i.imgur.com/9SCSooJ.png)
+  This key will also be used by the update workflows.
+  - If you choose to rely on netlify or vercel, [you need to configure the keys](https://obsidian-publisher.netlify.app/template/advanced_workflow/).
+2. Go into the Actions tabs
+3. Click on the Generate website workflow and `Run workflow`. A popup will appear, and fill the informations.
+  ![](https://i.imgur.com/QZj8bk0.png)
+  ![](https://i.imgur.com/n8wyvSp.png)
+  Each informations corresponding to the [mkdocs.yml configuration file](https://www.mkdocs.org/user-guide/configuration/).
+  By default, the workflows will send you a pull requests, so you can review the generation before the merging. You can automatically merge with the last options.
+  ![](https://i.imgur.com/SvPPyHc.png)
+4. Go into the pull-request tab. Verify all files, and if it's okay for you, you can merge the PR.
+  ![](https://i.imgur.com/zKtGagJ.png)
+
+### Manual configuration
+
+[The configuration of mkdocs.yml is explained here](https://www.mkdocs.org/user-guide/configuration/).
+
+1. First, edit the `mkdocs.yml` files with editing:
+- `site_name` : The name of your website
+- `site_description` : The description of your website
+- `site_author` : The author of your website
+- `site_url` : The url of your website
+- `language` : [The language of your website](https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/)
+- In extra:
+    - `comments` : If you want to enable comments, you need to set it to `true` and [configure the comments](https://obsidian-publisher.netlify.app/advanced/customization/?h=comments#comments)
+    - `generate_graph` : Set it to `true` if **you use GitHub Pages** and you want to generate the graph view. Set it to `false` if you use Netlify or Vercel. [See here on how to configure the graph with Netlify/vercel](https://obsidian-publisher.netlify.app/template/advanced_workflow/)
+    - `auto_h1` : Disable the automatic generation of h1 if no h1 is found
+2. Create [keys if you use Vercel /Netlify](https://obsidian-publisher.netlify.app/template/advanced_workflow/).
+3. [Grab the `.env` and `deploy.yml` corresponding to your methods of deployment](https://github.com/ObsidianPublisher/actions/tree/main/template):
+    - `.env` must be placed at `.github/`
+    - `deploy.yml` must be placed at `.github/workflows/`
+4. For **Vercel** or **Netlify** ONLY, create a `requirements_actions.txt` file at the root of your repository, and add the following lines:
+    ```
+    obsidiantools==0.10.0
+    pyvis==0.3.1
+    ```
+5. **For Netlify ONLY** : Create a `runtime.txt` file with `3.8` in it.
+6. Create the [Github Personal Access Token](https://github.com/settings/tokens/new?description=PUBLISHER%20TEMPLATE&scopes=repo,workflow) and register it as a secrets (see the automatic configuration for this).
+
+### Optional configuration
 
 To edit the logo and favicon, first put the chosen files in the `assets/logo` directory, and then change `logo` and `favicon`:
 
@@ -62,7 +94,7 @@ You can also customize:
 
 You don't need to touch anything in `features` or `markdown_extensions`.
 
-### Extra configuration
+#### Extra configuration
 
 The last part of the `mkdocs.yml` is a configuration for the `hooks` and the template Jinja displaying the list of articles (`blog_list.html`).
 
@@ -73,7 +105,7 @@ There are also :
 - `generate_graph` (_`boolean`_): Generate the [[customization#Graph view|graph view]]
 - `attachments` (_`boolean`_): For [[configuration#Blog list (article listing)]] and image in SEO. Change it according to your Obsidian Plugin settings.
 
-#### Blog list (article listing)
+##### Blog list (article listing)
 
 The list of articles is configured by the key `blog_list` and can take the following parameters :
 
@@ -82,7 +114,7 @@ The list of articles is configured by the key `blog_list` and can take the follo
 - `pagination_translation` (`string, default: 'posts in'`): Translation of the pagination's message.
 - `no_page_found` (`string, default: "No pages found!"`): The text to display if no pages were found.
 
-#### Hooks
+##### Hooks
 
 This part contains the configuration of `hooks`, short python scripts that allow to patch some Obsidian parts incompatible with Mkdocs.
 
@@ -90,18 +122,3 @@ You can configure :
 
 - The suppression of the Obsidian's comments (`%% comments %%`): `strip_comments: true`
 - A fix for headings, which adds a `#` to all headings (except the 6th one) because the Mkdocs TOC considers that the H1 is the main heading/title of the file: `fix_heading: true`
-
-## Local testing
-
-To run the blog locally, you need to install the requirements and run `mkdocs serve`.
-
-`cd publish_blog pip install -r requirements.txt mkdocs serve`
-
-A tip: You can use a [conda](https://docs.conda.io/en/latest/) environment here (or a venv, but I prefer conda). Just use this command:
-
-```bash
-conda create -n Publisher python=3.11
-conda activate Publisher
-```
-
-Run this command just before running `pip install`.
