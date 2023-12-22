@@ -17,7 +17,7 @@ class TemplateModel(BaseModel):
     language: str
     auto_h1: bool
     comments: bool
-    graph: bool = False
+    generate_graph: bool = False
 
 
 class Environment(BaseModel):
@@ -76,7 +76,7 @@ def main() -> None:
         language=args.language,
         auto_h1=args.auto_h1,
         comments=args.comments,
-        graph=True if args.template == "gh_pages" else False,
+        generate_graph=True if args.template == "gh_pages" else False,
     )
     env = gh_pages
     if args.template == "netlify":
@@ -103,6 +103,7 @@ def main() -> None:
         language=template.language,
         auto_h1=template.auto_h1,
         comments=template.comments,
+        generate_graph=template.generate_graph,
     )
     requirements = textwrap.dedent(
         """
@@ -124,7 +125,7 @@ def main() -> None:
         mkdocs-exclude==1.0.2
     """
     )
-    if template.template_type in ["netlify", "vercel"] and template.graph:
+    if template.template_type in ["netlify", "vercel"] and template.generate_graph:
         # create requirements_actions.txt
         requirements_actions = Path("requirements-actions.txt")
         requirements_actions_content = textwrap.dedent(
@@ -137,7 +138,7 @@ def main() -> None:
         with requirements_actions.open("w", encoding="UTF-8") as f:
             f.write(requirements_actions_content)
 
-    elif template.template_type == "gh_pages" and template.graph:
+    elif template.template_type == "gh_pages" and template.generate_graph:
         requirements += "\nobsidiantools==0.10.0\npyvis==0.3.1"
 
     with Path("requirements.txt").open("w", encoding="UTF-8") as f:
