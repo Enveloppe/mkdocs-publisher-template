@@ -1,17 +1,12 @@
 name: Generate website
-
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       template_type:
         description: "The template type"
         required: true
-        default: "gh_pages"
-        type: choice
-        options:
-          - "gh_pages"
-          - "netlify"
-          - "vercel"
+        default: 'gh_pages'
+        type: string
       site_name:
         type: string
         required: true
@@ -47,25 +42,107 @@ on:
         required: false
         default: false
         type: boolean
-
-permissions:
-  contents: write
-  pull-requests: write
-
-jobs:
-  run:
-    uses: "ObsidianPublisher/actions/.github/workflows/template.yml@main"
-    with:
-      site_name: ${{ inputs.site_name }}
-      site_url: ${{ inputs.site_url }}
-      site_description: ${{ inputs.site_description }}
-      site_author: ${{ inputs.site_author }}
-      language: ${{ inputs.language }}
-      auto_h1: ${{ inputs.auto_h1 }}
-      comments: ${{ inputs.comments }}
-      template_type: ${{ inputs.template_type }}
-      auto_merge: ${{ inputs.auto_merge }}
     secrets:
-      GH_PAT: ${{ secrets.GITHUB_TOKEN}}
-      AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
-      AUTHOR_NAME: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
+      GH_PAT:
+        required: true
+        description: "Github personal access token"
+      AUTHOR_EMAIL:
+        required: false
+        description: "The author email"
+      AUTHOR_NAME:
+        required: false
+        description: "The author name"
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print github.event.inputs
+        run: |
+          echo "📫 Commands arguments" >> $GITHUB_STEP_SUMMARY
+          echo "- site_name: ${{ github.event.inputs.site_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- site_url: ${{ github.event.inputs.site_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- site_description: ${{ github.event.inputs.site_description }}" >> $GITHUB_STEP_SUMMARY
+          echo "- site_author: ${{ github.event.inputs.site_author }}" >> $GITHUB_STEP_SUMMARY
+          echo "- language: ${{ github.event.inputs.language }}" >> $GITHUB_STEP_SUMMARY
+          echo "- auto_h1: ${{ github.event.inputs.auto_h1 }}" >> $GITHUB_STEP_SUMMARY
+          echo "- comments: ${{ github.event.inputs.comments }}" >> $GITHUB_STEP_SUMMARY
+          echo "- template_type: ${{ github.event.inputs.template_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "ACT: ${{ env.ACT }}"
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install pydantic requests
+      - name: Format arguments
+        id: args
+        run:
+          |
+          auto_h1=''
+          comments=''
+          if [ "${{ github.event.inputs.auto_h1 }}" = "true" ]; then
+            auto_h1='--auto-h1'
+          fi
+          if [ "${{ github.event.inputs.comments }}" = "true" ]; then
+            comments='--comments'
+          fi
+          echo "auto_h1=$auto_h1" >> $GITHUB_OUTPUT
+          echo "comments=$comments" >> $GITHUB_OUTPUT
+          echo "- auto_h1: $auto_h1" >> $GITHUB_STEP_SUMMARY
+          echo "- comments: $comments" >> $GITHUB_STEP_SUMMARY
+      - name: Generate files
+        run: |
+          echo "📝 Generate files"
+          pwd
+          ls *.py
+          echo "📝 Generate files" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          python3 generate_template.py "${{github.event.inputs.template_type}}" "${{github.event.inputs.site_name}}" "${{github.event.inputs.site_url}}" "${{github.event.inputs.site_description}}" "${{github.event.inputs.site_author}}" "${{github.event.inputs.language}}" ${{ steps.args.outputs.auto_h1 }} ${{ steps.args.outputs.comments }} >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+      - name: Delete scripts
+        if: ${{ !env.ACT}}
+        run: |
+          rm -f generate_template.py
+      - name: Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GH_PAT }}
+          commit-message: Generating template
+          title: "First commit -- Generate template"
+          body: |
+            📫 Commands arguments
+            - site_name: ${{ github.event.inputs.site_name }}
+            - site_url: ${{ github.event.inputs.site_url }}
+            - site_description: ${{ github.event.inputs.site_description }}
+            - site_author: ${{ github.event.inputs.site_author }}
+            - language: ${{ github.event.inputs.language }}
+            - auto_h1: ${{ github.event.inputs.auto_h1 }}
+            - comments: ${{ github.event.inputs.comments }}
+            - template_type: ${{ github.event.inputs.template_type }}
+            - Generated by [Create Pull Request](https://github.com/peter-evans/create-pull-request)
+          labels: |
+            generate
+          branch: generate
+          base: "main"
+          delete-branch: true
+      - name: AutoMerging
+        id: automerge
+        if: ${{ inputs.AUTO_MERGE }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash
+          echo "Pull Request merged"
+          echo "done=true" >> $GITHUB_OUTPUT
+      - name: Delete update branch if possible
+        if: ${{ inputs.AUTO_MERGE && steps.automerge.outputs.done == 'true' }}
+        run: |
+          # verify if the branch exists
+          if [[ $(git ls-remote --heads origin generate | wc -l) -eq 1 ]]; then
+            git push origin --delete generate
+          fi
