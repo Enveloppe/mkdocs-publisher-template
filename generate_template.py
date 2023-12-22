@@ -137,6 +137,9 @@ def main() -> None:
 
         with requirements_actions.open("w", encoding="UTF-8") as f:
             f.write(requirements_actions_content)
+        if template.template_type == "netlify":
+            with Path("runtime.txt").open("w", encoding="UTF-8") as f:
+                f.write("3.8")
 
     elif template.template_type == "gh_pages":
         requirements += "\nobsidiantools==0.10.0\npyvis==0.3.1"
