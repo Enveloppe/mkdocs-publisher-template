@@ -145,6 +145,10 @@ def main() -> None:
         f.write(requirements)
     with mkdocs_yaml.open("w", encoding="UTF-8") as f:
         f.write(s)
+    print("Mkdocs template generated:")
+    print(s)
+    print("Requirements generated:")
+    print(requirements)
     print("Done!")
 
 
