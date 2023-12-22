@@ -1,0 +1,68 @@
+name: Generate website
+
+on:
+  workflow_dispatch:
+    inputs:
+      template_type:
+        description: "The template type"
+        required: true
+        default: "gh_pages"
+        type: choice
+        options:
+          - "gh_pages"
+          - "netlify"
+          - "vercel"
+      site_name:
+        type: string
+        required: true
+        description: "The name of the site"
+      site_url:
+        type: string
+        required: true
+        description: "The url of the site"
+      site_description:
+        type: string
+        required: true
+        description: "The description of the site"
+      site_author:
+        type: string
+        required: true
+        description: "The author of the site"
+      language:
+        type: string
+        required: true
+        description: "The language of the site"
+      auto_h1:
+        type: boolean
+        required: false
+        description: "Automatically add h1 to pages"
+        default: false
+      comments:
+        type: boolean
+        required: false
+        description: "Enable comments"
+        default: false
+      auto_merge:
+        description: "Automatically merge the pull request"
+        required: false
+        default: false
+        type: boolean
+
+
+jobs:
+  run:
+    uses: "ObsidianPublisher/actions/.github/workflows/template.yml@main"
+    with:
+      site_name: ${{ inputs.site_name }}
+      site_url: ${{ inputs.site_url }}
+      site_description: ${{ inputs.site_description }}
+      site_author: ${{ inputs.site_author }}
+      language: ${{ inputs.language }}
+      auto_h1: ${{ inputs.auto_h1 }}
+      comments: ${{ inputs.comments }}
+      template_type: ${{ inputs.template_type }}
+      auto_merge: ${{ inputs.auto_merge }}
+    secrets:
+      GH_PAT: ${{ secrets.GITHUB_TOKEN}}
+      AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
+      AUTHOR_NAME: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
