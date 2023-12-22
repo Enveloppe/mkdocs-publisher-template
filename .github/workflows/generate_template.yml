@@ -48,6 +48,9 @@ on:
         default: false
         type: boolean
 
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   run:
