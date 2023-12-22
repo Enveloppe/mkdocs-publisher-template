@@ -67,13 +67,10 @@ jobs:
           echo "- site_description: ${{ inputs.site_description }}" >> $GITHUB_STEP_SUMMARY
           echo "- site_author: ${{ inputs.site_author }}" >> $GITHUB_STEP_SUMMARY
           echo "- language: ${{ inputs.language }}" >> $GITHUB_STEP_SUMMARY
-          echo "- auto_h1: ${{ inputs.auto_h1 }}" >> $GITHUB_STEP_SUMMARY
-          echo "- comments: ${{ inputs.comments }}" >> $GITHUB_STEP_SUMMARY
       - name: Checkout
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          cache: 'pip'
       - name: Install dependencies
         run: |
           pip install pydantic
@@ -91,6 +88,8 @@ jobs:
           fi
           echo "auto_h1=$auto_h1" >> $GITHUB_OUTPUT
           echo "comments=$comments" >> $GITHUB_OUTPUT
+          echo "- auto_h1: $auto_h1" >> $GITHUB_STEP_SUMMARY
+          echo "- comments: $comments" >> $GITHUB_STEP_SUMMARY
       - name: Generate files
         run: |
           echo "📝 Generate files" >> $GITHUB_STEP_SUMMARY
