@@ -1,7 +1,7 @@
 /* UNCOMMENT THIS LINE TO ADD ANY BACKGROUND IN THE HEADER
 DONT FORGET TO EDIT THE URL
 .md-header,
-.md-nav--primary .md-nav__title {
+.md-nav--primary .md-nav__title[for="__drawer"] {
  background: var(--md-primary-fg-color) url(background_image_link_here&auto=format&fit=crop&w=1074&q=80) left center/cover no-repeat;
 }
 */
