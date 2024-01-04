@@ -118,7 +118,6 @@ def main() -> None:
         "mkdocs-custom-tags-attributes==0.3.1",
         "mkdocs-meta-descriptions-plugin==3.0.0",
         "mkdocs-glightbox==0.3.6",
-        "mkdocs-minify-plugin==0.7.2",
     ]
     requirements_actions_content = [
         "obsidiantools==0.10.0",
