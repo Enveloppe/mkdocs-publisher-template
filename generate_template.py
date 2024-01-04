@@ -1,5 +1,4 @@
 import argparse
-import textwrap
 from pathlib import Path
 from string import Template
 from typing import Literal
@@ -105,53 +104,59 @@ def main() -> None:
         comments=template.comments,
         generate_graph=template.generate_graph,
     )
-    requirements = textwrap.dedent(
-        """
-        mkdocs==1.5.3
-        mkdocs-material==9.5.2
-        mkdocs-ezlinked-plugin==0.3.3
-        mkdocs-awesome-pages-plugin==2.9.2
-        mdx_breakless_lists==1.0.1
-        mkdocs-embed-file-plugins==2.0.6
-        mkdocs_custom_fences==0.1.2
-        mkdocs-git-revision-date-localized-plugin==1.2.2
-        mkdocs-encryptcontent-plugin==3.0.0
-        mkdocs-callouts==1.10.0
-        mkdocs-custom-tags-attributes==0.3.1
-        mkdocs-static-i18n==1.2.0
-        mkdocs-meta-descriptions-plugin==3.0.0
-        mkdocs-glightbox==0.3.5
-        mkdocs-minify-plugin==0.7.2
-        mkdocs-exclude==1.0.2
-    """
-    )
+    requirements = [
+        "mkdocs==1.5.3",
+        "mkdocs-material==9.5.3",
+        "mkdocs-ezlinked-plugin==0.3.3",
+        "mkdocs-awesome-pages-plugin==2.9.2",
+        "mdx_breakless_lists==1.0.1",
+        "mkdocs-embed-file-plugins==2.0.9",
+        "mkdocs_custom_fences==0.1.2",
+        "mkdocs-git-revision-date-localized-plugin==1.2.2",
+        "mkdocs-encryptcontent-plugin==3.0.2",
+        "mkdocs-callouts==1.10.0",
+        "mkdocs-custom-tags-attributes==0.3.1",
+        "mkdocs-static-i18n==1.2.0",
+        "mkdocs-meta-descriptions-plugin==3.0.0",
+        "mkdocs-glightbox==0.3.6",
+        "mkdocs-minify-plugin==0.7.2",
+        "mkdocs-exclude==1.0.2",
+    ]
+    requirements_actions_content = [
+        "obsidiantools==0.10.0",
+        "pyvis==0.3.1",
+        "cairosvg==2.7.0",
+        "pillow==9.5.0",
+    ]
+    requirements_actions = Path("requirements_actions.txt")
     if template.template_type in ["netlify", "vercel"]:
         # create requirements_actions.txt
-        requirements_actions = Path("requirements_actions.txt")
-        requirements_actions_content = textwrap.dedent(
-            """
-            obsidiantools==0.10.0
-            pyvis==0.3.1
-            """
-        )
-
         with requirements_actions.open("w", encoding="UTF-8") as f:
-            f.write(requirements_actions_content)
-        if template.template_type == "netlify":
-            with Path("runtime.txt").open("w", encoding="UTF-8") as f:
-                f.write("3.8")
+            f.write("\n".join(requirements_actions_content))
+
+    if template.template_type == "netlify":
+        with Path("runtime.txt").open("w", encoding="UTF-8") as f:
+            f.write("3.8")
 
     elif template.template_type == "gh_pages":
-        requirements += "\nobsidiantools==0.10.0\npyvis==0.3.1"
+        requirements += requirements_actions_content
+        # delete requirements_actions.txt
+
+        if requirements_actions.exists():
+            requirements_actions.unlink()
 
     with Path("requirements.txt").open("w", encoding="UTF-8") as f:
-        f.write(requirements)
+        f.write("\n".join(requirements))
     with mkdocs_yaml.open("w", encoding="UTF-8") as f:
         f.write(s)
+
     print("Mkdocs template generated:")
     print(s)
     print("Requirements generated:")
-    print(requirements)
+    print("\n".join(requirements))
+    if template.template_type in ["netlify", "vercel"]:
+        print("Requirements for actions generated:")
+        print("\n".join(requirements_actions_content))
     print("Done!")
 
 
