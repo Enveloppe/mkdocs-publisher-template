@@ -116,17 +116,15 @@ def main() -> None:
         "mkdocs-encryptcontent-plugin==3.0.2",
         "mkdocs-callouts==1.10.0",
         "mkdocs-custom-tags-attributes==0.3.1",
-        "mkdocs-static-i18n==1.2.0",
         "mkdocs-meta-descriptions-plugin==3.0.0",
         "mkdocs-glightbox==0.3.6",
         "mkdocs-minify-plugin==0.7.2",
-        "mkdocs-exclude==1.0.2",
     ]
     requirements_actions_content = [
         "obsidiantools==0.10.0",
-        "pyvis==0.3.1",
-        "cairosvg==2.7.0",
-        "pillow==9.5.0",
+        "pyvis==0.3.2",
+        "cairosvg==2.7.1",
+        "pillow==10.2.0",
     ]
     requirements_actions = Path("requirements_actions.txt")
     if template.template_type in ["netlify", "vercel"]:
